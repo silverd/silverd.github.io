@@ -28,7 +28,7 @@ Jekyll 是一款 Github 自带的页面转换器，相当于是我们本地按�
 它的中文官网在这里：<http://jekyllcn.com/>
 一些约定的文件位置、文件名规则、系统变量[详情](http://jekyllrb.com/docs/variables/)、判断的写法、循环的写法，文档里都有写，或者谷歌搜索。
 
-基本文件夹结构如下
+基本文件夹结构如下：
 
 ```
 |-- _config.yml
@@ -67,9 +67,9 @@ Jekyll 是一款 Github 自带的页面转换器，相当于是我们本地按�
 
 博客的页面一定要简单明晰，因为关键是内容，所以我想要一款清新大气的，找了一圈，这款还算不错，感谢作者，想要的同学可以 fork 他：
 
-**Download: [Jekyll Light](https://github.com/pexcn/Jekyll-Light/releases)**
-**Source: [GitHub](https://github.com/pexcn/Jekyll-Light)**
-**DEMO: [Pexcn Blog](http://pexcn.tk)**
+- **Download: [Jekyll Light](https://github.com/pexcn/Jekyll-Light/releases)**
+- **Source: [GitHub](https://github.com/pexcn/Jekyll-Light)**
+- **DEMO: [Pexcn Blog](http://pexcn.tk)**
 
 ## 评论系统
 
@@ -104,9 +104,9 @@ Jekyll 是一款 Github 自带的页面转换器，相当于是我们本地按�
 
 ## 参考文章
 
-[搭建一个免费的，无限流量的Blog----github Pages和Jekyll入门](http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html)
-[Markdown 语法说明(简体中文版)](http://wowubuntu.com/markdown/)
-[这篇比较详细 -- 使用Github Pages建独立博客](http://beiyuu.com/github-pages/)
+- [搭建一个免费的，无限流量的Blog----github Pages和Jekyll入门](http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html)
+- [Markdown 语法说明(简体中文版)](http://wowubuntu.com/markdown/)
+- [这篇比较详细 -- 使用Github Pages建独立博客](http://beiyuu.com/github-pages/)
 
 
 
