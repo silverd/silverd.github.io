@@ -24,14 +24,12 @@ h1,.post-main h2,h3 {
 	font-weight:lighter;
 }
 h1,h2,h3,h4,h5,h6 {
-	letter-spacing:2px;
 	color:#525d67;
 	font-family: "Hiragino Sans GB","Microsoft YaHei","微软雅黑",Georgia,tahoma,arial,simsun,"宋体";
 }
 .post-main h1,h2,h3,h4 {
 	margin-bottom:-10px;
 	margin-top:25px;
-	letter-spacing:2px;
 }
 h1 {
 	font-size:2.3em;
@@ -145,7 +143,6 @@ a:link {
 	text-shadow:0px 0px 2px;
 	margin-top:-9%;
 	margin-bottom:0;
-	letter-spacing:0;
 }
 #nav {
 	margin:8% 0 8% -10%;
@@ -440,7 +437,6 @@ code {
 	margin:0 2px;
 	padding:0 4px;
 	border-radius:4px;
-	letter-spacing:1px;
 	border-bottom:0;
 	word-break:initial;
 }
@@ -458,7 +454,6 @@ pre code {
 	overflow-x:auto;
 	word-wrap:normal;
 	white-space:pre;
-	letter-spacing:0.5px;
 	tab-size:4;
 	-moz-tab-size:4;
 	-o-tab-size:4;
