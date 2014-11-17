@@ -1,24 +1,24 @@
-baseurl: /test
+baseurl: /
 markdown: kramdown
 highlighter: pygments
-permalink: /test/:year/:month/:day/:title.html
+permalink: /:year/:month/:day/:title.html
 auto: true
 paginate: 6
 paginate_path: page/:num
 
 blog:
-    name: test                                               # 博客名称
+    name: Silverd                                        # 博客名称
     description:                                         # 博客描述
     title:                                               # 网页标题
-    url:                                                 # 博客地址
-    duoshuo:                                             # 多说ID
+    url: http://silverd.github.io                        # 博客地址
+    duoshuo: silverd                                     # 多说ID
     tongji:                                              # 百度统计ID
     qiniu:                                               # 七牛云地址
 author:
     name:                                                # 作者名称
     email:                                               # 邮箱地址
     weibo:                                               # 微博地址
-    github:                                              # GitHub地址
+    github: https://github.com/silverd
     logo:                                                # logo地址
     douban:
         name:                                            # 豆瓣地址名称
