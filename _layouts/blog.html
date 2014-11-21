@@ -13,6 +13,11 @@
   <link rel="stylesheet" href="/res/css/public.css">
   <link rel="stylesheet" href="/res/css/light.css">
   <script src="/res/js/light.js"></script>
+
+  <link rel="stylesheet" href="/res/js/highlight/styles/monokai_sublime.css" />
+  <script src="/res/js/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
   {% include tongji.html %}
 </head>
 <body>
@@ -22,7 +27,7 @@
     {{ content }}
     {% if page.index == true or page.post == true %}{% include footer.html %}{% endif %}
     </div>
-  </div>    
+  </div>
   <div id="top"><a id="rocket" href="javascript:;" title="返回顶部"><i></i></a></div>
   {% if page.math == true %}<script src="http://cdn.bootcss.com/mathjax/2.4.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script>MathJax.Hub.Config({tex2jax:{inlineMath: [['\[','\]']],displayMath: [['$$','$$']]}});</script>{% endif %}
 </body>
