@@ -428,7 +428,7 @@ blockquote {
 	padding-left:10px;
 	word-break:break-all;
 }
-/*
+
 code {
 	font-family:Monaco,Consolas,Menlo,"Andale Mono","Courier New","Ubuntu Mono",Arial,"Microsoft YaHei","Hiragino Sans GB",sans-serif;
 	font-size:17px;
@@ -440,6 +440,7 @@ code {
 	border-bottom:0;
 	word-break:initial;
 }
+/*
 pre code {
 	font-family:Monaco,Consolas,Menlo,"Andale Mono","Courier New","Ubuntu Mono",Arial,"Microsoft YaHei","Hiragino Sans GB",sans-serif;
 	font-size:16px;
