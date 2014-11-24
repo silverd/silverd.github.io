@@ -30,7 +30,7 @@ Jekyll 是一款 Github 自带的页面转换器，相当于是我们本地按�
 
 基本文件夹结构如下：
 
-```
+<pre><code class="nohighlight">
 |-- _config.yml
 |-- _includes
 |-- _layouts
@@ -40,7 +40,7 @@ Jekyll 是一款 Github 自带的页面转换器，相当于是我们本地按�
 |   |-- 2007-10-29-why-every-programmer-should-play-nethack.textile
 |   |-- 2009-04-26-barcamp-boston-4-roundup.textile
 |-- index.html
-```
+</code></pre>
 
 ## 构建环境
 
