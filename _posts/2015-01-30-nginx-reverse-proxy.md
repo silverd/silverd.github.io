@@ -1,0 +1,66 @@
+---
+layout: post
+title: Nginx 反向代理和负载均衡
+---
+
+# Nginx 反向代理和负载均衡
+
+#### 什么是正向代理
+
+正向代理就像一个跳板，简单的说，我是一个用户，我访问不了某网站，但是我能访问一个代理服务器，这个代理服务器帮我去把我需要的网页内容取回来给我。从网站的角度，眼里只有代理服务器的访问记录，并不知道是用户的请求，也隐藏了用户的资料，这取决于代理告不告诉网站（即是否转发 X-REAL-IP）。
+
+#### 什么是反向代理？
+
+代理服务器代理的是目标网站（可能有一堆服务器），用户只知道代理服务器IP，并不知道他真实访问的哪台服务器（这样可以实现最后端的目标网站的负载均衡）此时，代理服务器和目标网站是一体的。用户眼里只有代理服务器，但它也不知道他正在访问的是一个代理。
+
+#### Nginx 简单的反向代理
+
+在代理服务器的 nginx.conf 中 http 段落中设置：
+
+    location / {
+        proxy_pass        http://目标机器IP:端口;
+        proxy_set_header  X-Real-IP  $remote_addr; # 转发用户的真实IP
+    }
+
+以上是单台代理，如果要代理多台，则需要用到 upstream 模块（负载均衡）：
+
+###### 1、upstream 负载均衡模块说明
+
+    # 定义一个 upstream 段落
+    upstream 自定义段落名 {
+        server 192.168.10.13:80 weight=1;
+        server 192.168.10.14:80  down;
+        server 192.168.10.15:8009  max_fails=3  fail_timeout=20s;
+        server 192.168.10.16:8080;
+    }
+
+    # 设置转发
+    server {
+        location / {
+            http://自定义段落名;
+        }
+    }
+
+upstream是Nginx的HTTP Upstream模块，这个模块通过一个简单的调度算法来实现客户端IP到后端服务器的负载均衡。在上面的设定中，通过upstream指令指定了一个负载均衡器的名称。这个名称可以任意指定，在后面需要用到的地方直接调用即可。
+
+###### 2、upstream 支持的负载均衡算法
+
+- 轮询（缺省）每个请求按时间顺序逐一分配到不同的后端服务器
+- ip_hash 每个请求按访问IP的hash结果分配，这样来自同一个IP的访客固定访问一个后端服务器，解决session共享问题
+- fair 根据后端服务器的响应时间来分配请求，响应时间短的优先分配（需要安装 Upstream Fair Balancer Module）
+- url_hash 此方法按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器（需要安装Upstream Hash Module）
+
+###### 3、upstream 支持的状态参数
+
+- weight 设置权重，解决服务器性能不等的情况下轮询比率的调配
+- down，表示当前的server暂时不参与负载均衡。
+- backup，预留的备份机器。当其他所有的非backup机器出现故障或者忙的时候，才会请求backup机器，因此这台机器的压力最轻，一般作为SorryServer使用。
+- max_fails，允许请求失败的次数，默认为1。当超过最大次数时，返回proxy_next_upstream 模块定义的错误。
+- fail_timeout，在经历了max_fails次失败后，暂停服务的时间。max_fails可以和fail_timeout一起使用。
+
+`注，当负载调度算法为ip_hash时，后端服务器在负载均衡调度中的状态不能是weight和backup。`
+
+参考原文：
+<http://freeloda.blog.51cto.com/2033581/1288553>
+<http://www.ttjoin.com/blog/index.php/archives/51>
+<http://freeloda.blog.51cto.com/2033581/1288553>
