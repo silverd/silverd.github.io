@@ -9,7 +9,7 @@ title: MySQL 字段类型 varchar 和 text 类型的区别
 2. varchar 可以替代 tinytext
 3. 如果存储的数据大于64K，就必须使用到 mediumtext/longtext
 4. varchar(255+) 和 text 在存储机制是一样的
-5. varchar(255+) 和 mediumtext 在存储机制是一样的
+5. varchar(65535+) 和 mediumtext 在存储机制是一样的
  
 需要特别注意varchar(255)不只是255byte ,实质上有可能占用的更多。
 
