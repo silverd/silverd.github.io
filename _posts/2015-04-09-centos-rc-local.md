@@ -18,6 +18,6 @@ CentOS 6.6 指向的就是 /etc/rc.d/rc.local
 
 chmod +x /etc/rc.d/rc.local
 
-3、将 /etc.local 重新软连接到 rc.d 下
+3、将 /etc/rc.local 重新软连接为 /etc/rc.d/rc.local
 
 ln -sf /etc/rc.d/rc.local /etc/rc.local
