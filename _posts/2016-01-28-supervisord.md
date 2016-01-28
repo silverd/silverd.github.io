@@ -3,7 +3,7 @@ layout: post
 title: Supervisord (Python) 使用记录
 ---
 
-早知有这东西，我就不用自己用PHP实现了 =_=
+早知有这东西，我就不用自己用PHP实现了 =_=!
 
 ## 特点
 
@@ -324,7 +324,8 @@ BACKOFF  Exited too quickly (process log may have details)
 
 /tmp/supervisord.log
 
-参考文章：
-- <http://itony.me/509.html>
-- <http://blog.chedushi.com/archives/10462>
-- <http://beginman.cn/linux/2015/04/06/Supervisor/>
+## 参考文章：
+
+    - <http://itony.me/509.html>
+    - <http://blog.chedushi.com/archives/10462>
+    - <http://beginman.cn/linux/2015/04/06/Supervisor/>
