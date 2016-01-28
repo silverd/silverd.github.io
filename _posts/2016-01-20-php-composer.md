@@ -12,4 +12,7 @@ composer update nothing 或者 composer update --lock
 ### 优化自动加载，生成文件路径地图
 composer dump-autoload --optimize
 
-参考文档：<http://docs.phpcomposer.com/00-intro.html>
+参考文档：
+- <http://www.phpcomposer.com>
+- <http://docs.phpcomposer.com/00-intro.html>
+- <https://packagist.org>
