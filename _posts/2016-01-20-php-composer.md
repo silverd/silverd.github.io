@@ -13,6 +13,7 @@ composer update nothing 或者 composer update --lock
 composer dump-autoload --optimize
 
 参考文档：
+
 - <http://www.phpcomposer.com>
 - <http://docs.phpcomposer.com/00-intro.html>
 - <https://packagist.org>

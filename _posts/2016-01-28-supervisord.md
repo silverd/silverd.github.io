@@ -326,6 +326,6 @@ BACKOFF  Exited too quickly (process log may have details)
 
 ## 参考文章：
 
-    - <http://itony.me/509.html>
-    - <http://blog.chedushi.com/archives/10462>
-    - <http://beginman.cn/linux/2015/04/06/Supervisor/>
+- <http://itony.me/509.html>
+- <http://blog.chedushi.com/archives/10462>
+- <http://beginman.cn/linux/2015/04/06/Supervisor/>
