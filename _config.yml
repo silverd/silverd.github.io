@@ -1,6 +1,6 @@
 baseurl: /
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge
 permalink: /:year/:month/:day/:title.html
 auto: true
 paginate: 6
