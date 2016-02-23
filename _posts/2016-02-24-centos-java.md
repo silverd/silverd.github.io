@@ -22,7 +22,7 @@ title: CentOS 安装 Java
 使立即生效
 
     source /etc/profile
-    
+
 查看系统环境状态
 
     echo $PATH
