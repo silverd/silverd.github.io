@@ -3,6 +3,8 @@ layout: post
 title: 了解Javascript模块化开发
 ---
 
+转贴自：<https://www.markdream.com/technologies/programs/understanding-of-javascript-module-development.shtml>
+
 小A是某个创业团队的前端工程师，负责编写项目的Javascript程序。
 
 ## 全局变量冲突
@@ -84,3 +86,7 @@ base.js向外提供的接口都被添加到exports这个对象。而exports是�
 由于缺乏浏览器的原生支持，如果我们要用模块化的方式编码，就必须借助于一个叫做加载器（loader）的东西。
 
 目前加载器的实现有很多，比如 RequireJs、SeaJs、LABJs
+
+参考文章：
+
+<https://www.zhihu.com/question/20342350>
