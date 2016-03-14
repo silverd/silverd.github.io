@@ -3,6 +3,12 @@ layout: post
 title: 数字签名是什么？（HTTPS原理）
 ---
 
+HTTP 基本原理图
+
+![](/res/img/in_posts/ds/https.png)
+
+==============================
+
 转帖自：阮一峰：<http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html>
 
 原文链接：David Youd：http://www.youdzone.com/signature.html
@@ -15,7 +21,7 @@ title: 数字签名是什么？（HTTPS原理）
 
 1.鲍勃有两把钥匙，一把是公钥，另一把是私钥。
 
-![](/res/img/in_posts/ds/1.png)
+
 
 2.鲍勃把公钥送给他的朋友们----帕蒂、道格、苏珊----每人一把。
 
