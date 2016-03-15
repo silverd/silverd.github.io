@@ -71,4 +71,4 @@ title: Nginx 配置 SSL 证书支持 Https
   
     - <https://www.centos.bz/2011/12/nginx-ssl-https-support/>
     - <http://blog.weiliang.org/linux/632.html>
-    - [Nginx 配置 SSL 证书 + 搭建 HTTPS 网站教程](http://www.open-open.com/lib/view/open1433390156947.html)
+    - (Nginx 配置 SSL 证书 + 搭建 HTTPS 网站教程)[http://www.open-open.com/lib/view/open1433390156947.html]
