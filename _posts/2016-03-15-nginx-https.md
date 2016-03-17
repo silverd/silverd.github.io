@@ -7,7 +7,7 @@ title: Nginx 配置 SSL 证书支持 Https
 
     yum install openssl
     yum install openssl-devel
-    
+
 确保 Nginx 只是 SSL 模块，编译时带 --with-http_ssl_module 参数，否则会报错
 
     [emerg] 10464#0: unknown directive "ssl" in /usr/local/nginx/conf/nginx.conf:74”
@@ -17,12 +17,30 @@ title: Nginx 配置 SSL 证书支持 Https
     cd /usr/local/nginx/
     mkdir ssl && cd ssl
     openssl genrsa -des3 -out hicrew.key 2048
-    
+
 创建证书请求文件（CSR = SSL Certificate Signing Request）
 
     openssl req -new -nodes -sha256 -key hicrew.key -out hicrew.csr
-    
-依次输入国家代码 CN，省份城市、邮箱等信息即可。
+
+依次输入密码、国家代码、省份城市、邮箱等信息即可。
+
+    Country Name (2 letter code) [XX]:CN
+    State or Province Name (full name) []:Shanghai
+    Locality Name (eg, city) [Default City]:Shanghai
+    Organization Name (eg, company) [Default Company Ltd]:Morecruit
+    Organizational Unit Name (eg, section) []:RD
+    Common Name (eg, your name or your server's hostname) []:api.hicrew.cn
+    Email Address []:support@morecruit.cn        
+
+    Please enter the following 'extra' attributes
+    to be sent with your certificate request
+    A challenge password []:hicrew
+    An optional company name []:qa.api.hicrew.cn
+
+特别注意
+
+    Common Name 和 An optional company name 是证书的生效域名。
+    如果只是同一个站点下面分出很多个子域名，那么可以直接申请通配证书，将证书的 Common Name 填写为 `*.hicrew.cn`，但 这种写法只能匹配二级域名，根域名 `hicrew.cn` 和三级域名 `qa.api.hicrew.cn` 都无法匹配，所以如果有更多的域名，可以填入“使用者可选名称”。
 
 去除私钥里的密码信息（否则以SSL启动Nginx时会提示必须输入密钥）
 
@@ -36,9 +54,9 @@ title: Nginx 配置 SSL 证书支持 Https
 
 修改Nginx配置文件，让其包含新标记的证书和私钥：
 
-    server 
+    server
     {
-        server_name YOUR_DOMAINNAME_HERE;
+        server_name api.hicrew.cn;
         listen 443;
         ssl on;
         ssl_certificate /usr/local/nginx/ssl/hicrew.crt;
@@ -47,18 +65,17 @@ title: Nginx 配置 SSL 证书支持 Https
 
 另外还可以加入如下代码实现80端口重定向到443
 
-    server 
+    server
     {
         listen 80;
-        server_name YOUR_DOMAINNAME_HERE;
+        server_name api.hicrew.cn;
         rewrite ^(.*) https://$server_name$1 permanent;
     }
-    
+
 重启 nginx 就可以通过以下方式访问了
 
-    https://YOUR_DOMAINNAME_HERE
-  
-  
+    https://api.hicrew.cn
+
 ## FAQ
 
 问：如何让浏览器信任自己办法的证书，以IE为例：
@@ -74,7 +91,7 @@ title: Nginx 配置 SSL 证书支持 Https
 
 =-=====-=====-=====-====
 参考文章：
-  
-    - <https://www.centos.bz/2011/12/nginx-ssl-https-support/>
-    - <http://blog.weiliang.org/linux/632.html>
-    - (Nginx 配置 SSL 证书 + 搭建 HTTPS 网站教程)[http://www.open-open.com/lib/view/open1433390156947.html]
+
+- <https://www.centos.bz/2011/12/nginx-ssl-https-support/>
+- <http://blog.weiliang.org/linux/632.html>
+- (Nginx 配置 SSL 证书 + 搭建 HTTPS 网站教程)[http://www.open-open.com/lib/view/open1433390156947.html]
