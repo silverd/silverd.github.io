@@ -3,12 +3,6 @@ layout: post
 title: 数字签名是什么？（HTTPS原理）
 ---
 
-HTTP 基本原理图
-
-![](/res/img/in_posts/ds/https.png)
-
-==============================
-
 转帖自：阮一峰：<http://www.ruanyifeng.com/blog/2011/08/what_is_a_digital_signature.html>
 
 原文链接：David Youd：http://www.youdzone.com/signature.html
