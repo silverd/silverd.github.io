@@ -51,6 +51,10 @@ Common Name 和 An optional company name 是证书的生效域名。
 或者到 StartSSL 上传 CSR 后获得经 CA 机构签名后的证书，如：1_study.hicrew.cn_bundle.crt
 
     openssl x509 -req -days 3650 -sha256 -in hicrew.csr -signkey hicrew_nopwd.key -out hicrew.crt
+    
+如果需要用 pfx 可以用以下命令生成
+
+    openssl pkcs12 -export -inkey hicrew.key -in hicrew.crt -out hicrew.pfx
 
 修改Nginx配置文件，让其包含新标记的证书和私钥：
 
@@ -61,7 +65,14 @@ Common Name 和 An optional company name 是证书的生效域名。
         ssl on;
         ssl_certificate /usr/local/nginx/ssl/hicrew.crt;
         ssl_certificate_key /usr/local/nginx/ssl/hicrew_nopwd.key;
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2; 
+        ssl_ciphers ALL:!DH:!EXPORT:!RC4:+HIGH:+MEDIUM:-LOW:!aNULL:!eNULL;
     }
+
+Apache 配置为
+
+    SSLProtocol  all -SSLv2 -SSLv3
+    SSLCipherSuite ALL:!DH:!EXPORT:!RC4:+HIGH:+MEDIUM:!LOW:!aNULL:!eNULL
 
 另外还可以加入如下代码实现80端口重定向到443
 
