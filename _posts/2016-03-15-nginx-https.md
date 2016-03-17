@@ -37,10 +37,10 @@ title: Nginx 配置 SSL 证书支持 Https
     A challenge password []:hicrew
     An optional company name []:qa.api.hicrew.cn
 
-特别注意
+### 特别注意
 
-    Common Name 和 An optional company name 是证书的生效域名。
-    如果只是同一个站点下面分出很多个子域名，那么可以直接申请通配证书，将证书的 Common Name 填写为 `*.hicrew.cn`，但 这种写法只能匹配二级域名，根域名 `hicrew.cn` 和三级域名 `qa.api.hicrew.cn` 都无法匹配，所以如果有更多的域名，可以填入“使用者可选名称”。
+Common Name 和 An optional company name 是证书的生效域名。
+如果只是同一个站点下面分出很多个子域名，那么可以直接申请通配证书，将证书的 Common Name 填写为 `*.hicrew.cn`，但 这种写法只能匹配二级域名，根域名 `hicrew.cn` 和三级域名 `qa.api.hicrew.cn` 都无法匹配，所以如果有更多的域名，可以填入“使用者可选名称”。参考[《SSL多域名绑定证书的解决方案》](http://codefine.co/2786.html)
 
 去除私钥里的密码信息（否则以SSL启动Nginx时会提示必须输入密钥）
 
