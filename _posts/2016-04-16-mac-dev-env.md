@@ -21,7 +21,7 @@ title: Mac 搭建开发环境（二）常用软件
     brew install zsh
     wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
 
-## Charlse
+## Charlse 破解版
 
     http://www.charlesproxy.com/download/
 
@@ -30,9 +30,15 @@ title: Mac 搭建开发环境（二）常用软件
     将证书导入手机，用手机 Safari 打开以下地址：
     http://www.charlesproxy.com/assets/legacy-ssl/charles.crt
 
-## SmartGit/SmartSVN/SourceTree
-## SecrueCRT
-## Navicat
+## Wine
+
+    brew install Caskroom/cask/xquartz
+    brew install wine
+
+## SmartSVN+SourceTree
+## SecrueCRT 破解版
+## Navicat 破解版
+
 ## Scroll Reverser
 
 ## Alfred+Dash
