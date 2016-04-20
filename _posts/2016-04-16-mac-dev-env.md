@@ -28,6 +28,7 @@ title: Mac 搭建开发环境（二）常用软件
 
     # 启用 vim 语法高亮
     echo 'syntax on' >> ~/.vimrc
+    source ~/.vimrc
 
 ## CharlseProxy
 
@@ -47,7 +48,7 @@ title: Mac 搭建开发环境（二）常用软件
     brew install wine
 
     # 开始安装
-    wine heidisql.exe
+    wine heidisql-installer.exe
 
     # 启动程序
     wine /User/....exe
