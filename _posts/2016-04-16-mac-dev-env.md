@@ -61,6 +61,10 @@ title: Mac 搭建开发环境（二）常用软件
     git config --global core.safecrlf true
     git config --global credential.helper store
 
+    # 设置提交者
+    git config --global user.name "silverd"
+    git config --global user.email "silverd29@gmail.com"
+
 ## SourceTree
 
     https://www.sourcetreeapp.com/download/
