@@ -78,13 +78,25 @@ title: Mac 搭建开发环境（二）常用软件
     # ShadowsocksX-2.6.3.dmg
     https://github.com/shadowsocks/shadowsocks-iOS/releases
 
-## SecrueCRT 破解版
+## SecureCRT
 
-    TODO
+    # v7.3.7 下载地址
+    http://macabc.com/detail.htm?app_id=24
+
+    # 破解方法
+
+        # 1. 下载破解文件 securecrt_mac_crack.pl [地址1](http://yun.baidu.com/share/link?shareid=297986172&uk=18145526) [地址2](/attach/securecrt_mac_crack.pl)
+
+        # 2. 在终端执行命令，会返回一组序列号信息，然后打开 SecureCRT 手动依次输入这些信息就可
+        sudo perl securecrt_mac_crack.pl /Applications/SecureCRT.app/Contents/MacOS/SecureCRT
+
+    # 破解方法原文
+    http://bbs.feng.com/read-htm-tid-6939481.html
 
 ## Navicat 破解版
 
-    TODO
+    # 下载链接
+    https://www.baidu.com/link?url=Y2t3PwH15wRS7C9DhwP3w_pv1cI9F5Ugag_8N2l6xcFMxxzJvJNn_-E8J8tyJTGoRXarhpcLX1Za2Caq_pS1Sa&wd=&eqid=ecf428b4000340a200000005571a288b
 
 ## Alfred+Dash
 
