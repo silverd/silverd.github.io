@@ -3,6 +3,10 @@ layout: post
 title: Mac 搭建开发环境（二）常用软件
 ---
 
+## Finder 中显示完整路径
+
+    defaults write com.apple.finder _FXShowPosixPathInTitle -bool TRUE;killall Finder
+
 ## SublimeText3
 
     http://www.sublimetext.com/3
