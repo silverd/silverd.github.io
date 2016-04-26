@@ -30,9 +30,28 @@ title: Mac 搭建开发环境（二）常用软件
 
 ## Vi/Vim
 
-    # 启用 vim 语法高亮
-    echo 'syntax on' >> ~/.vimrc
-    source ~/.vimrc
+    # 安装 monokai 主题
+    1.下载 Monokai.vim (https://github.com/sickill/vim-monokai) 保存到 ~/.vim/colors 下;
+    2.编辑 ~/.vimrc 文件，添加 syntax enable、colorscheme Monokai 两行，例如：
+
+        syntax enable
+        colorscheme Monokai
+
+        set encoding=utf-8
+        set fileencoding=utf-8
+        set fileencodings=ucs-bom,utf-8,chinese,cp936
+        set guifont=Consolas:h15
+        language messages zh_CN.utf-8
+        set lines=45 columns=100
+        set number
+        set autoindent
+        set smartindent
+        set tabstop=4
+        set autochdir
+        set shiftwidth=4
+        set foldmethod=manual
+        set nocompatible
+        set nobackup
 
 ## CharlseProxy
 
@@ -48,8 +67,14 @@ title: Mac 搭建开发环境（二）常用软件
 
 ## Wine
 
+    # XQuartz >= 2.7.7
     brew install Caskroom/cask/xquartz
+
+    # 安转 wine
     brew install wine
+
+    # 或者去官网下载
+    https://dl.winehq.org/wine-builds/macosx/download.html
 
     # 开始安装
     wine heidisql-installer.exe
