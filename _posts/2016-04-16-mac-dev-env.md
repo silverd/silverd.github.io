@@ -7,6 +7,14 @@ title: Mac 搭建开发环境（二）常用软件
 
     defaults write com.apple.finder _FXShowPosixPathInTitle -bool TRUE;killall Finder
 
+## NodeJS/NPM
+
+    # https://nodejs.org/en/
+    https://nodejs.org/dist/v6.0.0/node-v6.0.0.pkg
+
+    # 使用淘宝 CNPM 镜像（http://npm.taobao.org）
+    npm install -g cnpm --registry=https://registry.npm.taobao.org
+
 ## SublimeText3
 
     http://www.sublimetext.com/3
