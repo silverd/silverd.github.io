@@ -50,7 +50,6 @@ title: Mac 搭建开发环境（二）常用软件
         set fileencodings=ucs-bom,utf-8,chinese,cp936
         set guifont=Consolas:h15
         language messages zh_CN.utf-8
-        set lines=45 columns=100
         set number
         set autoindent
         set smartindent
