@@ -1,6 +1,6 @@
 ---
 layout: post
-category: ['架构']
+category: ['架构', '移动开发']
 title: Fiddler 抓取手机 https
 ---
 

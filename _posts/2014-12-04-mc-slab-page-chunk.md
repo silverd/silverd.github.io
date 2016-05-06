@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['复习笔记', 'NoSQL']
 title: Memcache 内存分配策略
 ---
 
@@ -7,7 +8,7 @@ title: Memcache 内存分配策略
 
 Memcached的内存分配以page为单位，默认情况下一个page是1M，可以通过-I参数在启动时指定。
 
-如果需要申请内存时，memcached会划分出一个新的page并分配给需要的slab区域。page一旦被分配在重启前不会被回收或者重新分配（page ressign已经从1.2.8版移除了） 
+如果需要申请内存时，memcached会划分出一个新的page并分配给需要的slab区域。page一旦被分配在重启前不会被回收或者重新分配（page ressign已经从1.2.8版移除了）
 
 ![](/res/img/in_posts/t025aa3901314343785.png)
 

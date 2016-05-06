@@ -1,6 +1,6 @@
 ---
 layout: post
-category: ['LAMP']
+category: ['LAMP', '架构']
 title: Supervisord (Python) 使用记录
 ---
 

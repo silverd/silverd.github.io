@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['心得']
 title: 搭建 Github 博客小记
 ---
 
@@ -20,7 +21,7 @@ title: 搭建 Github 博客小记
 ### 2. 学习 Markdown 的语法
 
 其实 Markdown 语法特别简单，也就十几种，更多的[请猛戳这里](http://wowubuntu.com/markdown/)
- 
+
 ### 3. 学习 Jeklly 的语法
 
 Jekyll 是一款 Github 自带的页面转换器，相当于是我们本地按照他的语法和规则写好代码，提交后，GitHub 会自动运行 Jeklly 把我们的代码转换成可读的 HTML

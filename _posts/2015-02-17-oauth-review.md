@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['架构']
 title: OAuth小结
 ---
 

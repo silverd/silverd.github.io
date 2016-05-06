@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['复习笔记', 'LAMP']
 title: PHP-FPM 的进程数动态和静态
 ---
 
@@ -33,7 +34,7 @@ pm.max_children = 32G (机器物理内存) / 64MB (每个进程的 memory_limit)
 假设一个PHP请求耗费250ms，那一个进程1秒就可以处理4次请求
 
 那一台32G的机器可支撑的QPS = 4 * pm.max_children = 2000~3000
- 
+
 ## 带宽的预估
 
 并发请求数 * 5K (单次请求耗费流量，单位字节) / 1000 * 8 = 带宽 (单位比特)

@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['MySQL']
 title: MySQL 主从同步原理
 ---
 

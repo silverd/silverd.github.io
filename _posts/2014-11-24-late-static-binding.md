@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['复习笔记']
 title: 静态延迟绑定
 ---
 

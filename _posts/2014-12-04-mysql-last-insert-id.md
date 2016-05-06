@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['MySQL', '架构']
 title: flickr 的全局主键生成方案
 ---
 
@@ -18,40 +19,40 @@ flickr提供了一个扩展的更好的方案：
 
 ## uid_sequence 表的设计
 
-比如创建64位的自增id：  
+比如创建64位的自增id：
 
-    CREATE TABLE `uid_sequence` (  
-      `id` bigint(20) unsigned NOT NULL auto_increment,  
-      `stub` char(1) NOT NULL default '',  
-      PRIMARY KEY  (`id`),  
-      UNIQUE KEY `stub` (`stub`)  
+    CREATE TABLE `uid_sequence` (
+      `id` bigint(20) unsigned NOT NULL auto_increment,
+      `stub` char(1) NOT NULL default '',
+      PRIMARY KEY  (`id`),
+      UNIQUE KEY `stub` (`stub`)
     ) ENGINE=MyISAM;
 
-SELECT * from uid_sequence 输出：  
-  
-    +-------------------+------+  
-    | id                | stub |  
-    +-------------------+------+  
-    | 72157623227190423 |    a |  
+SELECT * from uid_sequence 输出：
 
-如果我需要一个全局的唯一的64位uid，则执行：  
+    +-------------------+------+
+    | id                | stub |
+    +-------------------+------+
+    | 72157623227190423 |    a |
 
-    REPLACE INTO uid_sequence (stub) VALUES ('a');  
-    SELECT LAST_INSERT_ID();  
+如果我需要一个全局的唯一的64位uid，则执行：
+
+    REPLACE INTO uid_sequence (stub) VALUES ('a');
+    SELECT LAST_INSERT_ID();
 
 - 用 REPLACE INTO 代替 INSERT INTO 的好处是避免表行数太大，还要另外定期清理。
 - stub 字段要设为唯一索引，这个 sequence 表只有一条纪录，但也可以同时为多张表生成全局主键，例如 user_ship_id。除非你需要表的主键是连续的，那么就另建一个 user_ship_id_sequence 表。
 - 经过实际对比测试，使用 MyISAM 比 Innodb 有更高的性能。
 
-这里flickr使用两台数据库作为自增序列生成，通过这两台机器做主备和负载均衡。  
-  
-    TicketServer1: 
-    auto-increment-increment = 2  
-    auto-increment-offset = 1  
-  
+这里flickr使用两台数据库作为自增序列生成，通过这两台机器做主备和负载均衡。
+
+    TicketServer1:
+    auto-increment-increment = 2
+    auto-increment-offset = 1
+
     TicketServer2:
-    auto-increment-increment = 2  
-    auto-increment-offset = 2  
+    auto-increment-increment = 2
+    auto-increment-offset = 2
 
 ## MySQL 中 last_insert_id() 的并发问题
 

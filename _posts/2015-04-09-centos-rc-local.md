@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['LAMP', '心得']
 title: CentOS 自启动失败分析
 ---
 
