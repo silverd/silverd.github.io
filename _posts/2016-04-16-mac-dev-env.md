@@ -65,11 +65,12 @@ title: Mac 搭建开发环境（二）常用软件
 
     如何抓取 https?
 
-    # 1、将证书导入手机，用手机 Safari 打开以下地址：
-    http://www.charlesproxy.com/assets/legacy-ssl/charles.crt
+    # 1、Charles ->Help -> SSL Proxying ->Install Charles Root Certifate on a Mobile Device or Remote Browser
+    # 2、根据上面弹窗中显示的当前电脑IP、端口、证书地址，设好手机代理。
+    # 3、用手机浏览器（Safari）打开并安装上面窗口提示的证书，例如：
+        http://www.charlesproxy.com/getssl
 
-    # 2、手机安装好证书并设置代理IP
-    # 3、Charles -> Proxy -> Proxy Settings -> SSL -> Enable SSL Proxying，在下方 Locations 区域添加要抓取的域名和端口443
+    # 4、设置需要捕获的域名 Charles -> Proxy -> Proxy Settings -> SSL -> Enable SSL Proxying，在下方 Locations 区域添加要抓取的域名和端口443
 
 ## Wine
 
