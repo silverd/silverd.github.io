@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['Mac']
 title: Mac 搭建开发环境（二）常用软件
 ---
 
@@ -25,6 +26,7 @@ title: Mac 搭建开发环境（二）常用软件
     - MarkdownHighlighting
     - SublimeLinter+SublimeLinterPHP
     - Sass
+    - Less
     - Vue Syntax Highlight
     - DocBlockr
 
@@ -110,6 +112,9 @@ title: Mac 搭建开发环境（二）常用软件
 
     http://www.iterm2.com/downloads.html
 
+    # 安装主题（Solarized Dark Higher Contrast 不错）
+    http://www.iterm2.com/colorgallery
+
 ## Scroll Reverser
 
     http://pilotmoon.com/scrollreverser/
@@ -126,7 +131,9 @@ title: Mac 搭建开发环境（二）常用软件
 
     # 破解方法
 
-        # 1. 下载破解文件 securecrt_mac_crack.pl [地址1](http://yun.baidu.com/share/link?shareid=297986172&uk=18145526) [地址2](/attach/securecrt_mac_crack.pl)
+        # 1. 下载破解文件 securecrt_mac_crack.pl
+        地址1：http://yun.baidu.com/share/link?shareid=297986172&uk=18145526
+        地址2：http://silverd.cn/attach/securecrt_mac_crack.pl
 
         # 2. 在终端执行命令，会返回一组序列号信息，然后打开 SecureCRT 手动依次输入这些信息就可
         sudo perl securecrt_mac_crack.pl /Applications/SecureCRT.app/Contents/MacOS/SecureCRT

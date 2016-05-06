@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['MySQL']
 title: MySQL 中 trim 处理字段多余字符
 ---
 

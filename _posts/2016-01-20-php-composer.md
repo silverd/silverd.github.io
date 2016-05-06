@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['LAMP']
 title: PHP Composer 使用笔记
 ---
 

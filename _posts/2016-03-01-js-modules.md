@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['Javascript']
 title: 了解Javascript模块化开发
 ---
 

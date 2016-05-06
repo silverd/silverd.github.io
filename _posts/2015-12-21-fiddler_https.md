@@ -1,6 +1,7 @@
 ---
 layout: post
-title: Fiddler 抓取手机 https 
+category: ['架构']
+title: Fiddler 抓取手机 https
 ---
 
 ### 开启选项
@@ -8,7 +9,7 @@ title: Fiddler 抓取手机 https
 打开 Fiddler，点击工具栏的 Tools – Fiddler Options
 
 - 切换到 HTTPS 选项卡，勾选 Capture HTTPS CONNECTs + Decrypt HTTPS trafic
-- 切换到 Connections 选项卡，勾选 Allow remote computers to connect 
+- 切换到 Connections 选项卡，勾选 Allow remote computers to connect
 
 ### 在手机上安装 Fiddler 证书
 
@@ -23,7 +24,7 @@ title: Fiddler 抓取手机 https
 
 1. Fiddler截获客户端发送给服务器的HTTPS请求，Fiddler伪装成客户端向服务器发送请求进行握手 。
 2. 服务器发回相应，Fiddler获取到服务器的CA证书， 用根证书公钥进行解密， 验证服务器数据签名， 获取到服务器CA证书公钥。然后Fiddler伪造自己的CA证书， 冒充服务器证书传递给客户端浏览器。
-3. 与普通过程中客户端的操作相同，客户端根据返回的数据进行证书校验、生成密码Pre_master、用Fiddler伪造的证书公钥加密，并生成HTTPS通信用的对称密钥enc_key。 
+3. 与普通过程中客户端的操作相同，客户端根据返回的数据进行证书校验、生成密码Pre_master、用Fiddler伪造的证书公钥加密，并生成HTTPS通信用的对称密钥enc_key。
 4. 客户端将重要信息传递给服务器， 又被Fiddler截获。Fiddler将截获的密文用自己伪造证书的私钥解开， 获得并计算得到HTTPS通信用的对称密钥enc_key。Fiddler将对称密钥用服务器证书公钥加密传递给服务器。
 5. 与普通过程中服务器端的操作相同，服务器用私钥解开后建立信任，然后再发送加密的握手消息给客户端。
 6. Fiddler截获服务器发送的密文， 用对称密钥解开， 再用自己伪造证书的私钥加密传给客户端。

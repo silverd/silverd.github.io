@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['心得']
 title: 有意思的人脸识别API
 ---
 

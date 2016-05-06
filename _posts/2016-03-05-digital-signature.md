@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['架构']
 title: 数字签名是什么？（HTTPS原理）
 ---
 

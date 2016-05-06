@@ -1,12 +1,13 @@
 ---
 layout: post
+category: ['LAMP']
 title: CentOS 安装 Java
 ---
 
 下载安装 JDK [查看官方最新版本](http://www.oracle.com/technetwork/indexes/downloads/index.html#java)
 
     wget wget http://download.oracle.com/otn-pub/java/jdk/8u73-b02/jdk-8u73-linux-x64.rpm?AuthParam=1456243902_0c6c969e56ef0f0d93e786fc8691d178
-    rpm -ivh *.rpm 
+    rpm -ivh *.rpm
 
 增加全局变量
 

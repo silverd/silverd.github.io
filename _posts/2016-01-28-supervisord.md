@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['LAMP']
 title: Supervisord (Python) 使用记录
 ---
 
@@ -63,11 +64,11 @@ title: Supervisord (Python) 使用记录
 
 ## 配置文件说明 <http://supervisord.org/configuration.html>
 
-    [unix_http_server] 
+    [unix_http_server]
 
     file=/tmp/supervisor.sock         ; socket文件的路径，supervisorctl用XML_RPC和supervisord通
-                                      ; 信就是通过它进行的。如果不设置的话，supervisorctl也就不能用了  
-                                      ; 不设置的话，默认为none。 非必须设置        
+                                      ; 信就是通过它进行的。如果不设置的话，supervisorctl也就不能用了
+                                      ; 不设置的话，默认为none。 非必须设置
     ;chmod=0700                       ; 这个简单，就是修改上面的那个socket文件的权限为0700
                                       ; 不设置的话，默认为0700。 非必须设置
     ;chown=nobody:nogroup             ; 这个一样，修改上面的那个socket文件的属组为user.group
@@ -89,9 +90,9 @@ title: Supervisord (Python) 使用记录
                                       ; 这个必须设置，不设置，supervisor就不用干活了
     logfile=/tmp/supervisord.log      ; 这个是supervisord这个主进程的日志路径，注意和子进程的日志不搭嘎。
                                       ; 默认路径$CWD/supervisord.log，$CWD是当前目录，非必须设置
-    logfile_maxbytes=50MB             ; 这个是上面那个日志文件的最大的大小，当超过50M的时候，会生成一个新的日 
+    logfile_maxbytes=50MB             ; 这个是上面那个日志文件的最大的大小，当超过50M的时候，会生成一个新的日
                                       ; 志文件。当设置为0时，表示不限制文件大小
-                                      ; 默认值是50M，非必须设置。              
+                                      ; 默认值是50M，非必须设置。
     logfile_backups=10                ; 日志文件保持的数量，上面的日志文件大于50M时，就会生成一个新文件。文件
                                       ; 数量大于10时，最初的老文件被新文件覆盖，文件数量将保持为10
                                       ; 当设置为0时，表示不限制文件的数量。
@@ -121,7 +122,7 @@ title: Supervisord (Python) 使用记录
                                       ; supervisord进程之前，会先切换到这个目录
                                       ; 默认不设置，非必须设置
     ;nocleanup=true                   ; 这个参数当为false的时候，会在supervisord进程启动的时候，把以前子进程
-                                      ; 产生的日志文件(路径为AUTO的情况下)清除掉。有时候咱们想要看历史日志，当 
+                                      ; 产生的日志文件(路径为AUTO的情况下)清除掉。有时候咱们想要看历史日志，当
                                       ; 然不想日志被清除了。所以可以设置为true
                                       ; 默认是false，有调试需求的同学可以设置为true，非必须设置
     ;childlogdir=/tmp                 ; 当子进程日志路径为AUTO的时候，子进程日志文件的存放路径。
@@ -138,15 +139,15 @@ title: Supervisord (Python) 使用记录
                                       ; 序列呢？就是我们的\n,\t这些东西。
                                       ; 默认为false，非必须设置
 
-    ; 这个选项是给XML_RPC用的，当然你如果想使用supervisord或者web server 这 
+    ; 这个选项是给XML_RPC用的，当然你如果想使用supervisord或者web server 这
     ; 个选项必须要开启的
 
-    [rpcinterface:supervisor]  
+    [rpcinterface:supervisor]
 
-    supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface 
+    supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 
-    ; 这个主要是针对supervisorctl的一些配置  
-    [supervisorctl]                       
+    ; 这个主要是针对supervisorctl的一些配置
+    [supervisorctl]
 
     serverurl=unix:///tmp/supervisor.sock ; 这个是supervisorctl本地连接supervisord的时候，本地UNIX socket
                                           ; 路径，注意这个是和前面的[unix_http_server]对应的
@@ -194,7 +195,7 @@ title: Supervisord (Python) 使用记录
                                    ; 默认就是true   ，非必须设置
     ;autorestart=unexpected        ; 这个是设置子进程挂掉后自动重启的情况，有三个选项，false,unexpected
                                    ; 和true。如果为false的时候，无论什么情况下，都不会被重新启动，
-                                   ; 如果为unexpected，只有当进程的退出码不在下面的exitcodes里面定义的退 
+                                   ; 如果为unexpected，只有当进程的退出码不在下面的exitcodes里面定义的退
                                    ; 出码的时候，才会被自动重启。当为true的时候，只要子进程挂掉，将会被无
                                    ; 条件的重启
     ;startsecs=1                   ; 这个选项是子进程启动多少秒之后，此时状态如果是running，则我们认为启
@@ -244,7 +245,7 @@ title: Supervisord (Python) 使用记录
     ;stderr_capture_maxbytes=1MB   ; 这个一样，和stdout_capture一样。 默认为0，关闭状态
     ;stderr_events_enabled=false   ; 这个也是一样，默认为false
     ;environment=A="1",B="2"       ; 这个是该子进程的环境变量，和别的子进程是不共享的
-    ;serverurl=AUTO                ; 
+    ;serverurl=AUTO                ;
 
     ; 这个东西其实和program的地位是一样的，也是suopervisor启动的子进程
     ; 不过它干的活是订阅supervisord发送的event。他的名字就叫listener了

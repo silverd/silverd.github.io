@@ -1,5 +1,6 @@
 ---
 layout: post
+category: ['LAMP']
 title: Linux 学习笔记
 ---
 
@@ -86,7 +87,7 @@ vi /etc/sysconfig/selinux 或者（/etc/selinux/config）
 颜色说明：
 蓝色  php.ini 放置的路径，缺省是 /usr/local/php/lib/php.ini
 红色  必须项目。注意，如以Nginx+PHP-FPM方式安装，则必须去除--with-apxs2=/usr/local/apache/bin/apxs 这项，否则无法以fast-cgi方式运行
-绿色  GD 库 
+绿色  GD 库
 紫色  以 Nginx + PHP-FPM 方式运行
 黑色  其他扩展 [--enable-zip --with-bz2]
 
@@ -116,7 +117,7 @@ vi /etc/sysconfig/network-scripts/ifcfg-eth0  修改MAC地址、网卡名(eth0)�
 
 ### 防火墙的设置
 
-修改 vi /etc/sysconfig/iptables 
+修改 vi /etc/sysconfig/iptables
 增加一行 -A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 11211 -j ACCEPT
 
 重启 /etc/inid.d/iptables restart 或 service iptables restart
@@ -189,11 +190,11 @@ mysql --help|grep my.cnf
 
 ### 统计某文件夹及其子文件夹的文件总数
 
-ls -lR | grep "^-" | wc -l 
+ls -lR | grep "^-" | wc -l
 
 ### vi编辑器的批量替换
 
-:%s/查找的文字/替换成的文字/g 
+:%s/查找的文字/替换成的文字/g
 /g 表示忽略大小写
 
 ### 把查找到的文件的内容合并成一个文件
