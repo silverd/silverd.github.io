@@ -1,6 +1,6 @@
 ---
 layout: post
-category: ['笔记']
+category: ['心得']
 title: 从七牛同步备份资源到阿里云OSS
 ---
 
