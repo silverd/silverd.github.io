@@ -30,13 +30,17 @@ title: Mac 搭建开发环境（二）常用软件
     - Vue Syntax Highlight
     - DocBlockr
 
+    # 在命令行使用 Sublime
+    ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl
+    ln -s /usr/local/bin/subl /usr/local/bin/sublime
+
 ## Zsh/OhMyZsh
 
     brew install zsh
     wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
 
-    # 自定义配置文件
-    vim ~/.zshrc
+    echo 'export PATH="/usr/local/sbin:$PATH"' >> ~/.zshrc
+    source ~/.zshrc
 
 ## Vi/Vim
 
