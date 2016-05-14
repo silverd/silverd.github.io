@@ -133,23 +133,37 @@ title: Mac 搭建开发环境（二）常用软件
     # v7.3.7 下载地址
     http://macabc.com/detail.htm?app_id=24
 
-    # 破解方法
+    # 正常安装
 
-        # 1. 下载破解文件 securecrt_mac_crack.pl
-        地址1：http://yun.baidu.com/share/link?shareid=297986172&uk=18145526
-        地址2：http://silverd.cn/attach/securecrt_mac_crack.pl
+    # 破解方法1. 下载破解文件 securecrt_mac_crack.pl
+    地址1：http://yun.baidu.com/share/link?shareid=297986172&uk=18145526
+    地址2：http://silverd.cn/attach/securecrt_mac_crack.pl
 
-        # 2. 在终端执行命令，会返回一组序列号信息，然后打开 SecureCRT 手动依次输入这些信息就可
-        sudo perl securecrt_mac_crack.pl /Applications/SecureCRT.app/Contents/MacOS/SecureCRT
+    # 破解方法2. 在终端执行命令，会返回一组序列号信息，然后打开 SecureCRT 手动依次输入这些信息就可
+    sudo perl securecrt_mac_crack.pl /Applications/SecureCRT.app/Contents/MacOS/SecureCRT
 
     # 破解方法原文
     http://bbs.feng.com/read-htm-tid-6939481.html
 
-## Navicat 破解版
+## Navicat
 
-    # 下载链接
-    https://www.baidu.com/link?url=Y2t3PwH15wRS7C9DhwP3w_pv1cI9F5Ugag_8N2l6xcFMxxzJvJNn_-E8J8tyJTGoRXarhpcLX1Za2Caq_pS1Sa&wd=&eqid=ecf428b4000340a200000005571a288b
+    # 下载链接（直接就是破解版 v11.1.8）
+    http://www.waitsun.com/navicat-premium-11-1-11.html
 
 ## Alfred+Dash
 
     TODO
+
+## Genymotion+VitualBox
+
+    https://www.virtualbox.org/wiki/Downloads
+    https://www.genymotion.com/download/
+
+## 增加 ssh-copy-id 命令（MacOS 不自带）
+
+    # 仓库原地址：https://github.com/beautifulcode/ssh-copy-id-for-OSX
+    curl -L https://raw.githubusercontent.com/beautifulcode/ssh-copy-id-for-OSX/master/install.sh | sh
+
+    # 用法示例
+    ssh-copy-id -i ~/.ssh/dev@morecruit.pub root@m.hicrew.cn
+
