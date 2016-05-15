@@ -6,7 +6,7 @@ title: VueJS 爬坑笔记
 
 Mark神塞，90后技术极客直男，通晓前端技术，在他的推荐下，我接触了vue。
 起初吸引我的是vue的小巧轻快，以及优雅的数据绑定操作，但随着学习的深入，发现vue完全是有别于以往前端开发的架构和流程，作为十几年的老司机，耳目一新，技术的演进真是令人兴奋。
-但目前vue国内文档和生态社区尚不完整，有问题基本搜索不到。好在QQ群有近500名先行者，很多问题在虚心讨教后基本可以得到解决。
+但目前vue国内文档和生态社区尚不完整，有问题基本搜索不到。好在QQ群有近500多名先行者，很多问题在不断地虚心讨教后基本可以得到解决。
 
 爬坑笔记其实不算笔记，一切尽在代码中吧：
 
@@ -32,7 +32,7 @@ Demo: <http://m.staylife.cn>
 - 组件 attach/ready 的执行时机
 - AJAX POST CORS 跨域（withCredentials）
 - 全局 Preloader 的实现
-- 过渡动画 transion 的使用
+- 过渡动画 transition 的使用
 - webpack 的加载路径（参见 webpack.base.conf 中的 resolve）
 - 让文本框聚焦需要使用 v-el 属性
 - vm.$nextTick 的使用
