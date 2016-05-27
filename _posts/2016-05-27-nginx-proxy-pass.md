@@ -18,7 +18,11 @@ title: Nginx 在 StayLife 的一些应用
         access_log /home/wwwlogs/69night_mapi.log access;
     }
 
-注意：当是 POST 请求时，参数在 request body 传递，对于内部的url调转，因为是相同的一次请求，POST 数据不会丢失。对于外部跳转，实际上是一次 GET 302，所以会丢失第一次的 POST 数据。
+值得一提的是，原来我们用的 rewrite 来转发。当 POST 请求时，对于内部的 URL（斜杠开头）转发时，POST 数据不会丢失。对于外部跳转，实际上是一次 GET 302，所以会丢失第一次的 POST 数据。
+
+    location /mapi/ {
+        rewrite ^ https://qa.api.staylife.cn/;
+    }
 
 参考文章：
 
