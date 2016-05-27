@@ -46,4 +46,6 @@ title: 从七牛同步备份资源到阿里云OSS
 
 如需要开启OSS的图片处理服务，需要开通CDN域名，否则浏览器打开会直接下载。
 
-官方文档：<https://help.aliyun.com/document_detail/oss/utilities/oss-import2/ossimport2_user_guide_for_linux.html?spm=5176.2060224.101.14.SeboT4>
+官方文档：
+
+- <https://help.aliyun.com/document_detail/oss/utilities/oss-import2/ossimport2_user_guide_for_linux.html?spm=5176.2060224.101.14.SeboT4>

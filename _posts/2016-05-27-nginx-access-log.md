@@ -6,14 +6,14 @@ title: Nginx 访问日志记录 POST/COOKIE/HEADER 等数据
 
 初始日志格式中的变量：
 
-$remote_addr        The remote host
-$remote_user        The authenticated user (if any)
-$time_local         The time of the access
-$request            The first line of the request
-$status             The status of the request
-$body_bytes_sent    The size of the server's response, in bytes
-$http_referer       The referrer URL, taken from the request's headers
-$http_user_agent    The user agent, taken from the request's headers
+    $remote_addr        The remote host
+    $remote_user        The authenticated user (if any)
+    $time_local         The time of the access
+    $request            The first line of the request
+    $status             The status of the request
+    $body_bytes_sent    The size of the server's response, in bytes
+    $http_referer       The referrer URL, taken from the request's headers
+    $http_user_agent    The user agent, taken from the request's headers
 
 我们要用到的几个变量：
 
