@@ -16,7 +16,7 @@ title: 使用 Coding.net 的 WebHook 来自动更新、部署
     chown www.www /home/www/.ssh
 
     sudo -u www ssh-keygen
-    cat /home/www/.ssh/id_rsa.pub | pbcopy
+    cat /home/www/.ssh/id_rsa.pub
 
 2、把公钥文本粘贴到 Coding.net 对应项目的『部署公钥』里
 
