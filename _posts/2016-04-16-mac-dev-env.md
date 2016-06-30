@@ -152,7 +152,14 @@ title: Mac 搭建开发环境（二）常用软件
 
 ## Alfred+Dash
 
-    TODO
+    # Alfred3 破解版
+    http://www.sdifenzhou.com/alfred3.html
+
+    # Dash
+    http://scriptfans.iteye.com/blog/1543219
+
+    # Dash 集成 Alfred
+    Dash -> Preference -> Integration -> Alfred Import
 
 ## Genymotion+VitualBox
 
