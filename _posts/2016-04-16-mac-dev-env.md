@@ -29,6 +29,8 @@ title: Mac 搭建开发环境（二）常用软件
     - Less
     - Vue Syntax Highlight
     - DocBlockr
+    - Emmet
+    - SideBar Enhancement
 
     # 在命令行使用 Sublime
     ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl

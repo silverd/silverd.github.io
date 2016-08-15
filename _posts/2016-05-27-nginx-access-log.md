@@ -25,7 +25,8 @@ title: Nginx 访问日志记录 POST/COOKIE/HEADER 等数据
 
     log_format  big_api  '$remote_addr - $remote_user [$time_local] "$request" '
         '$status $body_bytes_sent "$request_body" "$http_referer" '
-        '"$http_user_agent" $http_x_forwarded_for "appid=$http_appid,appver=$http_appver,vuser=$http_vuser"';
+        '"$http_user_agent" $http_x_forwarded_for "appid=$http_appid,appver=$http_appver,vuser=$http_vuser" '
+        '"phpsessid=$cookie_phpsessid,vuser_cookie=$cookie___vuser" ';
 
 修改 `/usr/local/nginx/conf/vhost/hicrew.conf`，底部对应的日志格式也改为 `big_api`：
 

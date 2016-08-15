@@ -27,7 +27,7 @@ Demo: <http://m.staylife.cn>
 
 几个可以特别指出的点：
 
-- 神奇的计算属性 computed
+- 计算属性的奥秘 computed <http://vuejs.org.cn/guide/reactivity.html#计算属性的奥秘>
 - 组件 keep-alive 的使用
 - 组件 attach/ready 的执行时机
 - AJAX POST CORS 跨域（withCredentials）
@@ -35,7 +35,36 @@ Demo: <http://m.staylife.cn>
 - 过渡动画 transition 的使用
 - webpack 的加载路径（参见 webpack.base.conf 中的 resolve）
 - 让文本框聚焦需要使用 v-el 属性
-- vm.$nextTick 的使用
+- vm.$nextTick 的使用 <http://vuejs.org.cn/guide/reactivity.html#异步更新队列>
 - 微信 iOS 修改网页标题的黑科技
 - 微信 wx.config 代码位置
 - 微信安卓版不能正确执行字符串的 includes/startWith 等 ES6 的新方法
+
+## 观[《alkingCoder@Vue+Webpack直播内容分享》](https://www.talkingcoder.com/article/live1)的后续补充：
+
+#### Vue
+
+- Vue.config.debug（在调试模式中，打印所有警告的栈追踪，所有的锚节点以注释节点显示在 DOM 中）
+- 异步组件 component resolve <http://vuejs.org.cn/guide/components.html#异步组件>
+- 双向绑定的原理 <http://vuejs.org.cn/guide/reactivity.html#如何追踪变化>
+- vm.$emit（父组件向指定的一个子组件触发事件）<http://vuejs.org.cn/api/#vm-emit>
+- this.$refs（在父组件上注册一个子组件的索引，便于直接访问）
+- this.$els（相当于 document.getElementById，获取页面上指定的DOM元素，例如修改 innerHTML 或光标自动聚焦等场景）
+- slot 插槽的作用
+- 循环里删除指定一行的小技巧： this.itemList.$remove(item)
+- 路由 hashbang 和 HTML5 history 模式的各自使用场景区别和优劣势
+- 组件里引入一个 CSS 的几种写法以及区别：
+    - <style> @import 'a.css' </style>
+    - <script> import 'a.css' </script>
+    - <style src="a.css"></style>
+- css scoped 的表现
+- 组件里 ready 和 attached 的区别（组件的生命周期 beforeDestroy）
+- 自己开发的组件，如何发布到 npmjs？
+
+#### Webpack
+
+- Webpack 和 gulp/grunt 的区别（gulp 只做合并压缩的事，webpack 除了做 gulp 的事外，还会做代码抽离、模块化、依赖管理）
+- package.json 中 dependencies 和 devDependencies 的区别
+- config.devtool = '#source-map' 的作用和优化
+- 优化 webpack 打包后的文件大小
+- 热刷新 hot-reload 的原理和注意点（只有子组件可以热刷，css文件无法热刷）
