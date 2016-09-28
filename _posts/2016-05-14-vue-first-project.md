@@ -64,8 +64,9 @@ package.json 中 dependencies 和 devDependencies 区别
     npm install XXX --dev
 
 `-save` 和 `-save-dev` 可以省掉你手动修改 package.json 文件的步骤。
- - npm install XXX -save 自动把模块和版本号添加到dependencies部分
- - npm install XXX -save-dev 自动把模块和版本号添加到devdependencies部分
+
+- npm install XXX -save 自动把模块和版本号添加到dependencies部分
+- npm install XXX -save-dev 自动把模块和版本号添加到devdependencies部分
 
 ## 观[《TalkingCoder@Vue+Webpack直播内容分享》](https://www.talkingcoder.com/article/live1)的后续补充：
 
