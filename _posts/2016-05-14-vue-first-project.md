@@ -40,7 +40,34 @@ Demo: <http://m.staylife.cn>
 - 微信 wx.config 代码位置
 - 微信安卓版不能正确执行字符串的 includes/startWith 等 ES6 的新方法
 
-## 观[《alkingCoder@Vue+Webpack直播内容分享》](https://www.talkingcoder.com/article/live1)的后续补充：
+## NPM 相关
+
+package.json 中 dependencies 和 devDependencies 区别
+
+- dependencies 正常运行该包时所需要的依赖项
+- devDependencies 开发的时候需要的依赖项，比如一些单元测试的包
+
+默认会安装两种依赖，如果你只是单纯的使用这个包而不需要进行一些改动测试之类的，可以使用
+
+    npm install
+
+只安装dependencies而不安装devDependencies。
+
+    npm install --production
+
+如果你是通过以下命令进行安装
+
+    npm install XXX
+
+那么只会安装 dependencies，如果想要安装 devDependencies，需要输入
+
+    npm install XXX --dev
+
+`-save` 和 `-save-dev` 可以省掉你手动修改 package.json 文件的步骤。
+ - npm install XXX -save 自动把模块和版本号添加到dependencies部分
+ - npm install XXX -save-dev 自动把模块和版本号添加到devdependencies部分
+
+## 观[《TalkingCoder@Vue+Webpack直播内容分享》](https://www.talkingcoder.com/article/live1)的后续补充：
 
 #### Vue
 
@@ -54,9 +81,9 @@ Demo: <http://m.staylife.cn>
 - 循环里删除指定一行的小技巧： this.itemList.$remove(item)
 - 路由 hashbang 和 HTML5 history 模式的各自使用场景区别和优劣势
 - 组件里引入一个 CSS 的几种写法以及区别：
-    - <style> @import 'a.css' </style>
-    - <script> import 'a.css' </script>
-    - <style src="a.css"></style>
+    - `<style> @import 'a.css' </style>`
+    - `<script> import 'a.css' </script>`
+    - `<style src="a.css"></style>`
 - css scoped 的表现
 - 组件里 ready 和 attached 的区别（组件的生命周期 beforeDestroy）
 - 自己开发的组件，如何发布到 npmjs？
