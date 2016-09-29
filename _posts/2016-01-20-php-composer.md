@@ -10,7 +10,7 @@ composer update foo/bar
 ### 手动改了 composer.json，只想刷新下 composer.lock
 composer update nothing 或者 composer update --lock
 
-### 优化自动加载，生成文件路径地图
+### 优化自动加载，生成类名&文件路径的映射关系
 composer dump-autoload --optimize
 
 ### 软件包的版本限制
