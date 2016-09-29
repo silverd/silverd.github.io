@@ -439,6 +439,7 @@ code {
 	border-radius:4px;
 	border-bottom:0;
 	word-break:initial;
+	white-space: pre-wrap;
 }
 /*
 pre code {
