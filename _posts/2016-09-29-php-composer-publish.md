@@ -76,11 +76,14 @@ Note: 也可以不设置钩子，每次发布后手动推送下：
     composer config -g repo.packagist composer https://packagist.org
 
 仍然不行。
+
 原来是我们还没有在 GitHub 正式 release 一个版本。此时只能拉 dev-master 主分支开发版本，重新执行：
 
     composer require silverd/silverq:dev-master
 
 那么如何在 GitHub 上发布正式版本？
+
 进入 `https://github.com/silverd/silverq/releases`，或点击仓库导航里的 Release Tab，然后按提示操作。
+
 有了正式的 release 版本后，再执行 `composer require silverd/silverq` 就可正常拉取包内容了。
 
