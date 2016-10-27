@@ -8,7 +8,7 @@ title: Redis Server 连接端口-随手记
 
 其实是防火墙的原因，测试服的话，可以直接关闭：
 
-    service iptables stop
+    /etc/init.d/iptables stop 或 service iptables stop
 
 输入 `/usr/local/redis/bin/redis-cli` 即可连上。
 
