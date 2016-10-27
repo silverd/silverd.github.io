@@ -102,7 +102,7 @@ title: Mac 搭建开发环境（二）常用软件
 
     brew install git
     git config --global branch.autosetuprebase always
-    git config --global core.autocrlf false
+    git config --global core.autocrlf input
     git config --global core.safecrlf true
     git config --global credential.helper store
 
