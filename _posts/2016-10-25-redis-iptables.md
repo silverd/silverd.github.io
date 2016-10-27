@@ -20,10 +20,10 @@ title: Redis Server 连接端口-随手记
     /etc/init.d/iptables status
 
     # 记得改完要保存，否则重启了就无效
-    /etc/rc.d/init.d/iptables save
+    /etc/init.d/iptables save
 
     # 重启防火墙策略
-    /etc/rc.d/init.d/iptables restart
+    /etc/init.d/iptables restart
 
 如果执行 redis-cli 时看到以下错误：
 
