@@ -139,7 +139,7 @@ title: Mac 搭建开发环境（二）常用软件
 
     # 破解方法1. 下载破解文件 securecrt_mac_crack.pl
     地址1：http://yun.baidu.com/share/link?shareid=297986172&uk=18145526
-    地址2：http://silverd.cn/attach/securecrt_mac_crack.pl
+    地址2：https://raw.githubusercontent.com/silverd/silverd.github.io/master/res/attach/securecrt_mac_crack.pl
 
     # 破解方法2. 在终端执行命令，会返回一组序列号信息，然后打开 SecureCRT 手动依次输入这些信息就可
     sudo perl securecrt_mac_crack.pl /Applications/SecureCRT.app/Contents/MacOS/SecureCRT
