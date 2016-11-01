@@ -34,7 +34,7 @@ Mac 下的计划任务和服务是通过 plist 来管理，类似于 CentOS 的 
     </dict>
     </plist>
 
-换成 JSON 格式便于理解：
+我翻译成 JSON 格式会更加直观些：
 
     {
       Label: 'com.TASK_NAME.launchctl.plist',
@@ -48,8 +48,6 @@ Mac 下的计划任务和服务是通过 plist 来管理，类似于 CentOS 的 
       StandardOutPath: '/var/log/AutoMakeLog.log',
       StandardErrorPath: '/var/log/AutoMakeLog.err',
     }
-
-### 参数说明
 
 Label 就是这个任务的名字，这里一般取 plist 的文件名，这个名字不能和其它的 plist 重复
 
@@ -77,6 +75,7 @@ Launchd 脚本存储在以下位置：
     /System/Library/LaunchDaemons       -- For OS X native processes only
 
 LaunchDaemons 的拥有者必须是 root:wheel，权限是 644（rw-r-r）
+
 LaunchAgents 除了 ~/Library/LaunchAgents 的拥有者是登录用户 （silverd）本身外，其余目录下的也应该是 root:wheel
 
 不建议把脚本放到 /System/Library/LaunchDaemons/ 和 /System/Library/LaunchAgents/ 中，因为每次系统更新都会清空该目录。
@@ -84,12 +83,13 @@ LaunchAgents 除了 ~/Library/LaunchAgents 的拥有者是登录用户 （silver
 ### LaunchAgents 和 LaunchDaemon 的区别
 
 LaunchAgents: 是用户登陆后启动的服务
+
 LaunchDaemon: 是用户未登陆前就启动的服务
 
 ### 参考文章
 
-- https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/launchd.plist.5.html
-- https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/launchctl.1.html#//apple_ref/doc/man/1/launchctl
-- https://my.oschina.net/jackin/blog/263024
+- <https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/launchd.plist.5.html>
+- <https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/launchctl.1.html#//apple_ref/doc/man/1/launchctl>
+- <https://my.oschina.net/jackin/blog/263024>
 
 
