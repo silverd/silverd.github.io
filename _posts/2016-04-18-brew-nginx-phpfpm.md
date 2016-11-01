@@ -26,7 +26,7 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
 
     fastcgi_split_path_info ^(.+?\.php)(/.*)$;
     set $path_info $fastcgi_path_info;
-    fastcgi_param PATH_INFO       $path_info;
+    fastcgi_param PATH_INFO $path_info;
     try_files $fastcgi_script_name =404;
 
 新建一个虚拟主机（完整版）
@@ -35,8 +35,8 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
 
     server {
 
-        listen       80;
-        server_name  local.wp.staylife.cn local.api.staylife.cn;
+        listen 80;
+        server_name local.wp.staylife.cn local.api.staylife.cn;
         root /Users/silverd/home/wwwroot/staylife_server/app/web;
 
         index index.html index.htm index.php;
@@ -49,8 +49,7 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
             include pathinfo.conf;
         }
 
-        location /
-        {
+        location / {
             if (!-e $request_filename) {
                 rewrite ^/(.*)$ /index.php/$1 last;
             }
@@ -70,14 +69,13 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
         include pathinfo.conf;
     }
 
-    location /
-    {
+    location / {
         if (!-e $request_filename) {
             rewrite ^/(.*)$ /index.php/$1 last;
         }
     }
 
-然后虚拟主机 vhost 都 include 它，于是 staylife.conf 就变成了：
+然后虚拟主机 vhost 都 include 它，于是 staylife.conf 最终变成了：
 
     server {
         listen 80;
