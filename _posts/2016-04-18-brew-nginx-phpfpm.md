@@ -22,6 +22,13 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
     ln -s /usr/local/etc/nginx/ ~/nginx-conf
     ln -s /usr/local/etc/nginx/servers ~/nginx-conf/vhost
 
+新建 vi ~/nginx-conf/pathinfo.conf
+
+    fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+    set $path_info $fastcgi_path_info;
+    fastcgi_param PATH_INFO       $path_info;
+    try_files $fastcgi_script_name =404;
+
 新建一个虚拟主机（完整版）
 
     vi ~/nginx-conf/vhost/staylife.conf
@@ -30,34 +37,44 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
 
         listen       80;
         server_name  local.wp.staylife.cn local.api.staylife.cn;
-
         root /Users/silverd/home/wwwroot/staylife_server/app/web;
 
-        location / {
-            index index.php;
-            autoindex on;
-        }
-
-        location ~ \.php$ {
-            fastcgi_pass   127.0.0.1:9000;
-            fastcgi_index  index.php;
-            fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-            include        fastcgi_params;
-        }
-    }
-
-但我的做法是抽出了 vi ~/nginx-conf/php.conf
-
-    location / {
-        index index.php;
+        index index.html index.htm index.php;
         autoindex on;
+        
+        location ~ [^/]\.php(/|$) {
+            fastcgi_pass  127.0.0.1:9000;
+            fastcgi_index index.php;
+            include fastcgi.conf;
+            include pathinfo.conf;
+        }
+
+        location /
+        {
+            if (!-e $request_filename) {
+                rewrite ^/(.*)$ /index.php/$1 last;
+            }
+        }
+
     }
 
-    location ~ \.php$ {
-        fastcgi_pass   127.0.0.1:9000;
-        fastcgi_index  index.php;
-        fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-        include        fastcgi_params;
+但我的做法是抽出了 vi ~/nginx-conf/php-yaf.conf
+
+    index index.html index.htm index.php;
+    autoindex on;
+    
+    location ~ [^/]\.php(/|$) {
+        fastcgi_pass  127.0.0.1:9000;
+        fastcgi_index index.php;
+        include fastcgi.conf;
+        include pathinfo.conf;
+    }
+
+    location /
+    {
+        if (!-e $request_filename) {
+            rewrite ^/(.*)$ /index.php/$1 last;
+        }
     }
 
 然后虚拟主机 vhost 都 include 它，于是 staylife.conf 就变成了：
@@ -66,7 +83,7 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
         listen 80;
         server_name local.wp.staylife.cn local.api.staylife.cn;
         root /Users/silverd/home/wwwroot/staylife/app/web;
-        include /usr/local/etc/nginx/php.conf;
+        include php-yaf.conf;
     }
 
 ## Nginx 进程管理
