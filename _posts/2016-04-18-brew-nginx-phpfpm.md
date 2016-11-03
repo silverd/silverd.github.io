@@ -120,18 +120,32 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
     /usr/local/etc/php/7.0/php-fpm.conf
 
     # php-fpm 进程的启动、停止
-    # php70-fpm 就是一个 sh 脚本，等价于 CentOS 的 /etc/init.d/php-fpm
+    # php70-fpm 就是一个 sh 脚本，等同于 CentOS 的 /etc/init.d/php-fpm
     /usr/local/sbin/php70-fpm start|stop|force-quit|restart|reload|status|configtest
 
-    # 启动 php-fpm
+    # 其他方法：启动 php-fpm
     sudo /usr/local/sbin/php-fpm --daemonize -c /usr/local/etc/php/7.0/php.ini -y /usr/local/etc/php/7.0/php-fpm.conf
 
-    # 关闭 php-fpm
+    # 其他方法：关闭 php-fpm
     sudo kill -INT `cat /usr/local/var/run/php-fpm.pid`
 
-    # 重启 php-fpm
+    # 其他方法：重启 php-fpm
     sudo kill -USR2 `cat /usr/local/var/run/php-fpm.pid`
 
     # 设置 php-fpm 开机启动
     ln -sfv /usr/local/opt/php70/*.plist ~/Library/LaunchAgents
     launchctl load ~/Library/LaunchAgents/homebrew.mxcl.php70.plist
+
+## FAQ
+
+如何让 http://localhost 支持 PHP，修改 nginx.conf，并打开 server {} 下被注释的 location ~.php$ 即可。
+
+如果访问 http://localhost/index.php 出现 File not found，那么再修改 nginx.conf
+如果访问 http://localhost/index.php 出现 File not found，那么再修改 nginx.conf
+
+    查找：fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+    替换为：fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+
+## 参考文章
+
+- <http://www.cnblogs.com/cheemon/p/5638394.html>
