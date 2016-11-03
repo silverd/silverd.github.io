@@ -119,8 +119,13 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
     # 配置文件
     /usr/local/etc/php/7.0/php-fpm.conf
 
+    # 如果想要 php-fpm 开机自启动，则必须以 root:wheel 权限运行
+    sudo chown root:wheel /usr/local/sbin/php-fpm
+    sudo chmod u+s /usr/local/sbin/php-fpm
+
     # php-fpm 进程的启动、停止
-    # php70-fpm 就是一个 sh 脚本，等同于 CentOS 的 /etc/init.d/php-fpm
+    # 注意 php-fpm 通过 brew 安装后会自带 `php70-fpm` 脚本
+    # 实际上 `php70-fpm` 是一个 sh 脚本，等同于 CentOS 的 /etc/init.d/php-fpm
     /usr/local/sbin/php70-fpm start|stop|force-quit|restart|reload|status|configtest
 
     # 其他方法：启动 php-fpm
@@ -133,15 +138,17 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
     sudo kill -USR2 `cat /usr/local/var/run/php-fpm.pid`
 
     # 设置 php-fpm 开机启动
-    ln -sfv /usr/local/opt/php70/*.plist ~/Library/LaunchAgents
-    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.php70.plist
+    sudo ln -sfv /usr/local/opt/php70/*.plist /Library/LaunchDaemons
+    launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php70.plist
 
 ## FAQ
 
-如何让 http://localhost 支持 PHP，修改 nginx.conf，并打开 server {} 下被注释的 location ~.php$ 即可。
+如何让 http://localhost 支持 PHP？
 
-如果访问 http://localhost/index.php 出现 File not found，那么再修改 nginx.conf
-如果访问 http://localhost/index.php 出现 File not found，那么再修改 nginx.conf
+修改 nginx.conf，并打开 server {} 下被注释的 location ~.php$ 即可。
+
+如果访问 http://localhost/index.php 出现 File not found
+那么修改 nginx.conf
 
     查找：fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
     替换为：fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
