@@ -10,11 +10,20 @@ title: Mac 搭建开发环境（二）常用软件
 
 ## NodeJS/NPM
 
-    # https://nodejs.org/en/
-    https://nodejs.org/dist/v6.0.0/node-v6.0.0.pkg
+    前往 `https://nodejs.org` 下载最新LTS稳定版 
 
-    # 使用淘宝 CNPM 镜像（http://npm.taobao.org）
-    npm install -g cnpm --registry=https://registry.npm.taobao.org
+    # 安装 nrm 
+    # nrm 是一个 npm 源管理器，允许你快速地在如下 npm 源间切换
+    sudo npm install -g nrm
+
+    # 列出可选的源
+    nrm ls  
+
+    # 测试所有源的响应时间
+    nrm test
+
+    # 切换到指定源
+    nrm use taobao
 
 ## SublimeText3
 
