@@ -13,7 +13,8 @@ title: Mac 搭建开发环境（二）常用软件
 建议用 `nvm` 来管理和安装 node 版本，[查看使用说明](http://www.tuicool.com/articles/Vzquy2) | [nvm 和 n 的区别和原理](http://web.jobbole.com/84249/)
 
     # 安装 nvm
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
+    # 如想安装最新版本的 nvm 可以去 https://github.com/creationix/nvm
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
 
     # 安装最新稳定版 node
     nvm install stable
