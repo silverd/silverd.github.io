@@ -10,7 +10,7 @@ title: Mac 搭建开发环境（二）常用软件
 
 ## Node.js+Npm
 
-建议用 `nvm` 来管理和安装 node 版本，[查看使用说明](http://www.tuicool.com/articles/Vzquy2) | [nvm 和 n 的区别和原理](http://web.jobbole.com/84249/)
+建议用 `nvm` 来管理和安装 node 版本，[查看使用说明](http://www.tuicool.com/articles/Vzquy2) 、[nvm 和 n 的区别和原理](http://web.jobbole.com/84249/)
 
     # 安装 nvm
     # 如想安装最新版本的 nvm 可以去 https://github.com/creationix/nvm
