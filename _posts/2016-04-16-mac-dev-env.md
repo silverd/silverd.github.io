@@ -8,12 +8,25 @@ title: Mac 搭建开发环境（二）常用软件
 
     defaults write com.apple.finder _FXShowPosixPathInTitle -bool TRUE;killall Finder
 
-## NodeJS/NPM
+## Node.js+Npm
 
-    前往 `https://nodejs.org` 下载最新LTS稳定版 
+建议用 `nvm` 来管理和安装 node 版本，[查看使用说明](http://www.tuicool.com/articles/Vzquy2) | [nvm 和 n 的区别和原理](http://web.jobbole.com/84249/)
+
+    # 安装 nvm
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
+
+    # 安装最新稳定版 node
+    nvm install stable
+
+    # 安装指定版本 node
+    nvm install 6.9.1
+
+    # 切换到指定 node 版本
+    nvm use 7
+
+另外可以用 `nrm` 来切换 npm 源，[查看使用说明](http://www.tuicool.com/articles/nYjqeu)
 
     # 安装 nrm 
-    # nrm 是一个 npm 源管理器，允许你快速地在如下 npm 源间切换
     sudo npm install -g nrm
 
     # 列出可选的源
@@ -24,6 +37,13 @@ title: Mac 搭建开发环境（二）常用软件
 
     # 切换到指定源
     nrm use taobao
+
+提示：如果某个项目需要单独指定 node 版本，可以在项目根目录下新建一个 `.nvmrc` 文件来特殊标明：
+
+    cd staylife_frontend/mobile
+    echo 4 > .nvmrc
+    nvm use
+    node -v
 
 ## SublimeText3
 
