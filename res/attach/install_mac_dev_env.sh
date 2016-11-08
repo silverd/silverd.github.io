@@ -83,10 +83,10 @@ memcached.sess_lock_retries = 0;' >> /usr/local/etc/php/7.0/conf.d/ext-memcached
 #httpd.conf
 sed -i '' \
 -e 's/Require all denied/Require all granted/g' \
--e 's|#LoadModule rewrite_module libexec/apache2/mod_rewrite.so|LoadModule rewrite_module libexec/apache2/mod_rewrite.so|g' \
--e 's|#Include /usr/local/etc/apache2/2.4/extra/httpd-vhosts.conf|Include /usr/local/etc/apache2/2.4/extra/httpd-vhosts.conf|g' \
+-e 's/#LoadModule\(.*\)mod_rewrite.so/LoadModule\1mod_rewrite.so/g' \
+-e 's/#Include\(.*\)httpd-vhosts.conf/Include\1httpd-vhosts.conf/g' \
 -e 's/Listen 8080/Listen 80/g' \
--e '/^ServerRoot/a ServerName localhost/g' \
+-e 's/#ServerName www.example.com:8080/ServerName localhost/g' \
 /usr/local/etc/apache2/2.4/httpd.conf
 
 echo '<IfModule php7_module>
