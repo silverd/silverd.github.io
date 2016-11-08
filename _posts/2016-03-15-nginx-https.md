@@ -101,7 +101,6 @@ Apache 配置为
 
 答：EV SSL，是 Extended Validation 的简称，更注重于对企业网站的安全保护以及严格的认证。最明显的区别就是，通常 EV SSL 显示都是绿色的条
 
-=-=====-=====-=====-====
 参考文章：
 
 - <https://www.centos.bz/2011/12/nginx-ssl-https-support/>
