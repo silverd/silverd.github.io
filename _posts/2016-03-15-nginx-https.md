@@ -61,13 +61,16 @@ Common Name 和 An optional company name 是证书的生效域名。
 
     server
     {
-        server_name api.hicrew.cn;
         listen 443;
+        server_name api.hicrew.cn;
+
         ssl on;
         ssl_certificate /usr/local/nginx/ssl/hicrew.crt;
         ssl_certificate_key /usr/local/nginx/ssl/hicrew_nopwd.key;
+        ssl_session_timeout 5m;
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-        ssl_ciphers ALL:!DH:!EXPORT:!RC4:+HIGH:+MEDIUM:-LOW:!aNULL:!eNULL;
+        ssl_ciphers AESGCM:ALL:!DH:!EXPORT:!RC4:+HIGH:!MEDIUM:!LOW:!aNULL:!eNULL;
+        ssl_prefer_server_ciphers on;
     }
 
 Apache 配置为
@@ -105,4 +108,4 @@ Apache 配置为
 
 - <https://www.centos.bz/2011/12/nginx-ssl-https-support/>
 - <http://blog.weiliang.org/linux/632.html>
-- (Nginx 配置 SSL 证书 + 搭建 HTTPS 网站教程)[http://www.open-open.com/lib/view/open1433390156947.html]
+- [Nginx 配置 SSL 证书 + 搭建 HTTPS 网站教程](http://www.open-open.com/lib/view/open1433390156947.html)
