@@ -32,3 +32,27 @@ title: Redis Server 连接端口-随手记
 那一定是 redis server 忘记启动了 =_=!
 
     /etc/init.d/redis start
+
+Memcached Server 一样的道理，端口变成 11211，可以用 `telnet 绑定IP 11211` 来测试通不通。
+
+附上：在 CentOS 自建 Redis/Memcached Server 的一些注意事项：
+
+#### Redis
+
+    # 修改绑定的IP（默认127.0.0.1）为内网IP，如：10.117.38.193
+    vi /usr/local/redis/etc/redis.conf
+
+#### Memcached
+
+    # 修改绑定的IP（默认127.0.0.1）为内网IP，如：10.117.38.193
+    # 以及调整缓存大小（默认64M）
+    vi /etc/init.d/memcached
+
+#### 设置开机启动
+
+    vi /etc/rc.local
+
+    # 加入以下两行
+    /etc/init.d/memcached start
+    /etc/init.d/redis start
+
