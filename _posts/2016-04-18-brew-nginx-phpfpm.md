@@ -112,7 +112,8 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
 
     # 设置 Nginx 开机启动
     sudo ln -sfv /usr/local/opt/nginx/*.plist /Library/LaunchDaemons
-    launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist
+    sudo chown root:wheel /Library/LaunchDaemons/homebrew.mxcl.nginx.plist
+    sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist
 
 ## PHP-FPM 进程管理
 
@@ -139,7 +140,8 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
 
     # 设置 php-fpm 开机启动
     sudo ln -sfv /usr/local/opt/php70/*.plist /Library/LaunchDaemons
-    launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php70.plist
+    sudo chown root:wheel /Library/LaunchDaemons/homebrew.mxcl.php70.plist
+    sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php70.plist
 
 ## FAQ
 
