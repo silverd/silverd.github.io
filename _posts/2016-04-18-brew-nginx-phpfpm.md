@@ -6,7 +6,7 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
 
 ## 安装 Nginx+PHP-FPM
 
-    brew install nginx
+    brew install nginx --with-http2
     brew install homebrew/php/php70 --with-fpm --without-apache
 
 ## Nginx 配置
