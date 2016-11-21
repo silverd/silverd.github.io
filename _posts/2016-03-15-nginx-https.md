@@ -57,7 +57,7 @@ Common Name 和 An optional company name 是证书的生效域名。
 
     openssl pkcs12 -export -inkey hicrew.key -in hicrew.crt -out hicrew.pfx
 
-修改Nginx配置文件，让其包含新标记的证书和私钥：
+修改 Nginx 配置文件，让其包含新标记的证书和私钥：
 
     server
     {
@@ -78,7 +78,11 @@ Apache 配置为
     SSLProtocol  all -SSLv2 -SSLv3
     SSLCipherSuite ALL:!DH:!EXPORT:!RC4:+HIGH:+MEDIUM:!LOW:!aNULL:!eNULL
 
-另外还可以加入如下代码实现80端口重定向到443
+全部 CipherSuite 可以在 IANA 的 [TLS Cipher Suite Registry](https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-4) 页面查看。
+
+协商算法配置务必参考权威 [Mozilla 的推荐配置](https://wiki.mozilla.org/Security/Server_Side_TLS#Recommended_configurations) 或者 [CloudFlare 使用的配置](https://github.com/cloudflare/sslconfig/blob/master/conf)
+
+另外还可以加入如下代码实现 80 端口重定向到 443
 
     server
     {
@@ -108,4 +112,5 @@ Apache 配置为
 
 - <https://www.centos.bz/2011/12/nginx-ssl-https-support/>
 - <http://blog.weiliang.org/linux/632.html>
+- [关于启用 HTTPS 的一些经验分享](https://imququ.com/post/sth-about-switch-to-https-2.html)
 - [Nginx 配置 SSL 证书 + 搭建 HTTPS 网站教程](http://www.open-open.com/lib/view/open1433390156947.html)
