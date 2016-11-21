@@ -441,6 +441,10 @@ code {
 	word-break:initial;
 	white-space: pre-wrap;
 }
+code .highlighter-rouge {
+	color: #c7254e;
+	background-color: #f9f2f4;
+}
 /*
 pre code {
 	font-family:Monaco,Consolas,Menlo,"Andale Mono","Courier New","Ubuntu Mono",Arial,"Microsoft YaHei","Hiragino Sans GB",sans-serif;
