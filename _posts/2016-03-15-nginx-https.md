@@ -9,7 +9,9 @@ title: Nginx 配置 SSL 证书支持 Https
     yum install openssl
     yum install openssl-devel
 
-确保 Nginx 只是 SSL 模块，编译时带 --with-http_ssl_module 参数，否则会报错
+注意：如果 Nginx 以后要开启 HTTP2，那么 openssl 库必须是 1.0.2 以上，CentOS 通过 yum 安装的版本太旧，只有 1.0.1e。我们需要去官网[下载最新版](https://www.openssl.org/source/openssl-1.0.2j.tar.gz)，并且在重新编译升级 nginx 时指定 --with-openssl='path/to/openssl' 参数。如果不带这个参数，nginx 只会去读系统自带的 openssl 库。
+
+确保 Nginx 支持 SSL 模块，编译时带 --with-http_ssl_module 参数（可通过 `nginx -V 查看 configure 时的参数`），否则会报错
 
     [emerg] 10464#0: unknown directive "ssl" in /usr/local/nginx/conf/nginx.conf:74”
 
@@ -71,18 +73,17 @@ Common Name 和 An optional company name 是证书的生效域名。
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
         ssl_ciphers AESGCM:ALL:!DH:!EXPORT:!RC4:+HIGH:!MEDIUM:!LOW:!aNULL:!eNULL;
         ssl_prefer_server_ciphers on;
+
+        # HSTS (HTTP Strict Transport Security, ngx_http_headers_module is required)
+        # 让浏览器访问 HTTP 时强制 307 内部跳转到 HTTPS
+        add_header Strict-Transport-Security max-age=15768000;
     }
-
-Apache 配置为
-
-    SSLProtocol  all -SSLv2 -SSLv3
-    SSLCipherSuite ALL:!DH:!EXPORT:!RC4:+HIGH:+MEDIUM:!LOW:!aNULL:!eNULL
 
 全部 CipherSuite 可以在 IANA 的 [TLS Cipher Suite Registry](https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-4) 页面查看。
 
 协商算法配置务必参考权威 [Mozilla 的推荐配置](https://wiki.mozilla.org/Security/Server_Side_TLS#Recommended_configurations) 或者 [CloudFlare 使用的配置](https://github.com/cloudflare/sslconfig/blob/master/conf)
 
-另外还可以加入如下代码实现 80 端口重定向到 443
+另外还可以实现访问 80 端口直接重定向到 443（其实 HSTS 307 Internal Redirect 已经可以实现这个效果）但为了双保险，再加一个 vhost 做 302 重定向：
 
     server
     {
@@ -94,6 +95,10 @@ Apache 配置为
 重启 nginx 就可以通过以下方式访问了
 
     https://api.hicrew.cn
+
+Chrome 浏览器可以安装 [HTTP/2 and SPDY indicator](https://chrome.google.com/webstore/detail/http2-and-spdy-indicator/mpbpobfflnpcgagjijhmgnchggcjblin?hl=en&utm_source=nginx-1-9-5&utm_medium=blog) 插件看到『蓝色闪电』表示本站启用了 HTTP2。
+
+或者在线测试：https://tools.keycdn.com/http2-test
 
 ## FAQ
 
