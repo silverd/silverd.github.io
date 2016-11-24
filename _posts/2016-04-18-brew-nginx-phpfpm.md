@@ -143,6 +143,18 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
     sudo chown root:wheel /Library/LaunchDaemons/homebrew.mxcl.php70.plist
     sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php70.plist
 
+## 或者直接设置命令别名 vi ~/.zshrc，加入：
+
+    alias nginx.start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist"
+    alias nginx.stop="sudo launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist"
+    alias nginx.restart='nginx.stop && nginx.start'
+
+    alias php.start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php70.plist"
+    alias php.stop="sudo launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.php70.plist"
+    alias php.restart='php.stop && php.start'
+
+    source ~/.zshrc
+
 ## FAQ
 
 如何让 http://localhost 支持 PHP？
