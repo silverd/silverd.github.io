@@ -125,9 +125,9 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
     sudo chmod u+s /usr/local/sbin/php-fpm
 
     # php-fpm 进程的启动、停止
-    # 注意 php-fpm 通过 brew 安装后会自带 `php70-fpm` 脚本
-    # 实际上 `php70-fpm` 是一个 sh 脚本，等同于 CentOS 的 /etc/init.d/php-fpm
-    /usr/local/sbin/php70-fpm start|stop|force-quit|restart|reload|status|configtest
+    # 注意 php-fpm 通过 brew 安装后会自带 `php70-fpm`（/usr/local/sbin/php70-fpm）脚本
+    # 实际上 `php70-fpm` 是一个 sh 脚本，作用等同于 CentOS 的 /etc/init.d/php-fpm
+    sudo php70-fpm start|stop|force-quit|restart|reload|status|configtest
 
     # 其他方法：启动 php-fpm
     sudo /usr/local/sbin/php-fpm --daemonize -c /usr/local/etc/php/7.0/php.ini -y /usr/local/etc/php/7.0/php-fpm.conf
