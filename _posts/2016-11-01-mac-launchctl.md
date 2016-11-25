@@ -69,7 +69,7 @@ Label 就是这个任务的名字，这里一般取 plist 的文件名，这个�
 
 重要的参数说明：
 
-| -w | Overrides the Disabled key and sets it to false or true for the load and unload subcommands respectively. When launchd is about to load a job it will check if it has the Disabled key set. Disabled jobs will not be loaded. But   the value of this key can be overridden. |
+| -w | Overrides the Disabled key and sets it to false or true for the load and unload subcommands respectively. |
 | -F | Force the loading or unloading of the plist. Ignore the `Disabled key` |
 
 Launchd 脚本存储在以下位置：
