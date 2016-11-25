@@ -51,13 +51,14 @@ Mac 下的计划任务和服务是通过 plist 来管理，类似于 CentOS 的 
 
 Label 就是这个任务的名字，这里一般取 plist 的文件名，这个名字不能和其它的 plist 重复
 
-    # 载入任务
-    launchctl load com.TASK_NAME.launchctl.plist
+    # 载入任务（Permanently enabling a job）
+    launchctl load -w com.TASK_NAME.launchctl.plist
 
-    # 去除任务
-    launchctl unload com.TASK_NAME.launchctl.plist
+    # 去除任务（Permanently disabling a job）
+    launchctl unload -w com.TASK_NAME.launchctl.plist
 
     # 立即执行，不管时间到了没有
+    # 注意：手动执行任务前必须先载入
     launchctl start com.TASK_NAME.launchctl.plist
 
     # 停止执行任务
@@ -65,6 +66,11 @@ Label 就是这个任务的名字，这里一般取 plist 的文件名，这个�
 
     # 列出当前所有任务
     launchctl list
+
+重要的参数说明：
+
+| -w | Overrides the Disabled key and sets it to false or true for the load and unload subcommands respectively. When launchd is about to load a job it will check if it has the Disabled key set. Disabled jobs will not be loaded. But   the value of this key can be overridden. |
+| -F | Force the loading or unloading of the plist. Ignore the `Disabled key` |
 
 Launchd 脚本存储在以下位置：
 
@@ -88,6 +94,7 @@ LaunchDaemon: 是用户未登陆前就启动的服务
 
 ### 参考文章
 
+- <http://launchd.info>
 - <https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/launchd.plist.5.html>
 - <https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/launchctl.1.html#//apple_ref/doc/man/1/launchctl>
 - <https://my.oschina.net/jackin/blog/263024>
