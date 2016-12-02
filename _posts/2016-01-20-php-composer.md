@@ -1,6 +1,6 @@
 ---
 layout: post
-category: ['LAMP']
+category: ['LAMP', '笔记']
 title: PHP Composer 使用笔记
 ---
 
