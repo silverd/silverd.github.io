@@ -1,6 +1,6 @@
 ---
 layout: post
-category: ['复习笔记', 'LAMP']
+category: ['复习', '笔记', 'LAMP']
 title: PHP-FPM 的进程数动态和静态
 ---
 

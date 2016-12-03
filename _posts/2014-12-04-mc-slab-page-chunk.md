@@ -1,6 +1,6 @@
 ---
 layout: post
-category: ['复习笔记', 'NoSQL']
+category: ['复习', '笔记', 'NoSQL']
 title: Memcache 内存分配策略
 ---
 

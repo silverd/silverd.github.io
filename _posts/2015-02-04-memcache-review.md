@@ -1,6 +1,6 @@
 ---
 layout: post
-category: ['NoSQL', '复习笔记']
+category: ['NoSQL', '复习', '笔记']
 title: Memcached 的一些小结
 ---
 

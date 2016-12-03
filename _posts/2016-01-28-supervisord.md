@@ -1,10 +1,10 @@
 ---
 layout: post
 category: ['LAMP', '架构']
-title: Supervisord (Python) 使用记录
+title: Supervisord 使用记录
 ---
 
-早知有这东西，我就不用自己用PHP实现了 =_=!
+Supervisord 是用 Python 实现，由孙大力同学介绍使用。早知有这东西，我也不用自己写 `daemon.php` 来守护队列程序了 =_=!
 
 ## 特点
 
@@ -47,6 +47,11 @@ title: Supervisord (Python) 使用记录
 - 关闭目标程序 supervisorctl stop Queue_Sms
 - 启动目标程序 supervisorctl start Queue_Sms
 - 关闭所有程序 supervisorctl shutdown
+- 重启所有程序 supervisorctl reload
+
+## 日志文件位置
+
+    /tmp/supervisord.log
 
 ## Web控制台
 
@@ -58,11 +63,14 @@ title: Supervisord (Python) 使用记录
     password=123
 
 打开浏览器，输入 127.0.0.1:9001，用户名user，密码123，就能看到控制台了：
+
 ![](/res/img/in_posts/supervisor.png)
 
 `每次修改完 supervisor.conf 后，都需要重新加载配置文件：supervisorctl reload`
 
-## 配置文件说明 <http://supervisord.org/configuration.html>
+## 配置文件说明 
+
+官方配置说明：<http://supervisord.org/configuration.html>
 
     [unix_http_server]
 
@@ -318,14 +326,10 @@ title: Supervisord (Python) 使用记录
 supervisor 不能监控 daemon (fork) 形式的背影进程，否则 supervisor> status 会提示：
 BACKOFF  Exited too quickly (process log may have details)
 
-例如要监控 redis进程，则必须修改redis.conf的daemonize=no
-猜想supervisor启动command是应该监控的是启动command对应的进程编号，一般守护进程的做法就是fork一个子进程，父进程马上退出，以致于supervisor无法得到子进程的ID
+例如要监控 redis 进程，则必须修改 redis.conf 的 daemonize=no
+猜想 supervisor 启动 command 是应该监控的是启动 command 对应的进程编号，一般守护进程的做法就是 fork 一个子进程，父进程马上退出，以致于 supervisor 无法得到子进程的的进程ID
 
-## 日志文件位置
-
-/tmp/supervisord.log
-
-## 参考文章：
+参考文章：
 
 - <http://itony.me/509.html>
 - <http://blog.chedushi.com/archives/10462>
