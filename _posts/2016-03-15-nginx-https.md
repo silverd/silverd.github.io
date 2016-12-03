@@ -9,7 +9,9 @@ title: Nginx 配置 SSL 证书支持 Https
     yum install openssl
     yum install openssl-devel
 
-注意：如果 Nginx 以后要开启 HTTP2，那么 openssl 库必须是 1.0.2 以上，CentOS 通过 yum 安装的版本太旧，只有 1.0.1e。我们需要去官网[下载最新版](https://www.openssl.org/source/openssl-1.0.2j.tar.gz)，并且在重新编译升级 nginx 时指定 --with-openssl='path/to/openssl' 参数。如果不带这个参数，nginx 只会去读系统自带的 openssl 库。
+注意：如果 Nginx 以后要开启 HTTP2，那么 OpenSSL 库必须是 1.0.2 以上，CentOS 通过 yum 安装的版本太旧，只有 1.0.1e。我们需要去官网[下载最新版](https://www.openssl.org/source/openssl-1.0.2j.tar.gz)，并且在重新编译升级 Nginx 时指定 OpenSSL 的源码目录（`--with-openssl='path/to/openssl'`）。如果不带这个参数，Nginx 只会去读系统自带的 OpenSSL 库。
+
+所以也可以用更彻底的方法：先升级系统全局 OpenSSL 版本，[点击查看](http://silverd.cn/2016/12/03/upgrade-openssl.html)，那么 Nginx 时就不用指定 OpenSSL 源码目录了。
 
 确保 Nginx 支持 SSL 模块，编译时带 --with-http_ssl_module 参数（可通过 `nginx -V 查看 configure 时的参数`），否则会报错
 
