@@ -18,7 +18,7 @@ title: 使用 Coding.net 的 WebHook 来自动更新、部署
     sudo -u www ssh-keygen
     cat /home/www/.ssh/id_rsa.pub
 
-2、把公钥文本粘贴到 Coding.net 对应项目的『部署公钥』里
+2、把公钥文本粘贴到 Coding.net 中指定项目的『设置-项目设置-部署公钥』里
 
 3、在『目标机器』找一个 Web 可访问到的目录，新建PHP文件：
 

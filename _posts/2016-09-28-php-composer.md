@@ -1,7 +1,7 @@
 ---
 layout: post
 category: ['LAMP', '笔记']
-title: PHP Composer 使用笔记
+title: PHP Composer 使用指南
 ---
 
 Composer 是 PHP 的一个依赖管理工具。类似 Node 的 npm/yarn。以下记录一些注意点，详细的文档这里说得比较清楚：<http://docs.phpcomposer.com/>
@@ -34,11 +34,9 @@ Composer 是 PHP 的一个依赖管理工具。类似 Node 的 npm/yarn。以下
 ### composor.lock 锁文件的作用
 
 在第一次安装依赖后，Composer 将把安装时精确的版本号列表写入 composer.lock 文件。
-
 别的同学 composer install 时将会检查锁文件是否存在，如果存在，它将下载指定的版本，而忽略 composer.json 文件中的定义。这样保证任何人都将下载与指定版本完全相同的依赖。
 
 如果不存在 composer.lock 文件，Composer 将读取 composer.json 并创建锁文件。
-
 所以 composer.lock 一定要和 composer.json 一起提交到项目的 Git 代码仓库中。
 
 ### 安装指定包并自动写入 composer.json
