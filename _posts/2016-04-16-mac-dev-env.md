@@ -8,6 +8,16 @@ title: Mac 搭建开发环境（二）常用软件
 
     defaults write com.apple.finder _FXShowPosixPathInTitle -bool TRUE;killall Finder
 
+## 关于 .DS_store 文件
+
+说明：`.DS_Store` 文件是 MacOS 保存文件夹的自定义属性的隐藏文件，如文件的图标位置或背景色，相当于 Windows 的 desktop.ini。
+
+    # 禁止 .DS_store 生成
+    defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE
+
+    # 开启 .DS_store 生成
+    defaults delete com.apple.desktopservices DSDontWriteNetworkStores
+
 ## Node.js+Npm
 
 建议用 `nvm` 来管理和安装 node 版本，[查看使用说明](http://www.tuicool.com/articles/Vzquy2) 、[nvm 和 n 的区别和原理](http://web.jobbole.com/84249/)
@@ -27,11 +37,11 @@ title: Mac 搭建开发环境（二）常用软件
 
 另外可以用 `nrm` 来切换 npm 源，[查看使用说明](http://www.tuicool.com/articles/nYjqeu)
 
-    # 安装 nrm 
+    # 安装 nrm
     sudo npm install -g nrm
 
     # 列出可选的源
-    nrm ls  
+    nrm ls
 
     # 测试所有源的响应时间
     nrm test
@@ -135,6 +145,7 @@ title: Mac 搭建开发环境（二）常用软件
     git config --global core.autocrlf input
     git config --global core.safecrlf true
     git config --global credential.helper store
+    git config --global core.excludesfile ~/.gitignore_global
 
     # 设置提交者
     git config --global user.name "silverd"
