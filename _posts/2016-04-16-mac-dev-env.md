@@ -22,6 +22,22 @@ title: Mac 搭建开发环境（二）常用软件
 
 建议用 `nvm` 来管理和安装 node 版本，[查看使用说明](http://www.tuicool.com/articles/Vzquy2) 、[nvm 和 n 的区别和原理](http://web.jobbole.com/84249/)
 
+如果之前曾经用官网 pkg 包安装过 node，则需要先删除：
+
+    # 查看已安装在全局模块，以便重装
+    npm ls -g --depth=0
+
+    # 删除 node
+    sudo rm /usr/local/bin/node
+
+    # 删除全局 node_modules 目录
+    sudo rm -rf /usr/local/lib/node_modules
+
+    # 删除全局 node 模块注册的软链
+    cd  /usr/local/bin && ls -l | grep "../lib/node_modules/" | awk '{print $9}'| xargs rm
+
+清理完毕后，开始通过 nvm 来安装 node：
+
     # 安装 nvm
     # 如想安装最新版本的 nvm 可以去 https://github.com/creationix/nvm
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
