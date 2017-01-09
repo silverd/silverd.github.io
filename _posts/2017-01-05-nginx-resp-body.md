@@ -83,7 +83,7 @@ Nginx 本身可以通过 `$request_body` 变量记录请求内容，但响应内
         end
     ';
 
-修改对应的虚拟主机配置文件 `/usr/local/nginx/conf/vhost/staylife.conf`：：
+修改对应的虚拟主机配置文件 `/usr/local/nginx/conf/vhost/staylife.conf`：
 
 在 PHP 这一段增加引入 `resp_body.conf` 文件，例如（加了最后一行）：
 
