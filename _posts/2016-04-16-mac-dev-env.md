@@ -85,20 +85,20 @@ title: Mac 搭建开发环境（二）常用软件
 - Less
 - Vue Syntax Highlight
 - DocBlockr
-- ColorsSublime | 代码高亮主题管理插件，安装成功后需要照着文档配置两个地方；
-- Material Theme | 非常棒的编辑器主题
-- Blade Snippets | Blade 模板自动补全
-- Laravel Blade Hightlighter | Blade 语法高亮支持
-- SyncedSideBar | 自动在左边文件夹树中定位当前文件
-- BracketHighlighter | 结尾处高亮 主页
-- EditorConfig | .editorconfig 编码格式化支持
-- Emmet | 快速编码 主页
-- SideBarEnhancements | 文件夹栏右键菜单增强
-- AdvancedNewFile | 快速创建新文件 主页
-- GitGutter | 标记代码中做的编辑 主页
-- Laravel 5 Artisan | Artisan 命令行调用 主页
-- Laravel 5 Snippets | 代码片段 主页
-- SublimeLinter + SublimeLinterPHP | 代码检测
+- ColorsSublime 代码高亮主题管理插件，安装成功后需要照着文档配置两个地方
+- Material Theme 非常棒的编辑器主题
+- Blade Snippets Blade 模板自动补全
+- Laravel Blade Hightlighter Blade 语法高亮支持
+- SyncedSideBar 自动在左边文件夹树中定位当前文件
+- BracketHighlighter 结尾处高亮
+- EditorConfig .editorconfig 编码格式化支持
+- Emmet 快速编码
+- SideBarEnhancements 文件夹栏右键菜单增强
+- AdvancedNewFile 快速创建新文件
+- GitGutter 标记代码中做的编辑
+- Laravel 5 Artisan Artisan 命令行调用
+- Laravel 5 Snippets 代码片段
+- SublimeLinter + SublimeLinterPHP 代码检测
 
 想在命令行使用 Sublime？
 
