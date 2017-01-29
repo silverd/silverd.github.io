@@ -1,7 +1,7 @@
 ---
 layout: post
 category: ['复习笔记']
-title: Laravel 文档复习笔记
+title: Laravel 文档学习笔记
 ---
 
 # 配置
