@@ -75,24 +75,32 @@ $this->app->resolving(HelpSpot\API::class, function ($api, $app) {
 });
 ```
 
-如果一个提供者中的所有代码，只是为了绑定或者说往容器里注入，那么可以把该提供者设置为懒绑定（延迟提供者绑定 Deferred Providers），例如：
+### 延迟提供者（Deferred Providers）
+
+如果一个提供者中的所有代码，只是为了往容器里注入服务，那么可以把该提供者设置为懒绑定，以提供性能，例如：
 
 ```php
-class RiakServiceProvider extends ServiceProvider
+class SomethingServiceProvider extends ServiceProvider
 {
     // 标记本提供者为延迟绑定
     protected $defer = true;
 
-    public function register()
-    {
-        $this->app->singleton(Connection::class, function ($app) {
-            return new Connection($app['config']['riak']);
-        });
-    }
-
+    // 关键之处：定义本提供者即将绑定哪些服务
+    // 我的理解，这里用成员变量来定义更加合适
     public function provides()
     {
-        return [Connection::class];
+        return [Hello::class, World::class];
+    }
+
+    public function register()
+    {
+        $this->app->singleton(Hello::class, function ($app) {
+            return new Hello($app['config']['hello']);
+        });
+
+        $this->app->singleton(World::class, function ($app) {
+            return new World($app['config']['world']);
+        });
     }
 }
 ```
@@ -951,7 +959,7 @@ logger()->error('You are not allowed here.');
 
 ### 通过 $listen 数组来注册事件和监听：
 
-修改 app/Provider/EventServiceProvider.php 中的 $listen 属性：
+修改 app/Provider/EventServiceProvider.php 中的 `$listen` 属性：
 
 ```php
 protected $listen = [
@@ -970,22 +978,67 @@ php artisan event:generate
 会根据上面的 $listen 自动生成收发双方两个文件：
 
 - app\Events\SomeEvent.php
-- app\Listeners\EventListener.php
+- app\Listeners\SomeEventListener.php
 
-监听者 EventListener 代码如下：
+事件类 `SomeEvent.php` 定义如下：
+
+引入 `trait SerializesModels` 的作用是，当事件类接收 Eloquent models 对象作为参数时，可以更优美地序列化。
+
+
+```php
+namespace App\Events;
+
+use Illuminate\Queue\SerializesModels;
+
+class SomeEvent
+{
+    use SerializesModels;
+
+    public $order;
+
+    /**
+     * Create a new event instance.
+     *
+     * @param  Order  $order
+     * @return void
+     */
+    public function __construct(Order $order)
+    {
+        $this->order = $order;
+    }
+}
+```
+
+监听者 `SomeEventListener.php` 代码如下：
 
 ```php
 namespace App\Listeners;
 
 use App\Events\SomeEvent;
-use Illuminate\Queue\InteractsWithQueue;
+
+class EventListener
+{
+    public function handle(SomeEvent $event)
+    {
+        // 在这里写处理逻辑
+    }
+}
+```
+
+如果想阻止冒泡（传播给其他监听者），那么在 handle() 里 `return false` 即可，其他该事件的监听者将不再处理该事件。
+
+同样，如果监听者可能要处理长时间的逻辑，那么可以实现 ShouldQueue 接口，则自动会进入异步队列执行。
+
+```php
+namespace App\Listeners;
+
+use App\Events\SomeEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class EventListener
 {
-    use InteractsWithQueue;
-
-    // 队列连接名和队列名（省略则是使用缺省队列）
+    // 队列连接名和队列名
+    // 这两个参数可省略，即使用缺省队列
     public $connection = 'sqs';
     public $queue = 'listeners';
 
@@ -996,11 +1049,7 @@ class EventListener
 }
 ```
 
-如果想阻止冒泡（传播给其他监听者），那么在 handle() 里返回 false 即可，其他该事件的监听者将不再处理该事件。
-
-同样，如果监听者可能要处理长时间的逻辑，那么可以实现 ShouldQueue 接口，则自动会进入异步队列执行。
-
-`trait InteractsWithQueue` 的作用是让我们可以手动操纵一个队列元素（queue job），例如进行 delete 或 release 等操作。
+引入 `trait InteractsWithQueue` 的作用是让我们可以手动操纵一个队列元素（queue job），例如进行 delete 或 release 等操作，例如：
 
 ```php
 class SendShipmentNotification implements ShouldQueue
@@ -1017,9 +1066,26 @@ class SendShipmentNotification implements ShouldQueue
 }
 ```
 
+### 触发、分发事件
+
+在控制器或其他文件中通过 `event(事件实例)` 来触发。
+
+```php
+namespace App\Http\Controllers;
+
+class OrderController extends Controller
+{
+    public function test($orderSn)
+    {
+        $order = Order::findOrFail($orderSn);
+        event(new App\Events\SomeEvent($order));
+    }
+}
+```
+
 ### 手动设置监听
 
-在 EventServiceProvider.php 的 boot() 方法体内增加：
+在 `EventServiceProvider.php` 的 boot() 方法体内增加：
 
 ```php
 public function boot()
@@ -1038,7 +1104,7 @@ public function boot()
 
 ### Event Subscribers 订阅者
 
-之前在 `EventServiceProvider::$listen` 中注册的监听者，一个监听者只能监听一个事件。现在引入新的写法 `EventServiceProvider::$subscribe`，订阅者也是监听者，但可以同时监听多个事件。
+之前在 `EventServiceProvider::$listen` 中注册的监听者，一个监听者只能监听一个事件。现在引入新的写法 `EventServiceProvider::$subscribe`，订阅者是能同时监听多个事件的监听者。
 
 注册订阅者：
 
@@ -1051,7 +1117,7 @@ class EventServiceProvider extends ServiceProvider
 }
 ```
 
-订阅者实现 `app\Listeners\UserEventSubscriber.php`：
+订阅者类 `app\Listeners\UserEventSubscriber.php`：
 
 ```php
 namespace App\Listeners;
@@ -1113,6 +1179,7 @@ $path = Storage::putFile('保存至目录', $request->file('avatar'));
 ```
 
 手动指定文件名：
+
 ```php
 $path = $request->file('avatar')->storeAs('保存至目录', '新文件名');
 // 或
@@ -1921,7 +1988,73 @@ return $user->makeHidden('字段名')->toArray();
 
 <https://laravel.com/docs/5.4/eloquent-serialization#appending-values-to-json>
 
+# Database Seeding
 
+生成填充器：`database/seeds/UsersTableSeeder.php`
+
+```bash
+php artisan make:seeder UsersTableSeeder
+```
+
+我们在里面的 `run()` 方法里造数据：
+
+```php
+class UsersTableSeeder extends Seeder
+{
+    public function run()
+    {
+        $setArrs = [];
+        for ($i = 0; $i < 100; $i++) {
+            $setArrs[] = [
+                'name' => str_random(10),
+                'email' => str_random(10).'@gmail.com',
+                'password' => bcrypt('secret'),
+            ];
+        }
+        DB::table('users')->insert($setArrs);
+    }
+}
+```
+
+然后执行指定填充器：
+
+```bash
+php artisan db:seed --class=UsersTableSeeder
+```
+
+Laravel 缺省自带一个填充器脚本：`database/seeds/DatabaseSeeder.php`
+
+调用时无需指定名称即表示运行这个脚本：
+
+```bash
+php artisan db:seed
+```
+一个填充器内部可以 call 其他填充器，例如官方推荐的用法，DatabaseSeeder 应该做一个总的调度者，里面只写 call 语句，例如：
+
+```php
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    public function run()
+    {
+        $this->call(UsersTableSeeder::class);
+        $this->call(Sth1TableSeeder::class);
+        $this->call(Sth2TableSeeder::class);
+    }
+}
+```
+
+另外，以下两条命令等价：
+
+```bash
+php artisan migrate:refresh --seed
+
+等价于
+
+php artisan migrate:refresh
+php artisan db:seed
+```
 
 # Package/Vendor
 
