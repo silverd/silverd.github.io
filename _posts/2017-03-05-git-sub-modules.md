@@ -45,21 +45,21 @@ title: Git SubModule
 
 ### 批量更新所有子模块（强烈推荐）
 
-    git submodule foreach git pull
+    git submodule foreach git pull origin master
 
 ### 如何克隆含子模块的仓库？
 
 方式1：
 
-    git clone git@github.com:diguage/parent.git
-    cd parent
+    git clone https://git.coding.net/grampus/hmb_2c_server.git
+    cd hmb_2c_server
     git submodule update --init --recursive
     cd system && git checkout master && cd ..
 
 方式2：
 
-    git clone --recursive git@github.com:diguage/parent.git
-    cd parent/system && git checkout master && cd ..
+    git clone --recursive https://git.coding.net/grampus/hmb_2c_server.git
+    cd hmb_2c_server/system && git checkout master && cd ..
 
 参数 `--recursive` 或 `--recurse-submodules` 的意思是：
 
