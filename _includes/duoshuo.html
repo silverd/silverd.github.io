@@ -1,5 +1,10 @@
-<style>#ds-reset .ds-avatar, #ds-reset .ds-avatar img{border-radius:50%;}</style>
-<script type="text/javascript">var duoshuoQuery = {short_name:"{{ site.blog.duoshuo }}"};(function(){var ds = document.createElement('script');ds.type = 'text/javascript';ds.async = true;ds.src = '/res/js/embed.js';ds.charset = 'UTF-8';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);})();</script>
-<div class="comments">
-  <div class="ds-thread" data-title="{{ page.title }}" data-thread-key="{{ page.id }}" data-url="{{ site.blog.url }}{{ page.url }}"></div>
-</div>
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: document.location.href,
+    sourceId: "",
+    productKey: "b71ee0d83d744492b07ec2e7635d03bb",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
