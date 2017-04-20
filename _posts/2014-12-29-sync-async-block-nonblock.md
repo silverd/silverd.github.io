@@ -1,4 +1,3 @@
-
 ---
 layout: post
 category: ['复习', '笔记', '架构']
@@ -40,5 +39,3 @@ title: 同步、异步、阻塞、非阻塞的理解和区别
 参考文章：
 
 - <http://www.cnblogs.com/skying555/p/5028167.html>
-
-
