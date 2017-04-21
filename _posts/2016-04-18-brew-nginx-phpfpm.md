@@ -157,7 +157,7 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
 
 ## FAQ
 
-如何让 http://localhost 支持 PHP？
+### 如何让 http://localhost 支持 PHP？
 
 修改 nginx.conf，并打开 server {} 下被注释的 location ~.php$ 即可。
 
@@ -166,6 +166,14 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
 
     查找：fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
     替换为：fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+
+### Nginx 无法启动
+
+使用 `nginx -t` 检测配置文件是否有误
+
+### 网页报 500 服务器内部错误
+
+修改 `/usr/local/etc/php.ini`，打开并记录错误日志 `error_log=/Users/silverd/home/wwwlogs/php_error.log`。
 
 ## 参考文章
 
