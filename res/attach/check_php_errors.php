@@ -36,6 +36,6 @@ if (! $diffContent) {
 
 $subject = basename($sourceFile) . '@' . SERVER_NAME . '有新内容产生';
 
-file_get_content('https://pushbear.ftqq.com/sub?sendkey=' . FT_SEND_KEY
-    . '&text=' . $subject
-    . '&desp=' . $diffContent);
+file_get_contents('https://pushbear.ftqq.com/sub?sendkey=' . FT_SEND_KEY
+    . '&text=' . rawurlencode($subject)
+    . '&desp=' . rawurlencode($diffContent));
