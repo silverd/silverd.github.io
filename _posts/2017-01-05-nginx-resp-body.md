@@ -35,10 +35,10 @@ Nginx 本身可以通过 `$request_body` 变量记录请求内容，但响应内
     cd /usr/local
     git clone https://github.com/chaoslawful/lua-nginx-module.git
 
-    # 使 ld.so.conf 立即生效
 
 刷新动态库路径缓存：
 
+    # 使 ld.so.conf 立即生效
     ldconfig --verbose
 
 重新编译 Nginx，加入以下两个参数：
