@@ -192,8 +192,6 @@ Keep-Alive: timeout=15, max=100
 - Server
 - Set-Cookie
 
-![](/res/img/in_posts/http-headers.jpg)
-
 ![Alt text](/res/img/in_posts/1499945679256.png)
 
 
