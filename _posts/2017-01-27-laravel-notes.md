@@ -1,7 +1,7 @@
 ---
 layout: post
-category: ['复习笔记']
-title: Laravel 文档学习笔记
+category: ['PHP', '笔记']
+title: Laravel 文档阅读笔记
 ---
 
 # 配置

@@ -1,7 +1,7 @@
 ---
 layout: post
 category: ['架构', '复习', '笔记']
-title: 图解 HTTP 学习笔记
+title: 图解 HTTP 阅读笔记
 ---
 
 ##  知识栈
