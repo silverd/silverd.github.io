@@ -17,19 +17,43 @@ $value = config('app.timezone');
 如何合并、缓存所有配置文件？
 
 ```bash
-# 生成文件 bootstrap/cache/config.php
+# 生成汇总文件 bootstrap/cache/config.php
 php artisan config:cache
 
-# 生成文件 bootstrap/cache/route.php
+# 生成汇总文件 bootstrap/cache/route.php
 php artisan route:cache
 ```
 
-除了 config 文件夹下的配置文件，永远不要在其它地方使用 env 函数，因为部署到线上时，配置文件缓存（php artisan config:cache）后，env 函数无法获得正确的值。
+<u>切记！除了 config 文件夹下的配置文件，永远不要在其它地方使用 `env()` 函数，因为一旦执行 `php artisan config:cache` 后，`env()` 所有读取都会返回 `NULL`</u>，证据如下：
+
+```php
+namespace Illuminate\Foundation\Bootstrap;
+
+class LoadEnvironmentVariables
+{
+    /**
+     * Bootstrap the given application.
+     *
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @return void
+     */
+    public function bootstrap(Application $app)
+    {
+        if ($app->configurationIsCached()) {
+            return;
+        }
+
+        ...
+    }
+
+    ...
+}
+```
 
 几点注意：
 
 1. config 文件里严禁使用 Closure 闭包，因为 config:cache 时无法被正确序列化。
-2. routes 文件中尽量不使用闭包函数，统一使用控制器，因为缓存路由的时候 php artisan route:cache，无法缓存闭包函数。
+2. routes 文件中尽量不使用闭包函数，统一使用控制器，因为缓存路由时 `php artisan route:cache` 无法缓存闭包函数。
 
 # Service Container & Provider
 
