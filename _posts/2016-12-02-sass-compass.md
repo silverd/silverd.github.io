@@ -4,6 +4,9 @@ category: ['前端', '笔记']
 title: SASS 和 Compass 用法小记
 ---
 
+Compass 是 Sass 的工具库，用 Ruby 语言开发，所以安装之前，必须安装Ruby。
+Sass 本身只是一个编译器，Compass 在它的基础上，封装了一系列有用的模块和模板，有点像 Javascript 和 jQuery、Ruby 和 Rails 的关系。
+
 ## 安装
 
     # 更新 RubyGems
