@@ -6,9 +6,11 @@ title: Laravel 事件广播、Pusher/Echo 介绍
 
 ## Pusher 介绍
 
-Pusher 是客户端和服务器之间的实时中间服务商 <https://pusher.com/signup>，<u>可以理解为类似极光、个推这样的第三方消息推送商</u>。
+[Pusher](https://pusher.com/signup) 是客户端和服务器之间的实时中间服务商，<u>类似极光、个推这样的第三方消息推送商</u>。
 
-原理：客户端通过 WebSocket 或 HTTP 和 Pusher 云服务器保持持久链接，并不断接收 Pusher 云服务器的数据。我们自己的业务服务器只需要 HTTP POST 数据给 Puhser 云服务器即可。
+原理：客户端通过 WebSocket 或 HTTP 建立和 Pusher 云服务器的持久链接，并不断接收 Pusher 云服务器推送过来的数据。我们自己的业务服务器只需要 HTTP POST 数据给 Puhser 云服务器即可。
+
+![Alt text](./1503312579376.png)
 
 所以，Pusher 本质上可以适用于任意语言的 C/S，双端只需要接入官方 SDK 即可：<https://pusher.com/docs/libraries>
 
@@ -42,18 +44,28 @@ PUSHER_SECRET=YOUR_APP_SECRET
 
 ```php
 use Pusher;
-Pusher::trigger('test-channel', 'test-event', ['message' => $message]);
+Pusher::trigger(
+    'test-channel',
+    'test-event',
+    ['message' => $message],
+    $excludeSocketId
+);
 
 或者：
 
-app('pusher')->trigger('test-channel', 'test-event', ['message' => $message]);
+app('pusher')->trigger(
+    'test-channel',
+    'test-event',
+    ['message' => $message],
+    $excludeSocketId
+);
 ```
 
 ### 通过 Event Broadcaster 集成调用
 
-利用 Laravel 本身的 Event/Listener 机制来触发推送，其实这里取名叫 `Broadcaster` 应理解为推送（服务器主动向客户端推送消息），不局限于跟单播、组播在发送范围上的区别，想象一下广播电视塔向外辐射发送消息就明白了。
+利用 Laravel 本身的 Event/Listener 机制来触发推送。
 
-开始集成：
+现在开始集成：
 
 1、创建一个 Event 类：
 
@@ -92,6 +104,13 @@ class PusherEvent extends Event implements ShouldBroadcast
     {
         return ['test-channel'];
     }
+
+    // 自定义广播名称（可选）
+    // 缺省事件名为类名：App\Events\PusherEvent
+    public function broadcastAs()
+    {
+        return 'test-event';
+    }
 }
 ```
 
@@ -103,7 +122,7 @@ class PusherEvent extends Event implements ShouldBroadcast
 event(new \App\Events\ChatMessageWasReceived($message, $user));
 ```
 
-### 客户端监听事件
+### JS 客户端监听、接收事件
 
 ```html
 <script src="//js.pusher.com/3.0/pusher.min.js"></script>
@@ -113,6 +132,7 @@ Pusher.log = function(msg) {
 };
 var pusher = new Pusher('{{ env('PUSHER_KEY') }}');
 var channel = pusher.subscribe('test-channel');
+var currentSocketId = pusher.connection.socket_id;
 channel.bind('test-event', function(data) {
   console.log(data);
   console.log(data.text);
@@ -122,8 +142,26 @@ channel.bind('test-event', function(data) {
 
 可以使用 `Pusher Debug Console` 控制面板查看触发情况。
 
+### 什么是广播？
+
+广播 `Broadcaster` 是指发送方发送一条消息，订阅频道的各个接收方都能及时收到推送的消息，想象一下广播电视塔向外辐射发送消息的场景。
+
+比如 A同学写了一篇文章，这时候 B同学在文章底下评论了，A同学在页面上是不用刷新就能收到提示有文章被评论了，这个本质上就是A同学收到了广播消息，这个广播消息是由B同学评论这个动作触发了发送广播消息。
+
+#### Laravel Broadcast 模块组成
+
+![Alt text](./1503314394523.png)
+
+在 Laravel 中可以 `Broadcast` 有三种驱动方式：
+
+- Log
+- Pusher
+- Redis
+
+
 ## 参考文章
 
-- <https://segmentfault.com/a/1190000004997982>
-- <https://segmentfault.com/a/1190000005003873>
+- [Laravel 大将之 广播 模块](https://segmentfault.com/a/1190000010759743)
+- [基于 Pusher 驱动的 Laravel 事件广播（上）](https://segmentfault.com/a/1190000004997982)
+- [基于 Pusher 驱动的 Laravel 事件广播（下）](https://segmentfault.com/a/1190000005003873)
 - <http://laravelacademy.org/post/5351.html>
