@@ -10,7 +10,7 @@ title: Laravel 事件广播、Pusher 介绍
 
 原理：客户端通过 WebSocket 或 HTTP 建立和 Pusher 云服务器的持久链接，并不断接收 Pusher 云服务器推送过来的数据。我们自己的业务服务器只需要 HTTP POST 数据给 Puhser 云服务器即可。
 
-![Alt text](./1503312579376.png)
+![Alt text](/res/img/in_posts/1503312579376.png)
 
 所以，Pusher 本质上可以适用于任意语言的 C/S，双端只需要接入官方 SDK 即可：<https://pusher.com/docs/libraries>
 
@@ -203,7 +203,7 @@ channel.bind('test-event', function(data) {
 
 #### Laravel Broadcast 模块组成
 
-![Alt text](./1503314394523.png)
+![Alt text](/res/img/in_posts/1503314394523.png)
 
 在 Laravel 中可以 `Broadcast` 有三种驱动方式：
 
