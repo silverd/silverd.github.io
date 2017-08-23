@@ -80,8 +80,27 @@ Last-Modified 与 ETag 的区别：
 
 ![Alt text](./1503484351920.png)
 
+## 示例
+
+#### 禁止缓存
+
+发送如下指令可以关闭缓存。此外，可以参考Expires 和 Pragma 标题。
+
+```
+Cache-Control: no-cache, no-store, must-revalidate
+```
+
+### 缓存静态资源
+
+对于应用程序中不会改变的文件，你通常可以在发送响应头前添加积极缓存。这包括例如由应用程序提供的静态文件，例如图像，CSS文件和JavaScript文件。另请参阅Expires标题。
+
+```
+Cache-Control:public, max-age=31536000
+```
+
 ## 参考文章
 
+- <https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control>
 - <https://segmentfault.com/a/1190000010786900>
 - <https://segmentfault.com/a/1190000010775131>
 - <https://segmentfault.com/a/1190000009954478>
