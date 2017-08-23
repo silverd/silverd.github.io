@@ -16,7 +16,7 @@ title: HTTP 缓存机制
 
 #### Cache-Control
 
- ![Alt text](./1503477393236.png)
+ ![Alt text](/res/img/in_posts/1503477393236.png)
 
 #### 响应首部的 `Cache-Control` 字段：
 
@@ -72,13 +72,13 @@ Last-Modified 与 ETag 的区别：
 
 #### 借一图胜前言
 
-![Alt text](./1503482315088.png)
+![Alt text](/res/img/in_posts/1503482315088.png)
 
 ## 附
 
 在HTTP请求和响应的消息报头中，常见的与缓存有关的消息报头有：
 
-![Alt text](./1503484351920.png)
+![Alt text](/res/img/in_posts/1503484351920.png)
 
 ## 示例
 
