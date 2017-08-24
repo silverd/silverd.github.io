@@ -44,7 +44,7 @@ Demo: <http://m.staylife.cn>
 
 package.json 中 dependencies 和 devDependencies 区别
 
-- dependencies 正常运行该包时所需要的依赖项
+- dependencies 正常运行该包（`npm build`）时所需要的依赖项，通过 `npm install --production` 安装
 - devDependencies 开发的时候需要的依赖项，比如一些单元测试的包
 
 默认会安装两种依赖，如果你只是单纯的使用这个包而不需要进行一些改动测试之类的，可以使用
