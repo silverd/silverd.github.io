@@ -1,7 +1,7 @@
 ---
 layout: post
-category: ['心得']
-title: Laravel 事件广播、Pusher 介绍
+category: ['PHP', '笔记', 'Laravel']
+title: Laravel Pusher 介绍
 ---
 
 ## Pusher 介绍
@@ -27,7 +27,38 @@ composer require vinkla/pusher
 注册 `ServiceProvider` 和 `Alias`：
 
 ```php
+// add providers
 Vinkla\Pusher\PusherServiceProvider::class,
+
+// add aliases
+'Pusher' => Vinkla\Pusher\Facades\Pusher::class,
+```
+
+发布配置文件 `config/pusher.php`：
+
+```bash
+php artisan vendor:publish --provider='Vinkla\Pusher\PusherServiceProvider'
+```
+
+继续修改 `config/pusher.php`：
+
+```
+'connections' => [
+
+    'main' => [
+        'auth_key' => env('PUSHER_APP_KEY'),
+        'secret' => env('PUSHER_APP_SECRET'),
+        'app_id' => env('PUSHER_APP_ID'),
+        'options' => [
+            'cluster' => env('PUSHER_APP_CLUSTER'),
+            'encrypted' => true,
+        ],
+        'host' => null,
+        'port' => null,
+        'timeout' => null,
+    ],
+    ....
+
 ```
 
 修改 `.env` 中的配置：
@@ -43,29 +74,129 @@ PUSHER_SECRET=YOUR_APP_SECRET
 ### 直接调用
 
 ```php
-use Pusher;
+// 消息载体
+$payload = [
+    'title' => $title,
+    'message' => $message,
+];
+
+use Vinkla\Pusher\Facades\Pusher;
 Pusher::trigger(
-  'test-channel',
-  'test-event',
-  ['message' => $message],
-  $excludeSocketId
+    'test-channel',
+    'test-event',
+    $payload,
+    $excludeSocketId
 );
 
 或者：
 
 app('pusher')->trigger(
-  'test-channel',
-  'test-event',
-  ['message' => $message],
-  $excludeSocketId
+    'test-channel',
+    'test-event',
+    $payload,
+    $excludeSocketId
 );
+
+例如简易调用下：
+
+Route::get('/broadcasting/pusher', function () {
+    app('pusher')->trigger(
+        'test-channel',
+        'test-event',
+        $payload,
+        $excludeSocketId
+    );
+    return 'This is a Laravel Pusher Bridge Test!';
+});
+```
+
+### 查看触发结果
+
+登录 `Pusher` 网站，在 `Debug Console` 面板中可查看 Api 推送日志，也可以在 Web 上直接发起事件推送（不赘述了，和极光一个样）。
+
+### 注入日志记录器
+
+如果发现推送失败或者了解推送步骤，可以开启推送日志：
+
+```php
+
+// 日志记录器
+// 这里用到了 PHP7 匿名类的语法
+$logger = new class {
+    public function log(string $msg)
+    {
+        // 日志记录在 `storage/logs/laravel.log` 中
+        \Log::info($msg);
+    }
+};
+
+$pusher = app('pusher');
+
+// 注入日志记录器
+$pusher->set_logger($logger);
+
+// 正常使用 ...
+$pusher->trigger(
+    'test-channel',
+    'test-event',
+    ['message' => 'Hello World']
+);
+```
+
+日志文件内容如下：
+
+```log
+[2017-08-27 00:23:01] local.INFO: Pusher: ->trigger received string channel "test-channel". Converting to array.
+[2017-08-27 00:23:01] local.INFO: Pusher: create_curl( http://api.pusherapp.com:80/apps/your-app-id/events?auth_key=your-auth-key&auth_signature=ca561c9df94720ef9d8d157e65187601112b0df659ee783ee67a311712c5e70a&auth_timestamp=1503764581&auth_version=1.0&body_md5=f22dec0bcf6ef3d5f06f3f1d06dbfa06 )
+[2017-08-27 00:23:01] local.INFO: Pusher: trigger POST: {"name":"test-event","data":"{\"text\":\"2017-08-27 00:23:01-hello\"}","channels":["test-channel"]}
+[2017-08-27 00:23:03] local.INFO: Pusher: exec_curl error:
+[2017-08-27 00:23:03] local.INFO: Pusher: exec_curl response: Array
+(
+    [body] => auth_key should be a valid app key
+    [status] => 400
+)
+```
+
+其实也可以看出，底层就是通过 CURL 发 HTTP POST 请求给 Pusher 云服务器。
+
+### 其他触发方式
+
+如果用的 PHP 框架不是 Laravel，我们也可以通过原生 PHP 方式发起推送：
+
+首先 Composer 安装服务端 SDK：
+
+```bash
+composer require pusher/pusher-php-server
+```
+
+发起推送：
+
+```php
+require __DIR__ . '/vendor/autoload.php';
+
+$options = [
+  'cluster' => 'ap1',
+  'encrypted' => true
+];
+
+$pusher = new Pusher\Pusher(
+  'c8d9bff0b5eaa518e5fc',
+  '183fc63d5a19a60283c1',
+  '390114',
+  $options
+);
+
+$data['message'] = 'hello world';
+$pusher->trigger('my-channel', 'my-event', $data);
 ```
 
 ### 通过 Event Broadcaster 集成调用
 
-利用 Laravel 本身的 Event/Listener 机制来触发推送。
+除了直接通过 Pusher Api 发起推送之外，也可以利用 Laravel 本身的 Event/Listener 机制来触发推送，Laravel Broadcaster 本身是 Laravel 的一个广播模块，Puhser 只是 Broadcaster 支持的其中一种通信驱动，其他支持的通信驱动还有 Redis、Socket.io 等。
 
-现在开始集成：
+开始集成：
+
+0、修改 `config/broadcasting.php` 中 `connections.pusher` 的配置。
 
 1、创建一个 Event 类：
 
@@ -195,120 +326,11 @@ channel.bind('test-event', function(data) {
 
 可以使用 `Pusher Debug Console` 控制面板查看触发情况。
 
-## 什么是广播？
+### 结语
 
-广播 `Broadcaster` 是指发送方发送一条消息，订阅频道的各个接收方都能及时收到推送的消息，想象一下广播电视塔向外辐射发送消息的场景。
-
-比如 A同学写了一篇文章，这时候 B同学在文章底下评论了，A同学在页面上是不用刷新就能收到提示有文章被评论了，这个本质上就是A同学收到了广播消息，这个广播消息是由B同学评论这个动作触发了发送广播消息。
-
-### Laravel Broadcast 模块组成
-
-![Alt text](/res/img/in_posts/1503314394523.png)
-
-在 Laravel 中可以 `Broadcast` 有三种驱动方式：
-
-- Log
-- Pusher
-- Redis
-
-修改 `.env` 的 `BROADCAST_DRIVER` 属性，或者 `config/broadcasting.php` 中配置。
-
-详细参见文章 <https://segmentfault.com/a/1190000010759743>
-
-### 公开频道
-
-公开频道是任何人都可以订阅或监听的频道，默认定义的都是公开频道。
-
-```php
-/**
- * Get the channels the event should be broadcast on.
- *
- * @return Channel|array
- */
-public function broadcastOn()
-{
-    return ['test-channel'];
-}
-```
-
-### 私有频道（Private Channel）
-
-私有频道要求监听前必须先授权当前认证用户。
-
-```javascript
-// 定义频道，绑定事件
-var channel = pusher.subscribe('private-first-channel');
-channel.bind('login', function(data) {
-    alert(data);
-});
-```
-
-如果订阅的是私有频道（频道名是以 `private-` 开头）或存在频道（频道名是以 `presence-` 开头），则会发出权限检查请求；对应的后端需要定义私有频道和存在频道的权限。
-
-#### 授权私有频道
-
-通过向服务端发送包含频道名称的 HTTP 请求，来判断该用户是否允许监听该频道。使用 `Laravel Echo` 时，授权订阅私有频道的 HTTP 请求会自动发送。
-
-频道的授权检测在 `routes/channels.php` 里，例如：
-
-```php
-Broadcast::channel('first-channel', function ($user) {
-    return (int) $user->id === 1;
-});
-```
-
-注意：这里频道名不需要加 `private-` 或 `presence-` 修饰前缀。
-
-#### 广播到私有频道
-
-```php
-/**
- * Get the channels the event should be broadcast on.
- *
- * @return Channel|array
- */
-public function broadcastOn()
-{
-    return new PrivateChannel('room.' . $this->message->room_id);
-}
-```
-
-### 存在频道（Presence Channel）
-
-存在频道构建于私有频道之上，并且提供了额外功能：获知谁订阅了频道。基于这一点，我们可以构建强大的、协作的应用功能，例如当其他用户访问同一个页面时通知当前用户。
-
-#### 授权存在频道
-
-如果用户没有被授权加入存在频道，应该返回 `false `或 `null`；
-如果用户被授权加入频道<u>不要返回 `true`，而应该返回关于该用户的数据数组</u>。
-
-```php
-Broadcast::channel('chat.*', function ($user, $roomId) {
-    if ($user->canJoinRoom($roomId)) {
-        return ['id' => $user->id, 'name' => $user->name];
-    }
-});
-```
-
-#### 广播到存在频道
-
-```php
-/**
- * Get the channels the event should be broadcast on.
- *
- * @return Channel|array
- */
-public function broadcastOn()
-{
-    return new PresenceChannel('room.' . $this->message->room_id);
-}
-```
-
+这一章我们介绍了 Pusher 的概念和简单是使用，下一章介绍广播模块。
 
 ## 参考文章
 
-- [Laravel 5.4 文档 - 事件广播](http://laravelacademy.org/post/6851.html#toc_9)
-- [Laravel 大将之 广播 模块](https://segmentfault.com/a/1190000010759743)
 - [基于 Pusher 驱动的 Laravel 事件广播（上）](https://segmentfault.com/a/1190000004997982)
 - [基于 Pusher 驱动的 Laravel 事件广播（下）](https://segmentfault.com/a/1190000005003873)
-- <http://laravelacademy.org/post/5351.html>

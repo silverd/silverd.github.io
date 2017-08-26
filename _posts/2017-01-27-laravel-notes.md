@@ -1,6 +1,6 @@
 ---
 layout: post
-category: ['PHP', '笔记']
+category: ['PHP', '笔记', 'Laravel']
 title: Laravel 文档阅读笔记
 ---
 
