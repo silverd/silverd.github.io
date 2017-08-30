@@ -12,9 +12,9 @@ title: MySQL Replication 主从同步原理
 
 MySQL主从复制的基本交互过程，如下：
 
-1. slave 端的 IO 线程连接上 master 端，并请求从指定 binlog 日志文件的指定pos节点位置（或者从最开始的日志）开始复制之后的日志内容。
+1. slave 端的 IO 线程连接上 master 端，并请求从指定 binlog 日志文件的指定 pos 节点位置（或者从最开始的日志）开始复制之后的日志内容。
 
-2. master 端在接收到来自 slave 端的 IO 线程请求后，通知负责复制进程的 IO 线程，根据 slave 端 IO 线程的请求信息，读取指定 binlog 日志指定 pos 节点位置之后的日志信息，然后返回给 slave 端的 IO 线程。该返回信息中除了 binlog 日志所包含的信息之外，还包括本次返回的信息在 master 端的 binlog 文件名以及在该 binlog 日志中的pos节点位置。
+2. master 端在接收到来自 slave 端的 IO 线程请求后，通知负责复制进程的 IO 线程，根据 slave 端 IO 线程的请求信息，读取指定 binlog 日志指定 pos 节点位置之后的日志信息，然后返回给 slave 端的 IO 线程。该返回信息中除了 binlog 日志所包含的信息之外，还包括本次返回的信息在 master 端的 binlog 文件名以及在该 binlog 日志中的 pos 节点位置。
 
 3. slave 端的 IO 线程在接收到 master 端 IO 返回的信息后，将接收到的 binlog 日志内容依次写入到 slave 端的 relaylog 文件（mysql-relay-bin.xxxxxx）的最末端，并将读取到的 master 端的 binlog 文件名和 pos 节点位置记录到 master-info（该文件存在 slave 端）文件中，以便在下一次读取的时候能够清楚的告诉 master “我需要从哪个 binlog 文件的哪个 pos 节点位置开始，请把此节点以后的日志内容发给我”。
 
