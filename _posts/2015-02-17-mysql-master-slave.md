@@ -4,7 +4,7 @@ category: ['MySQL']
 title: MySQL Replication 主从同步原理
 ---
 
-![Alt text](/res/img/in_posts/20639775_1340695881N7L6.png)
+![Alt text](/res/img/in_posts/20639775_1340695881N7L6.jpg)
 
 一共有三个线程：
 
