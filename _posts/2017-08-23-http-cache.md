@@ -16,7 +16,7 @@ title: HTTP 缓存机制
 
 #### Cache-Control
 
- ![Alt text](/res/img/in_posts/1503477393236.png)
+![Alt text](/res/img/in_posts/1503477393236.png)
 
 #### 响应首部的 `Cache-Control` 字段：
 
