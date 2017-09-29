@@ -10,9 +10,9 @@ Nginx 本身可以通过 `$request_body` 变量记录请求内容，但响应内
 
 安装 LuaJIT：
 
-    wget http://luajit.org/download/LuaJIT-2.0.4.tar.gz
-    tar zxvf LuaJIT-2.0.4.tar.gz
-    cd LuaJIT-2.0.4
+    wget http://luajit.org/download/LuaJIT-2.0.5.tar.gz
+    tar zxvf LuaJIT-2.0.5.tar.gz
+    cd LuaJIT-2.0.5
     make
     make install
 
