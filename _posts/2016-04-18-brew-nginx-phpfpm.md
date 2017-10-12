@@ -7,7 +7,7 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
 ## 安装 Nginx+PHP-FPM
 
     brew install nginx --with-http2
-    brew install homebrew/php/php70 --with-fpm --without-apache
+    brew install homebrew/php/php71 --with-fpm --without-apache
 
 ## Nginx 配置
 
@@ -88,7 +88,7 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
         }
     }
 
-然后虚拟主机 vhost/*.conf 都 include 它，于是 staylife.conf 最终变成了：
+然后虚拟主机 `vhost/*.conf` 都 include 它，于是 `staylife.conf` 最终变成了：
 
     server {
         listen 80;
@@ -125,9 +125,9 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
     sudo chmod u+s /usr/local/sbin/php-fpm
 
     # php-fpm 进程的启动、停止
-    # 注意 php-fpm 通过 brew 安装后会自带 `php70-fpm`（/usr/local/sbin/php70-fpm）脚本
-    # 实际上 `php70-fpm` 是一个 sh 脚本，作用等同于 CentOS 的 /etc/init.d/php-fpm
-    sudo php70-fpm start|stop|force-quit|restart|reload|status|configtest
+    # 注意 php-fpm 通过 brew 安装后会自带 `php71-fpm`（/usr/local/sbin/php71-fpm）脚本
+    # 实际上 `php71-fpm` 是一个 sh 脚本，作用等同于 CentOS 的 /etc/init.d/php-fpm
+    sudo php71-fpm start|stop|force-quit|restart|reload|status|configtest
 
     # 其他方法：启动 php-fpm
     sudo /usr/local/sbin/php-fpm --daemonize -c /usr/local/etc/php/7.0/php.ini -y /usr/local/etc/php/7.0/php-fpm.conf
@@ -139,9 +139,9 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
     sudo kill -USR2 `cat /usr/local/var/run/php-fpm.pid`
 
     # 设置 php-fpm 开机启动
-    sudo ln -sfv /usr/local/opt/php70/*.plist /Library/LaunchDaemons
-    sudo chown root:wheel /Library/LaunchDaemons/homebrew.mxcl.php70.plist
-    sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php70.plist
+    sudo ln -sfv /usr/local/opt/php71/*.plist /Library/LaunchDaemons
+    sudo chown root:wheel /Library/LaunchDaemons/homebrew.mxcl.php71.plist
+    sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php71.plist
 
 ## 或者直接设置命令别名 `vi ~/.zshrc`，加入：
 
@@ -149,8 +149,8 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
     alias nginx.stop="sudo launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist"
     alias nginx.restart='nginx.stop && nginx.start'
 
-    alias php.start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php70.plist"
-    alias php.stop="sudo launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.php70.plist"
+    alias php.start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php71.plist"
+    alias php.stop="sudo launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.php71.plist"
     alias php.restart='php.stop && php.start'
 
     source ~/.zshrc
