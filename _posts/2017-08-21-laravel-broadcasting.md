@@ -16,9 +16,9 @@ title: Laravel Broadcaster 介绍
 
 在 Laravel 中可以 `Broadcast` 有三种驱动方式：
 
-- Log
 - Pusher
 - Redis
+- Log
 
 修改 `.env` 的 `BROADCAST_DRIVER` 属性，或在 `config/broadcasting.php` 中配置。
 
@@ -119,7 +119,8 @@ public function broadcastOn()
 
 ## 参考文章
 
-- [Laravel 5.4 文档 - 事件广播](http://laravelacademy.org/post/6851.html#toc_9)
+- [Laravel 5.4 Broadcasting 英文](https://laravel.com/docs/5.4/broadcasting)
+- [Laravel 5.4 Broadcasting 中文](http://laravelacademy.org/post/6851.html)
 - [Laravel 大将之 广播 模块](https://segmentfault.com/a/1190000010759743)
 - [Laravel Echo 使用：实时聊天室](http://laravelacademy.org/post/5351.html)
 - 
