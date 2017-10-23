@@ -70,7 +70,9 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
 
     }
 
-但我的做法是抽出了 vi ~/nginx-conf/php-yaf.conf
+但我的做法是抽出了几个配置文件：
+
+#### vi ~/nginx-conf/php.conf
 
     index index.html index.htm index.php;
     autoindex on;
@@ -82,17 +84,37 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
         include pathinfo.conf;
     }
 
+#### vi ~/nginx-conf/php-yaf.conf
+
+    include php.conf;
+
     location / {
         if (!-e $request_filename) {
             rewrite ^/(.*)$ /index.php/$1 last;
         }
     }
 
-然后虚拟主机 `vhost/*.conf` 都 include 它，于是 `staylife.conf` 最终变成了：
+#### vi ~/nginx-conf/php-laravel.conf
+
+    include php.conf;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+#### vi ~/nginx-conf/php-yii.conf
+
+    include php.conf;
+
+    location / {
+        try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+然后虚拟主机 `vhost/*.conf` 里都 `include php-yaf.conf`，于是 `staylife.conf` 最终变成了：
 
     server {
         listen 80;
-        server_name local.wp.staylife.cn local.api.staylife.cn;
+        server_name local.api.staylife.cn;
         root /Users/silverd/home/wwwroot/staylife/app/web;
         include php-yaf.conf;
     }
