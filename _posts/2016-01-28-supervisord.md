@@ -12,55 +12,70 @@ Supervisord 是用 Python 实现，由孙大力同学介绍使用。早知有这
 2. 程序的退出码，可以根据程序的退出码来判断是否需要自动重启
 3. 程序所产生日志的处理
 4. 进程初始化的环境，包括目录，用户，umask，关闭进程所需要的信号等等
-5. 手动管理进程(开始，启动，重启，查看进程状态)的web界面，和xmlrpc接口
+5. 手动管理进程（开始启动、查看进程状态）Web 界面，和 xmlrpc 接口
 
-## 安装
+## 1、安装 setuptools
 
-    yum install python-setuptools
-    easy_install supervisor
-    echo_supervisord_conf > /etc/supervisord.conf
+  yum install python-setuptools
+  或者
+  wget --no-check-certificate https://bootstrap.pypa.io/ez_setup.py -O - | sudo python
 
-## 下载管理脚本
+## 2、安装 supervisor
 
-    curl https://raw.githubusercontent.com/Supervisor/initscripts/master/redhat-init-mingalevme > /etc/init.d/supervisord
-    chmod +x /etc/init.d/supervisord
+  easy_install pip
+  pip install supervisor
+  或者
+  easy_install supervisor
+
+## 3、初始化配置文件
+
+  echo_supervisord_conf > /etc/supervisord.conf
+
+## 4、引入配置文件
+
+  # 建立配置文件子目录
+  mkdir /etc/supervisord.d/
+
+  # 去除注释并修改路径
+  [include]
+  files = /etc/supervisord.d/*.ini
 
 ## 添加一个程序
 
-    [program:Queue_Sms]
-    command=/usr/bin/php /home/wwwroot/69night/balloon/cli.php request_uri=/cli/queue/sms
-    stdout_logfile=/home/wwwlogs/69night/supervisord.out
-    redirect_stderr=true
-    autostart=true
-    autorestart=true
+  [program:Queue_Sms]
+  command=/usr/bin/php /home/wwwroot/69night/balloon/cli.php request_uri=/cli/queue/sms
+  stdout_logfile=/home/wwwlogs/69night/supervisord.out
+  redirect_stderr=true
+  autostart=true
+  autorestart=true
 
-## 启动
+## 启动服务（重要）
 
-使用指定配置文件启动：supervisord -c supervisord.conf
-使用默认配置文件启动：supervisord
+  supervisord -c /etc/supervisord.conf
 
 ## 常用命令
 
 控制命令基本都通过 supervisorctl 执行，输入 help 可以看到命令列表。这是一些常用命令：
 
-- 获得所有程序状态 supervisorctl status
-- 关闭目标程序 supervisorctl stop Queue_Sms
-- 启动目标程序 supervisorctl start Queue_Sms
-- 关闭所有程序 supervisorctl shutdown
-- 重启所有程序 supervisorctl reload
+  supervisorctl update -- 重新加载 supervisord.conf，当修改了 supervisord.conf 后，一定要 update
+  supervisorctl reload -- 重新启动配置中的所有程序，当修改了 supervisord.conf 后，必须 update/reload
+  supervisorctl status -- 列出当前监听的进程和进程PID
+  supervisorctl stop XXX
+  supervisorctl start XXX
+  supervisorctl restart XXX --- 只会重启当前监听的进程，当修改了 supervisord.conf 后，必须 update/reload 才会生效
 
 ## 日志文件位置
 
-    /tmp/supervisord.log
+  /tmp/supervisord.log
 
 ## Web控制台
 
 程序支持使用HTTP方式控制运行状态。在 supervisord.conf 中开启 httpserver：
 
-    [inet_http_server]
-    port=127.0.0.1:9001
-    username=user
-    password=123
+  [inet_http_server]
+  port=127.0.0.1:9001
+  username=user
+  password=123
 
 打开浏览器，输入 127.0.0.1:9001，用户名user，密码123，就能看到控制台了：
 
@@ -68,7 +83,7 @@ Supervisord 是用 Python 实现，由孙大力同学介绍使用。早知有这
 
 `每次修改完 supervisor.conf 后，都需要重新加载配置文件：supervisorctl reload`
 
-## 配置文件说明 
+## 配置文件说明
 
 官方配置说明：<http://supervisord.org/configuration.html>
 
@@ -318,8 +333,8 @@ Supervisord 是用 Python 实现，由孙大力同学介绍使用。早知有这
     ; 这个东西挺有用的，当我们要管理的进程很多的时候，写在一个文件里面
     ; 就有点大了。我们可以把配置信息写到多个文件中，然后include过来
 
-    ;[include]
-    ;files = relative/directory/*.ini
+    [include]
+    files = /etc/supervisord.d/*.ini
 
 ## 一些坑
 
