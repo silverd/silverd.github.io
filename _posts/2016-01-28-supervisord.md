@@ -57,12 +57,26 @@ Supervisord 是用 Python 实现，由孙大力同学介绍使用。早知有这
 
 控制命令基本都通过 supervisorctl 执行，输入 help 可以看到命令列表。这是一些常用命令：
 
-  supervisorctl update -- 重新加载 supervisord.conf，当修改了 supervisord.conf 后，一定要 update
-  supervisorctl reload -- 重新启动配置中的所有程序，当修改了 supervisord.conf 后，必须 update/reload
-  supervisorctl status -- 列出当前监听的进程和进程PID
-  supervisorctl stop XXX
-  supervisorctl start XXX
-  supervisorctl restart XXX --- 只会重启当前监听的进程，当修改了 supervisord.conf 后，必须 update/reload 才会生效
+```bash
+# 注意：本命令只会重启当前监听的进程，并不会重新加载 supervisord.conf
+supervisorctl restart XXX
+
+# 重新加载 supervisord.conf，纯加载配置，不会对进程有任何影响
+supervisorctl reread
+
+# 重新加载 supervisord.conf，重启有变更的进程，原有未变更的进程不受影响
+# 注意：测试下来 update 已经包含了 reread 命令执行后的效果，可以说 reread 命令然并卵
+supervisorctl update
+
+# 强制重新启动配置中的所有程序（不论 supervisord.conf 是否修改过）
+supervisorctl reload
+
+# 列出当前监听的进程和进程PID
+supervisorctl status
+
+# 不解释了
+supervisorctl stop/start XXX
+```
 
 ## 日志文件位置
 
