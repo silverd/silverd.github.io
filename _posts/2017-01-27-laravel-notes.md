@@ -143,7 +143,7 @@ use Redis;
 use Illuminate\Support\Facades\Redis;
 ```
 
-原理是通过 PHP 原生函数 `class_alias()` 来实现类别名定义
+原理是通过 PHP 原生函数 `class_alias()` 来实现类别名定义。
 
 # Contract
 
@@ -1008,8 +1008,14 @@ php artisan event:generate
 
 事件类 `SomeEvent.php` 定义如下：
 
-引入 `trait SerializesModels` 的作用是，当事件类接收 Eloquent models 对象作为参数时，可以更优美地序列化。
+引入 `trait SerializesModels` 的作用是，如果事件用到队列，直接序列化 `Eloquent` 模型可能遇到一些层级问题。
 
+`SerializesModels` 实质是重新定义了 `__sleep` 和 `__wake` 方法，使得 `Eloquent` 模型在保存入列时可以被优雅地序列化、反序列化。
+
+那么什么是优雅地序列化、反序列化？
+
+就是只有主键字段会保存进队列里。当 Job 被实际运行时，队列会根据模型主键自动从数据库中重新取回完整的模型。
+这整个过程对你的应用程序来说是完全透明的。
 
 ```php
 namespace App\Events;
