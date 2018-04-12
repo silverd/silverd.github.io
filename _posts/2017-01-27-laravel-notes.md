@@ -143,6 +143,8 @@ use Redis;
 use Illuminate\Support\Facades\Redis;
 ```
 
+原理是通过 PHP 原生函数 `class_alias()` 来实现类别名定义
+
 # Contract
 
 只是 Laravel 的一个概念，表示一个结构约定。
