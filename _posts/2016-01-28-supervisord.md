@@ -16,38 +16,50 @@ Supervisord 是用 Python 实现，由孙大力同学介绍使用。早知有这
 
 ## 1、安装 setuptools
 
-  yum install python-setuptools
-  或者
-  wget --no-check-certificate https://bootstrap.pypa.io/ez_setup.py -O - | sudo python
+```bash
+yum install python-setuptools
+或者
+wget --no-check-certificate https://bootstrap.pypa.io/ez_setup.py -O - | sudo python
+```
 
 ## 2、安装 supervisor
 
-  easy_install pip
-  pip install supervisor
-  或者
-  easy_install supervisor
+```bash
+easy_install pip
+pip install supervisor
+或者
+easy_install supervisor
+```
 
 ## 3、初始化配置文件
 
-  echo_supervisord_conf > /etc/supervisord.conf
+```bash
+echo_supervisord_conf > /etc/supervisord.conf
+```
 
 ## 4、引入配置文件
 
-  # 建立配置文件子目录
-  mkdir /etc/supervisord.d/
+```bash
+# 建立配置文件子目录
+mkdir /etc/supervisord.d/
 
-  # 去除注释并修改路径
-  [include]
-  files = /etc/supervisord.d/*.ini
+# 去除注释并修改路径
+[include]
+files = /etc/supervisord.d/*.ini
+```
 
 ## 添加一个程序
 
-  [program:Queue_Sms]
-  command=/usr/bin/php /home/wwwroot/69night/balloon/cli.php request_uri=/cli/queue/sms
-  stdout_logfile=/home/wwwlogs/69night/supervisord.out
-  redirect_stderr=true
-  autostart=true
-  autorestart=true
+```ini
+[program:Queue_Sms]
+process_name=%(program_name)s_%(process_num)02d
+redirect_stderr=true
+autostart=true
+autorestart=true
+numprocs=8
+command=/usr/bin/php /home/wwwroot/ai_gmall_server/artisan queue:work --tries=3 --sleep=3
+stdout_logfile=/home/wwwlogs/supervisord_ai_gmall_server.out
+```
 
 ## 启动服务（重要）
 
