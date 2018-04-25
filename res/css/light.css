@@ -428,8 +428,8 @@ blockquote {
 }
 
 code {
-  font-family:Monaco,Consolas,Menlo,"Andale Mono","Courier New","Ubuntu Mono",Arial,"Microsoft YaHei","Hiragino Sans GB",sans-serif;
-  font-size:17px;
+  font-family:"Fira Code",Monaco,Consolas,Menlo,"Andale Mono","Courier New","Ubuntu Mono",Arial,"Microsoft YaHei","Hiragino Sans GB",sans-serif;
+  font-size:16px;
   margin:0 2px;
   padding:0 4px;
   border-radius:4px;
