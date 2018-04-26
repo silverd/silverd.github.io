@@ -92,9 +92,9 @@ class HandleExceptions
 
 #### 小结：
 
-对于不致命的错误，例如E_NOTICE、E_USER_ERROR、E_USER_WARNING、E_USER_NOTICE，`handleError` 即可截取， Laravel 将错误转成 `\ErrorException` 交给 `handleException($e)` 处理。
+1. 对于不致命的错误，例如 E_NOTICE、E_USER_ERROR、E_USER_WARNING、E_USER_NOTICE，`handleError` 会捕捉到， Laravel 将错误转成 `\ErrorException` 异常，交给 `handleException($e)` 处理。
 
-对于致命错误，例如 E_PARSE 解析错误，handleShutdown 将会启动，并且判断当前脚本结束是否是由于致命错误，如果是致命错误，将会将其转化为 FatalErrorException, 交给了 handleException 作为异常去处理。
+2. 对于致命错误，例如 E_PARSE，`handleShutdown` 将会接手捕捉，并且判断当前脚本结束是否是由于致命错误，如果是致命错误，也把错误转化为 `\ErrorException` 异常, 再交回给 `handleExceptionn($e)` 处理。
 
 #### 1. 建议用 `error_reporting(-1)` 代替 `E_ALL`：
 
@@ -154,9 +154,9 @@ var_dump(23+-+); // 此处语法错误
 **Fatal Error**
 致命错误（脚本终止运行）
 - E_ERROR          // 致命的运行错误，错误无法恢复，暂停执行脚本
-- E_CORE_ERROR     // PHP启动时初始化过程中的致命错误
-- E_COMPILE_ERROR  // 编译时致命性错，就像由Zend脚本引擎生成了一个E_ERROR
-- E_USER_ERROR     // 自定义错误消息。像用PHP函数trigger_error（错误类型设置为：E_USER_ERROR）
+- E_CORE_ERROR     // PHP 启动时初始化过程中的致命错误
+- E_COMPILE_ERROR  // 编译时致命性错，就像由 Zend 脚本引擎生成了一个 E_ERROR
+- E_USER_ERROR     // 自定义错误消息。像用 PHP 函数 trigger_error（错误类型设置为：E_USER_ERROR）
 
 **Parse Error**
 编译时解析错误，语法错误（脚本终止运行）
