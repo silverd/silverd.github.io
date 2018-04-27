@@ -145,11 +145,11 @@ var_dump(23+-+); // 此处语法错误
 
 #### 其他说明
 
-(1) 关于 `\EngineException`
+1. 关于 `\EngineException`
 
 现已更名为 `\Error`，只是在 PHP7 alpha-2 中临时叫 `\EngineException`
 
-(2) PHP 错误种类和级别
+2. PHP 错误种类和级别
 
 **Fatal Error**
 致命错误（脚本终止运行）
@@ -180,7 +180,7 @@ var_dump(23+-+); // 此处语法错误
 const ERROR = E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_PARSE;
 ```
 
-(3) 关于 `\Throwable`
+3. 关于 `\Throwable`
 
 PHP7 新增定义了 `\Throwable` 接口，原来的 `\Exception` 和部分 `\Error` 都实现了这个接口。
 
@@ -199,7 +199,7 @@ PHP7 新增定义了 `\Throwable` 接口，原来的 `\Exception` 和部分 `\Er
     }
 ```
 
-(4) 详见 `Throwable` 层次树：<http://php.net/manual/en/class.error.php#122323>
+4. 详见 `\Throwable` 层次树：<http://php.net/manual/en/class.error.php#122323>
 
 ```text
 Throwable
@@ -234,8 +234,36 @@ Throwable
         SodiumException
 ```
 
+5. 关于 `\ErrorException`
+
+注意 `\ErrorException` 跟 PHP7+ 的 `\Erorr` 的区别：
+
+(1) `\Error` 是 PHP7+ 新增的错误类型，例如上述的 `DivisionByZeroError`，供 `try-catch` 或 `set_exception_handler()` 捕获。
+(2) `\ErrorException` 是继承于 `\Exception` 的异常子类，扩展了更多的参数，例如文件名和行号。一般专门用在 `set_error_handler()` 或者 `register_shutdown_function()` 将错误转化为异常（因为普通异常只有 code/message 两个属性）。
+
+定义如下：<http://php.net/manual/en/class.errorexception.php>
+
+```php
+class ErrorException extends Exception {
+    public __construct(
+        string $message = "",
+        int $code = 0,
+        int $severity = E_ERROR,
+        string $filename = __FILE__,
+        int $lineno = __LINE__,
+        Exception $previous = NULL
+    )
+}
+
+使用如下：
+
+```php
+throw new ErrorException($message, $code, $severity, $errfile, $errline);
+```
+
 #### 参考文章：
 
-- https://www.cnblogs.com/zyf-zhaoyafei/p/6928149.html
-- https://laravel-china.org/articles/5657/laravel-exceptions-exception-and-error-handling
-- https://segmentfault.com/a/1190000009504337
+- [再谈PHP错误与异常处理](https://www.cnblogs.com/zyf-zhaoyafei/p/6928149.html)
+- [Laravel Exceptions——异常与错误处理](https://laravel-china.org/articles/5657/laravel-exceptions-exception-and-error-handling)
+- [PHP 错误与异常](https://segmentfault.com/a/1190000009504337)
+- [PHP 错误日志收集之 ErrorException](https://mengkang.net/1198.html]
