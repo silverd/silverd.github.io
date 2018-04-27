@@ -255,6 +255,7 @@ class ErrorException extends Exception {
         Exception $previous = NULL
     )
 }
+```
 
 使用如下：
 
