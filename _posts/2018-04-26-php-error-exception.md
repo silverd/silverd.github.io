@@ -245,7 +245,7 @@ Throwable
 定义如下：<http://php.net/manual/en/class.errorexception.php>
 
 ```php
-class ErrorException extends Exception {
+ErrorException extends \Exception {
     public __construct(
         string $message = "",
         int $code = 0,
@@ -260,7 +260,7 @@ class ErrorException extends Exception {
 使用如下：
 
 ```php
-throw new ErrorException($message, $code, $severity, $errfile, $errline);
+throw new \ErrorException($message, $code, $severity, $errfile, $errline);
 ```
 
 #### 参考文章：
