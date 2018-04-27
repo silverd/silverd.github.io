@@ -1,4 +1,8 @@
-# PHP7 Error & Exception 知识点整理
+---
+layout: post
+category: ['复习', '笔记', 'PHP']
+title: PHP7 Error & Exception 知识点整理
+---
 
 先说 PHP7 之前，各大框架是如何捕捉处理 **所有** 错误和异常的，以 Laravel 为例：
 
