@@ -268,4 +268,4 @@ throw new ErrorException($message, $code, $severity, $errfile, $errline);
 - [再谈PHP错误与异常处理](https://www.cnblogs.com/zyf-zhaoyafei/p/6928149.html)
 - [Laravel Exceptions——异常与错误处理](https://laravel-china.org/articles/5657/laravel-exceptions-exception-and-error-handling)
 - [PHP 错误与异常](https://segmentfault.com/a/1190000009504337)
-- [PHP 错误日志收集之 ErrorException](https://mengkang.net/1198.html]
+- [PHP 错误日志收集之 ErrorException](https://mengkang.net/1198.html)
