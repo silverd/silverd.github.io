@@ -239,6 +239,7 @@ Throwable
 注意 `\ErrorException` 跟 PHP7+ 的 `\Erorr` 的区别：
 
 (1) `\Error` 是 PHP7+ 新增的错误类型，例如上述的 `DivisionByZeroError`，供 `try-catch` 或 `set_exception_handler()` 捕获。
+
 (2) `\ErrorException` 是继承于 `\Exception` 的异常子类，扩展了更多的参数，例如文件名和行号。一般专门用在 `set_error_handler()` 或者 `register_shutdown_function()` 将错误转化为异常（因为普通异常只有 code/message 两个属性）。
 
 定义如下：<http://php.net/manual/en/class.errorexception.php>
