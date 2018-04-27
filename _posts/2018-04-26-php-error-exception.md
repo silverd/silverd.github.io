@@ -145,11 +145,11 @@ var_dump(23+-+); // 此处语法错误
 
 #### 其他说明
 
-1. 关于 `\EngineException`
+1、关于 `\EngineException`
 
 现已更名为 `\Error`，只是在 PHP7 alpha-2 中临时叫 `\EngineException`
 
-2. PHP 错误种类和级别
+2、PHP 错误种类和级别
 
 **Fatal Error**
 致命错误（脚本终止运行）
@@ -180,7 +180,7 @@ var_dump(23+-+); // 此处语法错误
 const ERROR = E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_PARSE;
 ```
 
-3. 关于 `\Throwable`
+3、关于 `\Throwable`
 
 PHP7 新增定义了 `\Throwable` 接口，原来的 `\Exception` 和部分 `\Error` 都实现了这个接口。
 
@@ -199,7 +199,7 @@ PHP7 新增定义了 `\Throwable` 接口，原来的 `\Exception` 和部分 `\Er
     }
 ```
 
-4. 详见 `\Throwable` 层次树：<http://php.net/manual/en/class.error.php#122323>
+4、详见 `\Throwable` 层次树：<http://php.net/manual/en/class.error.php#122323>
 
 ```text
 Throwable
@@ -234,7 +234,7 @@ Throwable
         SodiumException
 ```
 
-5. 关于 `\ErrorException`
+5、关于 `\ErrorException`
 
 注意 `\ErrorException` 跟 PHP7+ 的 `\Erorr` 的区别：
 
