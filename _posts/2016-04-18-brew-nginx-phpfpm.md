@@ -140,7 +140,7 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
 ## PHP-FPM 进程管理
 
     # 配置文件
-    /usr/local/etc/php/7.0/php-fpm.conf
+    /usr/local/etc/php/7.1/php-fpm.conf
 
     # 如果想要 php-fpm 开机自启动，则必须以 root:wheel 权限运行
     sudo chown root:wheel /usr/local/sbin/php-fpm
@@ -152,7 +152,7 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
     sudo php71-fpm start|stop|force-quit|restart|reload|status|configtest
 
     # 其他方法：启动 php-fpm
-    sudo /usr/local/sbin/php-fpm --daemonize -c /usr/local/etc/php/7.0/php.ini -y /usr/local/etc/php/7.0/php-fpm.conf
+    sudo /usr/local/sbin/php-fpm --daemonize -c /usr/local/etc/php/7.1/php.ini -y /usr/local/etc/php/7.1/php-fpm.conf
 
     # 其他方法：关闭 php-fpm
     sudo kill -INT `cat /usr/local/var/run/php-fpm.pid`
