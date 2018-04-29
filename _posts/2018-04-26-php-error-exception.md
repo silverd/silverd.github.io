@@ -98,7 +98,7 @@ class HandleExceptions
 
 1. 对于不致命的错误，例如 E_NOTICE、E_USER_ERROR、E_USER_WARNING、E_USER_NOTICE，`handleError` 会捕捉并将错误转成 `\ErrorException`，转交给 `handleException($e)` 处理。
 
-2. 对于致命错误，例如 E_PARSE，`handleShutdown` 将会接手捕捉，并且根据 `error_get_last()` 获取最后一个错误（说明一下，`handleShutdown` 会在脚本运行结束时执行，但无法确定脚本是正常结束，还是因为发生了致命错误而结束，所以我们这里需要判断：如果最后一个错误是 E_ERROR 之类的，则说明脚本发生了致命错误导致结束，如果是 E_NOTICE 之类的，则无需处理），并把错误转化为 `\ErrorException`, 转交给 `handleException($e)` 处理。
+2. 对于致命错误，例如 E_PARSE，`handleShutdown` 将会接手捕捉，并且根据 `error_get_last()` 获取最后一个错误（说明一下，`handleShutdown` 会在脚本运行结束时执行，但无法确定脚本是正常结束，还是因为发生了致命错误而结束，所以我们这里需要判断：如果最后一个错误是 E_ERROR 之类的，则说明脚本发生了致命错误导致结束，如果是 E_NOTICE 之类的，则无需处理），并把错误转化为 `\ErrorException`，转交给 `handleException($e)` 处理。
 
 #### 1. 建议用 `error_reporting(-1)` 代替 `E_ALL`：
 
