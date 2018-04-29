@@ -96,9 +96,9 @@ class HandleExceptions
 
 #### 小结：
 
-1. 对于不致命的错误，例如 E_NOTICE、E_USER_ERROR、E_USER_WARNING、E_USER_NOTICE，`handleError` 会捕捉到， Laravel 将错误转成 `\ErrorException` 异常，交给 `handleException($e)` 处理。
+1. 对于不致命的错误，例如 E_NOTICE、E_USER_ERROR、E_USER_WARNING、E_USER_NOTICE，`handleError` 会捕捉并将错误转成 `\ErrorException`，转交给 `handleException($e)` 处理。
 
-2. 对于致命错误，例如 E_PARSE，`handleShutdown` 将会接手捕捉，并且判断当前脚本结束是否是由于致命错误，如果是致命错误，也把错误转化为 `\ErrorException` 异常, 再交回给 `handleExceptionn($e)` 处理。
+2. 对于致命错误，例如 E_PARSE，`handleShutdown` 将会接手捕捉，并且根据 `error_get_last()` 获取最后一个错误（说明一下，`handleShutdown` 会在脚本运行结束时执行，但无法确定脚本是正常结束，还是因为发生了致命错误而结束，所以我们这里需要判断：如果最后一个错误是 E_ERROR 之类的，则说明脚本发生了致命错误导致结束，如果是 E_NOTICE 之类的，则无需处理），并把错误转化为 `\ErrorException`, 转交给 `handleException($e)` 处理。
 
 #### 1. 建议用 `error_reporting(-1)` 代替 `E_ALL`：
 
@@ -117,9 +117,9 @@ class HandleExceptions
 
 `set_error_handler()` 负责处理：
 
-. 用户通过 `trigger_error()` 主动触发的错误
-. Warning、Notice 级别的错误：E_NOTICE、E_USER_ERROR、E_USER_WARNING、E_USER_NOTICE
-. 不能捕捉致命错误，如 E_ERROR、E_PARSE、E_CORE_ERROR、E_CORE_WARNING、E_COMPILE_ERROR、E_COMPILE_WARNING，以及调用 `set_error_handler()` 函数所在文件中产生的大多数 E_STRICT
+- 用户通过 `trigger_error()` 主动触发的错误
+- Warning、Notice 级别的错误：E_NOTICE、E_USER_ERROR、E_USER_WARNING、E_USER_NOTICE
+- 不能捕捉致命错误，如 E_ERROR、E_PARSE、E_CORE_ERROR、E_CORE_WARNING、E_COMPILE_ERROR、E_COMPILE_WARNING，以及调用 `set_error_handler()` 函数所在文件中产生的大多数 E_STRICT
 
 #### 4. 兜底 - 致命错误处理器
 
