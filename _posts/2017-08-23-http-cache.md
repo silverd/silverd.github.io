@@ -22,8 +22,8 @@ title: HTTP 缓存机制
 
 | 字段值 | 说明 |
 | -- | -- |
-| no-cache | 不缓存过期的资源。告诉客户端，不能直接使用本地缓存，必须先通过 ETag 或 Last-Modified 向服务器发起二次验证，如果服务器响应 304 则可用该本地缓存，否则不可。 |
-| no-store | 缓存不应存储有关客户端请求或服务器响应的任何内容 |
+| no-cache | 不缓存过期的资源。告诉浏览器，不论本地缓存是否过期，都不能直接使用本地缓存。在使用本地缓存之前，必须先通过 `ETag` 或 `Last-Modified` 向服务器发起二次验证，如果服务器响应 304 则可用该本地缓存，否则不可。 |
+| no-store | 请求和响应的信息都不应该被存储在对方的磁盘系统中（Internet 临时文件中）。当下次请求时，都会直接向服务器发送请求，并下载完整的响应。 |
 | max-age | 指定时间内不需要再问服务器要数据<br />不产生网络请求，但仍有响应状态码 `200 OK from disk cache` |
 | s-maxage | CDN 或共享缓存服务器响应的最大 Age 值 |
 | public | 表明响应可以被任何对象（包括：发送请求的客户端，代理服务器，等等）缓存 |
@@ -96,6 +96,14 @@ Cache-Control: no-cache, no-store, must-revalidate
 
 ```
 Cache-Control:public, max-age=31536000
+```
+
+### Nginx 对 Vue SPA 的 `index.html` 禁用缓存
+
+```
+location = /index.html {
+    add_header Cache-Control "no-cache, no-store";
+}
 ```
 
 ## 参考文章
