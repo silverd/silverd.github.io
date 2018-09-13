@@ -1,7 +1,7 @@
 ---
 layout: post
 category: ['PHP', '笔记']
-title: 理解 Composer 自动加载原理
+title: Composer 自动加载原理分析
 ---
 
 ## Composer 自带的几种 autoloader（加载器）

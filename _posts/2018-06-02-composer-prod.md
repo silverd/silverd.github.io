@@ -1,7 +1,7 @@
 ---
 layout: post
 category: ['PHP', '笔记']
-title: Composer 自动加载性能优化指南
+title: Composer 生产服性能优化指南
 ---
 
 ### Level-1 优化：生成 classmap
