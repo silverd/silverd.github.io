@@ -1,7 +1,7 @@
 ---
 layout: post
 category: ['Javascript']
-title: 了解Javascript模块化开发
+title: Javascript 模块化开发
 ---
 
 转贴自：<https://www.markdream.com/technologies/programs/understanding-of-javascript-module-development.shtml>
