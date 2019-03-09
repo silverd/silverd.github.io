@@ -37,7 +37,9 @@ title: Git SubModule
 
 为什么子模块 `system` 目录会有一个新变更？
 
-其实，Git 在顶级项目中记录了一个子模块的提交日志的指针，用于保存子模块的提交日志所处的位置，以保证无论子模块是否有新的提交，在任何一个地方克隆下顶级项目时，各个子模块的记录是一致的。作用类似于 `composer.lock` 或者 yarn.lock，避免因为所引用的子模块不一致导致的潜在问题。如果我们更新了子模块，我们需要把这个最近的记录提交到版本库中，以方便和其他人协同。
+其实，Git 在顶级项目中记录了一个子模块的提交日志的指针，用于保存子模块的提交日志所处的位置，以保证无论子模块是否有新的提交，在任何一个地方克隆下顶级项目时，各个子模块的记录是一致的。作用类似于 `composer.lock` 或者 `yarn.lock`，避免因为所引用的子模块不一致导致的潜在问题。
+
+如果我们更新了子模块，我们需要把这个最近的记录提交到版本库中，以方便和其他人协同。
 
 提交这个子模块版本锁：
 
@@ -77,11 +79,11 @@ title: Git SubModule
 
 可以在 clone 项目时同时 clone 关联的 submodules。
 
-After the clone is created, initialize all submodules within, using their default settings. This is equivalent to running git
-submodule update --init --recursive immediately after the clone is finished. This option is ignored if the cloned repository
+After the clone is created, initialize all submodules within, using their default settings. This is equivalent to running `git
+submodule update --init --recursive` immediately after the clone is finished. This option is ignored if the cloned repository
 does not have a worktree/checkout (i.e. if any of --no-checkout/-n, --bare, or --mirror is given)
 
-注意：子模块缺省 Not currently on any branch 不在任何分支上，需要手动 gco master
+注意：子模块默认不在任何分支上：`Not currently on any branch` ，需要手动 `cd system && git checkout master && cd ..`
 
 ### 删除子模块
 
