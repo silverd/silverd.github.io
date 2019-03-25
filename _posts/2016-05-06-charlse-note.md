@@ -20,11 +20,9 @@ title: Charlse 抓包使用心得
     - 电脑 Charles ->Help -> SSL Proxying ->Install Charles Root Certifate on a Mobile Device or Remote Browser
     - 手机 Safari 打开 `http://charlesproxy.com/getssl` 安装证书。
 3. 电脑 Charles -> Proxy -> SSL Proxy Settings 增加需拦截的域名:443。
-3. 如发现 SSL 解密失败，那需检查一下手机的信任设置：
-    - 设置-通用-关于本机-证书信任设置，开启对 `Charles Proxy Custom Root Certification` 的信任。
-
-# 设置需要捕获的域名
-4、Charles -> Proxy -> Proxy Settings -> SSL -> Enable SSL Proxying，在下方 Locations 区域添加要抓取的域名和端口443
+4. 如发现 SSL 解密失败，那需检查一下手机的信任设置：
+    - 设置->通用->关于本机->证书信任设置，开启对 `Charles Proxy Custom Root Certification` 的信任。
+5. 设置需要捕获的域名 Charles -> Proxy -> Proxy Settings -> SSL -> Enable SSL Proxying，在下方 `Locations` 区域添加要抓取的域名和端口 443
 
 ## 过滤网络请求
 
@@ -57,9 +55,7 @@ Charles -> Proxy -> Throttle Setting，勾选上 Enable Throttling，并且可�
 
 如果只想模拟指定网站的慢速网络，可以再勾选上图中的 Only for selected hosts 项，然后在对话框的下半部分设置中增加指定的 hosts 项即可。
 
-----
-
-参考文章：
+## 参考文章：
 
 - <http://www.inbiji.com/biji/wang-luo-feng-bao-fen-xi-gong-ju-charles.html>
 - <http://drops.wooyun.org/tips/2423>
