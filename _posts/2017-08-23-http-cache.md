@@ -18,7 +18,7 @@ title: HTTP 缓存机制
 
 ![Alt text](/res/img/in_posts/1503477393236.png)
 
-#### 响应首部的 `Cache-Control` 字段：
+#### 响应首部的 `Cache-Control` 字段
 
 | 字段值 | 说明 |
 | -- | -- |
@@ -41,11 +41,11 @@ title: HTTP 缓存机制
 - `Last-Modified / If-Modified-Since`
 - `ETag / If-None-Match`（优先级高于 `Last-Modified`）
 
-Last-Modified 与 ETag 的区别：
+`Last-Modified` 与 `ETag` 的区别：
 
-1、服务器会优先验证 `ETag`，一致的情况下，再对比 `Last-Modified`；
-2、`Last-Modified` 只能精确到秒，有些资源在1秒内改变过，只能靠 `ETag` 来区分；
-3、 一些资源的最后修改时间变了，但是内容并没改变，使用 `ETag` 就认为资源还是没有修改。
+1. 服务器会优先验证 `ETag`，一致的情况下，再对比 `Last-Modified`；
+2. `Last-Modified` 只能精确到秒，有些资源在1秒内改变过，只能靠 `ETag` 来区分；
+3. 一些资源的最后修改时间变了，但是内容并没改变，使用 `ETag` 就认为资源还是没有修改。
 
 ## 三种刷新的姿势
 
@@ -68,7 +68,7 @@ Last-Modified 与 ETag 的区别：
 
 浏览器请求头中带着 `Cache-Control:no-cache` 并且不带 `If-None-Match` 和 `If-Modified-Since` 去请求服务器，服务端虽然收到 `no-cache`，但并没有收到 `ETag` 或 `Last-Modified`，这种情况下，服务器无法使用对比缓存（无法检验资源有效性），只能响应完整资源给浏览器，不可能响应 `304` 状态码。
 
-Ctrl+F5 强刷等价于在 Chrome 控制台中勾选 `Disable cache`。
+使用 `Ctrl+F5` 强刷等价于在 Chrome 控制台中勾选 `Disable cache`。
 
 #### 借一图胜前言
 
