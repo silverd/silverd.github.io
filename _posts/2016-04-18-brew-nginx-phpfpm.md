@@ -140,19 +140,14 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
 ## PHP-FPM 进程管理
 
     # 配置文件
-    /usr/local/etc/php/7.1/php-fpm.conf
+    /usr/local/etc/php/7.4/php-fpm.conf
 
     # 如果想要 php-fpm 开机自启动，则必须以 root:wheel 权限运行
     sudo chown root:wheel /usr/local/sbin/php-fpm
     sudo chmod u+s /usr/local/sbin/php-fpm
 
-    # php-fpm 进程的启动、停止
-    # 注意 php-fpm 通过 brew 安装后会自带 `php71-fpm`（/usr/local/sbin/php71-fpm）脚本
-    # 实际上 `php71-fpm` 是一个 sh 脚本，作用等同于 CentOS 的 /etc/init.d/php-fpm
-    sudo php71-fpm start|stop|force-quit|restart|reload|status|configtest
-
     # 其他方法：启动 php-fpm
-    sudo /usr/local/sbin/php-fpm --daemonize -c /usr/local/etc/php/7.1/php.ini -y /usr/local/etc/php/7.1/php-fpm.conf
+    sudo /usr/local/sbin/php-fpm --daemonize -c /usr/local/etc/php/7.4/php.ini -y /usr/local/etc/php/7.4/php-fpm.conf
 
     # 其他方法：关闭 php-fpm
     sudo kill -INT `cat /usr/local/var/run/php-fpm.pid`
@@ -162,8 +157,8 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
 
     # 设置 php-fpm 开机启动
     sudo ln -sfv /usr/local/opt/php71/*.plist /Library/LaunchDaemons
-    sudo chown root:wheel /Library/LaunchDaemons/homebrew.mxcl.php@7.1.plist
-    sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php@7.1.plist
+    sudo chown root:wheel /Library/LaunchDaemons/homebrew.mxcl.php@7.4.plist
+    sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php@7.4.plist
 
 ## 或者直接设置命令别名 `vi ~/.zshrc`，加入：
 
@@ -171,8 +166,8 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
     alias nginx.stop="sudo launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist"
     alias nginx.restart='nginx.stop && nginx.start'
 
-    alias php.start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php@7.1.plist"
-    alias php.stop="sudo launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.php@7.1.plist"
+    alias php.start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php@7.4.plist"
+    alias php.stop="sudo launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.php@7.4.plist"
     alias php.restart='php.stop && php.start'
 
     source ~/.zshrc
