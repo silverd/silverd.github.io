@@ -6,12 +6,14 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
 
 ## 安装 Nginx+PHP-FPM
 
-    brew install nginx --with-http2
-    brew install homebrew/php/php71 --with-fpm --without-apache
+```bash
+brew install nginx --with-http2
+brew install php@7.4
+```
 
 ## Nginx 配置
 
-默认的 DocumentRoot 为 /usr/local/var/www/ => /usr/local/opt/nginx/html/
+默认的 DocumentRoot 为 `/usr/local/var/www/` => `/usr/local/opt/nginx/html/`
 
 默认是监听的是 localhost:8080 端口，可以在 nginx.conf 中修改。
 
@@ -156,9 +158,9 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
     sudo kill -USR2 `cat /usr/local/var/run/php-fpm.pid`
 
     # 设置 php-fpm 开机启动
-    sudo ln -sfv /usr/local/opt/php71/*.plist /Library/LaunchDaemons
-    sudo chown root:wheel /Library/LaunchDaemons/homebrew.mxcl.php@7.4.plist
-    sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php@7.4.plist
+    sudo ln -sfv /usr/local/opt/php@7.4/homebrew.mxcl.php.plist /Library/LaunchDaemons
+    sudo chown root:wheel /Library/LaunchDaemons/homebrew.mxcl.php.plist
+    sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php.plist
 
 ## 或者直接设置命令别名 `vi ~/.zshrc`，加入：
 
@@ -166,8 +168,8 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
     alias nginx.stop="sudo launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist"
     alias nginx.restart='nginx.stop && nginx.start'
 
-    alias php.start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php@7.4.plist"
-    alias php.stop="sudo launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.php@7.4.plist"
+    alias php.start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php.plist"
+    alias php.stop="sudo launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.php.plist"
     alias php.restart='php.stop && php.start'
 
     source ~/.zshrc
@@ -186,7 +188,21 @@ title: Mac 搭建开发环境（三）Nginx/PHP-FPM
 
 ### Nginx 无法启动
 
-使用 `nginx -t` 检测配置文件是否有误
+使用 `nginx -t` 检测配置文件是否有误，如果提示了：
+
+```
+nginx: [alert] could not open error log file: open() "/usr/local/var/log/nginx/error.log" failed (13: Permission denied)
+nginx: the configuration file /usr/local/etc/nginx/nginx.conf syntax is ok
+2020/04/20 14:37:55 [emerg] 61477#0: open() "/usr/local/var/run/nginx.pid" failed (13: Permission denied)
+nginx: configuration file /usr/local/etc/nginx/nginx.conf test failed
+```
+
+那必须执行修改权限：
+
+```bash
+sudo chown root:wheel /usr/local/bin/nginx
+sudo chmod u+s /usr/local/bin/nginx
+```
 
 ### 网页报 500 服务器内部错误
 
