@@ -6,6 +6,8 @@ title: OAuth 回顾小结
 
 突然发现没啥好写了，从 OAuth1.0 到 1.0a，再到 OAuth2.0，现在街上 OAuth 的授权原理和流程介绍已经很多了，哪天有空再把一些安全或漏洞补一下吧。
 
+这里有详细的说明：[OAuth 1.0/1.0a/2.0 的之间的区别有哪些？](https://www.zhihu.com/question/19851243)
+
 可能想说的点：
 
 - OAuth 1.0 有什么漏洞？1.0a 修复了哪些问题？（回跳地址劫持）
@@ -158,7 +160,7 @@ function getUserInfoByAccessToken(string $accessToken)
 
 ### OAuth Server 服务端表结构设计
 
-#### clients
+`clients`
 
 | 字段 | 类型 | 说明 |
 | ---- | ---- | ---- |
@@ -166,7 +168,7 @@ function getUserInfoByAccessToken(string $accessToken)
 | client_secret | String | 应用密钥 |
 | redirect_uri | String | 回调地址或域名 |
 
-#### users
+`users`
 
 | 字段 | 类型 | 必填 |
 | ---- | ---- | ---- |
@@ -174,26 +176,36 @@ function getUserInfoByAccessToken(string $accessToken)
 | nickname | String | 昵称 |
 | avatar_url | String | 头像 |
 
-####
-
-#### auth_codes
+`auth_codes`
 
 | 字段 | 类型 | 必填 |
 | ---- | ---- | ---- |
 | code | String | 授权码 |
-| client_id | String | 应用密钥 |
+| client_id | String | 应用 ID |
 | uid | Int | 用户 UID |
 | scopes | ARRAY | 已授权访问作用域 |
 | revoked | Boolean | 是否已使用 |
 | created_at | Timestamp | 创建使用 |
 
-#### access_tokens
+`access_tokens`
 
 | 字段 | 类型 | 必填 |
 | ---- | ---- | ---- |
 | access_token | String | 访问令牌 |
+| client_id | String | 应用 ID |
 | expires_in | Int | 几秒后过期 |
 | scopes | ARRAY | 已授权访问作用域（从 `auth_codes` 表冗余 ） |
+| uid | Int | 用户 UID |
+| created_at | Timestamp | 创建使用 |
+
+`refresh_tokens`
+
+| 字段 | 类型 | 必填 |
+| ---- | ---- | ---- |
+| refresh_tokens | String | 访问令牌 |
+| access_token | String | 访问令牌 |
+| client_id | String | 应用 ID |
+| expires_in | Int | 几秒后过期 |
 | uid | Int | 用户 UID |
 | created_at | Timestamp | 创建使用 |
 
@@ -227,7 +239,7 @@ https://a.com/callback#token=ACCESS_TOKEN
 
 ### OAuth 中 `state` 参数的作用
 
-一句话：防止 CSRF
+一句话：防止 CSRF，类似于表单 `FormHash`
 
 假设有场景「A网站」，在个人资料页有「绑定 GitHub」按钮，最后授权完 GitHub 回跳「A 网站」的 URL  是：
 
@@ -244,3 +256,10 @@ https://a.com?code=xxx
 3、后果：恶意者可以用自己的 GitHub 账号登录「A网站」（登录进去是以张三的身份）
 
 当然，这种破坏只对张三之前没绑定过 GitHub 这种情况有效，如果已绑过，那么这种破坏方式会失效。
+
+#### 怎么防范？
+
+1、在有「绑定 GitHub」按钮的页面渲染时，生成一个随机字符串 `state` 存在服务端 `session` 中
+2、把这个 `state` 放到 `authorize_url` 里，等授权完成跳回来到本站时，也带回这个 `state`
+3、因为这一步时浏览器跳转，所以请求头里有 `cookie` 即 `PHP_SESSID`
+4、服务端从 `session` 中拿出之前存出的 `state` 与 `redirect_uri` 里带回的 `state` 做对比，如果一致，说明本次请求并非伪造。
