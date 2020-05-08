@@ -251,15 +251,15 @@ https://a.com?code=xxx
 
 #### 怎么破坏？
 
-1、恶意者拿着用自己 GitHub 账号正常授权后获得的带 `code` 的链接 URL（抓包截断），发给张三
-2、张三打开这个 URL，就会上面逻辑，将自己的「A网站」UID 与恶意者的 GitHub 的 `thirdUid` 绑定了
-3、后果：恶意者可以用自己的 GitHub 账号登录「A网站」（登录进去是以张三的身份）
+1. 恶意者拿着用自己 GitHub 账号正常授权后获得的带 `code` 的链接 URL（抓包截断），发给张三
+2. 张三打开这个 URL，就会上面逻辑，将自己的「A网站」UID 与恶意者的 GitHub 的 `thirdUid` 绑定了
+3. 后果：恶意者可以用自己的 GitHub 账号登录「A网站」（登录进去是以张三的身份）
 
 当然，这种破坏只对张三之前没绑定过 GitHub 这种情况有效，如果已绑过，那么这种破坏方式会失效。
 
 #### 怎么防范？
 
-1、在有「绑定 GitHub」按钮的页面渲染时，生成一个随机字符串 `state` 存在服务端 `session` 中
-2、把这个 `state` 放到 `authorize_url` 里，等授权完成跳回来到本站时，也带回这个 `state`
-3、因为这一步时浏览器跳转，所以请求头里有 `cookie` 即 `PHP_SESSID`
-4、服务端从 `session` 中拿出之前存出的 `state` 与 `redirect_uri` 里带回的 `state` 做对比，如果一致，说明本次请求并非伪造。
+1. 在有「绑定 GitHub」按钮的页面渲染时，生成一个随机字符串 `state` 存在服务端 `session` 中
+2. 把这个 `state` 放到 `authorize_url` 里，等授权完成跳回来到本站时，也带回这个 `state`
+3. 因为这一步时浏览器跳转，所以请求头里有 `cookie` 即 `PHP_SESSID`
+4. 服务端从 `session` 中拿出之前存出的 `state` 与 `redirect_uri` 里带回的 `state` 做对比，如果一致，说明本次请求并非伪造。
