@@ -164,7 +164,7 @@ function getUserInfoByAccessToken(string $accessToken)
 
 | 字段 | 类型 | 说明 |
 | ---- | ---- | ---- |
-| client_id | String | 应用 ID |
+| client_id | String | 应用 ID (PK) |
 | client_secret | String | 应用密钥 |
 | redirect_uri | String | 回调地址或域名 |
 
@@ -172,7 +172,7 @@ function getUserInfoByAccessToken(string $accessToken)
 
 | 字段 | 类型 | 必填 |
 | ---- | ---- | ---- |
-| uid | Int | 用户 UID |
+| uid | Int | 用户 UID (PK) |
 | nickname | String | 昵称 |
 | avatar_url | String | 头像 |
 
@@ -180,7 +180,7 @@ function getUserInfoByAccessToken(string $accessToken)
 
 | 字段 | 类型 | 必填 |
 | ---- | ---- | ---- |
-| code | String | 授权码 |
+| code | String | 授权码 (PK) |
 | client_id | String | 应用 ID |
 | uid | Int | 用户 UID |
 | scopes | ARRAY | 已授权访问作用域 |
@@ -191,22 +191,23 @@ function getUserInfoByAccessToken(string $accessToken)
 
 | 字段 | 类型 | 必填 |
 | ---- | ---- | ---- |
-| access_token | String | 访问令牌 |
+| access_token | String | 访问令牌 (PK) |
 | client_id | String | 应用 ID |
-| expires_in | Int | 几秒后过期 |
-| scopes | ARRAY | 已授权访问作用域（从 `auth_codes` 表冗余 ） |
 | uid | Int | 用户 UID |
+| expires_in | Int | 几秒后过期 |
+| expires_at | TIMESTAMP | 过期时间戳 |
+| scopes | ARRAY | 已授权访问作用域（从 `auth_codes` 表冗余 ） |
+| revoked | Boolean | 是否废弃 |
 | created_at | Timestamp | 创建使用 |
 
 `refresh_tokens`
 
 | 字段 | 类型 | 必填 |
 | ---- | ---- | ---- |
-| refresh_tokens | String | 访问令牌 |
+| refresh_tokens | String | 访问令牌 (PK) |
 | access_token | String | 访问令牌 |
-| client_id | String | 应用 ID |
 | expires_in | Int | 几秒后过期 |
-| uid | Int | 用户 UID |
+| revoked | Boolean | 是否废弃 |
 | created_at | Timestamp | 创建使用 |
 
 ### OAuth 和 SSO 的区别
