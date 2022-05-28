@@ -158,7 +158,7 @@ brew install php@7.4
     sudo kill -USR2 `cat /usr/local/var/run/php-fpm.pid`
 
     # 设置 php-fpm 开机启动
-    sudo ln -sfv /usr/local/opt/php@7.4/homebrew.mxcl.php.plist /Library/LaunchDaemons
+    sudo ln -sfv /usr/local/opt/php@7.4/homebrew.mxcl.php@7.4.plist /Library/LaunchDaemons
     sudo chown root:wheel /Library/LaunchDaemons/homebrew.mxcl.php.plist
     sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.php.plist
 

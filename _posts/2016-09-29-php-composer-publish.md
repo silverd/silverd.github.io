@@ -48,12 +48,18 @@ Composer 本身不托管代码，代码放在 GitHub，Composer 只负责管理�
 2. 点击 [Submit Package]，在 Repository URL 处填写 GitHub 的仓库地址 `https://github.com/silverd/silverq`
 3. 点击 [Check]，系统自动检测项目中 composer.json 是否合格，合格则成功发布
 4. 设置 GitHub  Webhooks [更新指南](https://packagist.org/about#how-to-update-packages) ，这样只要在 GitHub 发布新版本后，可自动推送到 Packagist
-    - 进入 GitHub.com -> silverd/silverq -> Settings -> Webhooks 或 Installed integrations 页面
-    - 点击 Add service -> 选择 Packagist，按提示填写并提交
-        - User: silverd
-        - Token: 在 `https://packagist.org/profile/` 看到的 API Token
-        - Domain: 可不填
-        - 底部 Active 复选勾上
+
+- 进入 GitHub.com -> silverd/silverq -> Settings -> Webhooks
+- 点击 Add wWebhook
+
+依次填入：
+
+- Payload URL: https://packagist.org/api/github?username=silverd
+- Content Type: application/json
+- Secret: 在 `https://packagist.org/profile/` 看到个人的 API Token
+- 勾选 Just the push event.
+- 勾选 Active
+
 5. 此时访问 `https://packagist.org/packages/silverd/silverq` 可以看到包已经可以访问并被拉取了
 
 Note: 也可以不设置钩子，每次发布后手动推送下：
