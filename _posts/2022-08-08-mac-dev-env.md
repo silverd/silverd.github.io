@@ -204,7 +204,12 @@ nginx -t
 
 1、默认的配置文件 `/usr/local/etc/php/7.4/php.ini`
 
-2、安装必备的 PECL 扩展
+2、直接使用 `pecl install` 命令安装 PECL 扩展
+
+```
+pecl install xlswriter
+pecl install mongodb
+```
 
 #### Nginx & PHP 进程管理
 
