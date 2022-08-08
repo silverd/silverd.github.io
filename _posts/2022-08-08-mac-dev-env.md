@@ -6,7 +6,7 @@ title: Mac 搭建开发环境 2022 重制版
 
 ## Mac 必装软件
 
-#### 日常工具
+#### 1、日常工具
 
 - Chrome
 - Alfred4 + Dash
@@ -19,14 +19,14 @@ title: Mac 搭建开发环境 2022 重制版
 - The Unarchiver
 - CleanMyMac X 或者 Tencent Lemon Lite
 
-#### 网络相关
+#### 2、网络相关
 
 - trojan-qt5
 - EasyConnect VPN
 - TunnelBlick VPN
 - 迅雷
 
-#### 生产力工具
+#### 3、生产力工具
 
 - Sublime
 - Postman
@@ -40,16 +40,16 @@ title: Mac 搭建开发环境 2022 重制版
 - Mircosoft Remote Desktop Beta
 - cos-browser & oss-browser
 
-#### 命令行
+#### 4、命令行
 
 - Homebrew
 - Docker
 - Git
 - Nginx + PHP
 
-#### 其他有趣的
+#### 5、有趣的应用
 
-- pap.er 墙纸自动换
+- pap.er 自动换壁纸
 
 ## Finder 中显示完整路径
 
@@ -88,7 +88,7 @@ nameserver 8.8.8.8
 xcode-select --install
 ```
 
-## 安装 必备扩展库
+## 安装 brew 必备扩展库
 
 ```bash
 brew install wget
@@ -98,7 +98,7 @@ brew install autoconf
 brew install pkg-config
 ```
 
-## 安装 Zsh/OhMyZsh
+## 安装 ZSH/OhMyZSH
 
 ```bash
 brew install zsh
@@ -107,17 +107,21 @@ echo 'export PATH="/usr/local/sbin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
-## 安装 Nginx + PHP
+## 安装 Nginx + PHP7
 
 ```
 brew install nginx
 brew install php@7.4
 ```
 
-#### Nginx 配置
+#### 配置 Nginx
+
+默认配置：
 
 - 默认的 DocumentRoot 为 `/usr/local/var/www/`
 - 默认的配置文件 `/usr/local/etc/nginx/nginx.conf`
+
+目录初始化：
 
 ```bash
 mkdir -p ~/home
@@ -179,7 +183,7 @@ location / {
 }
 ```
 
-新建具体应用 `silverd.conf` 最终变成了：
+新建具体应用 `vi ~/nginx-conf/vhost/silverd.conf`：
 
 ```ini
 server {
@@ -190,7 +194,7 @@ server {
 }
 ```
 
-对 Nginx 配置进行语法检测
+配置完成后，先对 Nginx 配置进行语法检测确保无误：
 
 ```bash
 nginx -t
@@ -198,13 +202,13 @@ nginx -t
 
 #### PHP-FPM 配置
 
-- 1、默认的配置文件 `/usr/local/etc/php/7.4/php.ini`
-- 2、安装必备的 PECL 扩展
+1、默认的配置文件 `/usr/local/etc/php/7.4/php.ini`
+
+2、安装必备的 PECL 扩展
 
 #### Nginx & PHP 进程管理
 
 ```bash
-
 # 启动 Nginx
 brew services start|restart nginx
 
@@ -227,25 +231,7 @@ brew services start|restart php@7.4
 替换为：fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
 ```
 
-### 如果 Nginx 无法启动
-
-使用 `nginx -t` 检测配置文件是否有误，如果提示了：
-
-```
-nginx: [alert] could not open error log file: open() "/usr/local/var/log/nginx/error.log" failed (13: Permission denied)
-nginx: the configuration file /usr/local/etc/nginx/nginx.conf syntax is ok
-2020/04/20 14:37:55 [emerg] 61477#0: open() "/usr/local/var/run/nginx.pid" failed (13: Permission denied)
-nginx: configuration file /usr/local/etc/nginx/nginx.conf test failed
-```
-
-那必须执行修改权限：
-
-```bash
-sudo chown root:wheel /usr/local/bin/nginx
-sudo chmod u+s /usr/local/bin/nginx
-```
-
-### 网页报 500 服务器内部错误
+### HTTP 500 服务器内部错误
 
 修改 `/usr/local/etc/php/7.4/php.ini`，打开并记录错误日志 `error_log=/Users/silverd/home/wwwlogs/php_error.log`。
 
@@ -342,8 +328,7 @@ ln -s /usr/local/bin/subl /usr/local/bin/sublime
 
 ## CharlseProxy
 
-手机代理设置教程，一阵折腾，仿佛回到五年前
-https://blog.csdn.net/tantan5201314/article/details/122963056
+手机代理设置教程，一阵折腾，仿佛回到五年前，详见攻略 https://blog.csdn.net/tantan5201314/article/details/122963056
 
 iPhone (iOS 15) 设置的关键步骤：
 
@@ -352,8 +337,7 @@ iPhone (iOS 15) 设置的关键步骤：
 - 3、通用 -> VPN与设备管理 -> 安装刚刚下载的证书
 - 4、通用 -> 关于本机 -> 证书信任设置 -> 启用信任 Charlse 证书
 
-Charles 激活码计算器
-https://www.zzzmode.com/mytools/charles/
+Charles 激活码计算器 https://www.zzzmode.com/mytools/charles
 
 
 ## Git
@@ -379,9 +363,6 @@ git config --global user.email "silverd29@gmail.com"
 
 ## iTerm2
 
-下载安装 http://www.iterm2.com/downloads.html | 主题下载 http://www.iterm2.com/colorgallery
+下载安装 http://www.iterm2.com/downloads.html 主题下载 http://www.iterm2.com/colorgallery
 
-## Scroll Reverser
-
-下载安装 http://pilotmoon.com/scrollreverser/ Macbook 触摸板可能需要
 
