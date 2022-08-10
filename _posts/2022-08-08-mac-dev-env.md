@@ -118,8 +118,13 @@ brew install php@7.4
 
 默认配置：
 
-- 默认的 DocumentRoot 为 `/usr/local/var/www/`
+- 默认的 Nginx DocumentRoot 为 `/usr/local/var/www/`
 - 默认的配置文件 `/usr/local/etc/nginx/nginx.conf`
+
+对于 MacBook Air M1 有些特殊：
+
+- 默认的 Nginx DocumentRoot 为 `/opt/homebrew/var/www/`
+- 默认的配置文件 `/opt/homebrew/etc/nginx/nginx.conf`
 
 目录初始化：
 
@@ -204,14 +209,32 @@ nginx -t
 
 1、默认的配置文件 `/usr/local/etc/php/7.4/php.ini`
 
+> 对于 MacBook Air M1 有些特殊：默认的配置文件 `/opt/homebrew/etc/php/7.4/php.ini`
+
 2、直接使用 `pecl install` 命令安装 PECL 扩展
 
-```
+```bash
 pecl install xlswriter
 pecl install mongodb
 ```
 
-#### Nginx & PHP 进程管理
+备注：我的 MacBook Air M1 在 `pecl install mongodb` 时可能报错 `#include pcre2`，则需先增加软链（注意版本号）：
+
+```bash
+brew install pcre2
+ln -s /opt/homebrew/Cellar/pcre2/10.40/include/pcre2.h \
+    /opt/homebrew/Cellar/php@7.4/7.4.30/include/php/ext/pcre/pcre2.h
+```
+
+#### 安装 PHP Composer
+
+```bash
+wget https://getcomposer.org/download/latest-stable/composer.phar
+sudo mv composer.phar /usr/local/bin/composer
+sudo chmod +x /usr/local/bin/composer
+```
+
+#### Nginx 和 PHP-FPM 进程管理
 
 ```bash
 # 启动 Nginx
@@ -221,7 +244,7 @@ brew services start|restart nginx
 brew services start|restart php@7.4
 ```
 
-#### 关于 Localhost 的 FAQ
+#### 关于 Localhost 的问题
 
 - 1、默认是监听的是 localhost:8080 端口，可以在 nginx.conf 中修改。
 
@@ -236,13 +259,13 @@ brew services start|restart php@7.4
 替换为：fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
 ```
 
-### HTTP 500 服务器内部错误
+### 如果报了 HTTP 500 服务器内部错误
 
 修改 `/usr/local/etc/php/7.4/php.ini`，打开并记录错误日志 `error_log=/Users/silverd/home/wwwlogs/php_error.log`。
 
 ## Node.js + NPM
 
-建议用 `nvm` 来管理和安装 node 版本，[查看使用说明](http://www.tuicool.com/articles/Vzquy2) 、[nvm 和 n 的区别和原理](http://web.jobbole.com/84249/)
+详见官网介绍 <https://nvm.sh>
 
 如果之前曾经用官网 pkg 包安装过 node，则需要先删除：
 
@@ -264,8 +287,8 @@ cd  /usr/local/bin && ls -l | grep "../lib/node_modules/" | awk '{print $9}'| xa
 
 ```bash
 # 安装 nvm
-# 如想安装最新版本的 nvm 可以去 https://github.com/creationix/nvm
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
+# 如想安装最新版本的 nvm 可以去 https://nvm.sh
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 # 安装最新稳定版 node
 nvm install stable
@@ -296,7 +319,7 @@ nrm use taobao
 提示：如果某个项目需要单独指定 node 版本，可以在项目根目录下新建一个 `.nvmrc` 文件来特殊标明：
 
 ```bash
-cd staylife_frontend/mobile
+cd ~/home/wwwroot/cx_ddp_web
 echo 4 > .nvmrc
 nvm use
 node -v
